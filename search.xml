@@ -1,21 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo blog</title>
+    <url>/2020/04/26/hexo/</url>
+    <content><![CDATA[<h1 id="Hexo-blog-만들기"><a href="#Hexo-blog-만들기" class="headerlink" title="Hexo blog 만들기"></a>Hexo blog 만들기</h1><h2 id="Hexo-설치"><a href="#Hexo-설치" class="headerlink" title="Hexo 설치"></a>Hexo 설치</h2><ol>
+<li><p>Node , Git 설치</p>
+</li>
+<li><p>Hexo 설치</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>hexo scafold 생성</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init 폴더명</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>package install</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>서버구동</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h2 id="새글작성"><a href="#새글작성" class="headerlink" title="새글작성"></a>새글작성</h2><ol>
+<li><p>새 게시글 작성</p>
+<blockquote>
+<p>hexo new 포스트명</p>
+</blockquote>
+</li>
+<li><p>드래프트글 작성</p>
+<blockquote>
+<p>hexo new draft “포스트명”</p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<h2 id="git-배포"><a href="#git-배포" class="headerlink" title="git 배포"></a>git 배포</h2><ol>
+<li><p>git deploy 설정 (_config.yml)</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;xxx&#x2F;blog.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>generate &amp; deploy</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean; hexo d -g</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="테마-설치"><a href="#테마-설치" class="headerlink" title="테마 설치"></a>테마 설치</h2><ol>
+<li><p>icarus 테마 설치   </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone git clone https:&#x2F;&#x2F;github.com&#x2F;ppoffice&#x2F;hexo-theme-icarus.git themes&#x2F;icarus</span><br></pre></td></tr></table></figure></li>
+<li><p>적용 clean , generate, deploy</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean;hexo d -g</span><br></pre></td></tr></table></figure></li>
+<li><p>site url 수정 _config.xml </p>
+</li>
+<li><p>logo 수정</p>
+<blockquote>
+<p>themes/icarus/source/img/logo.svg 수정</p>
+</blockquote>
+</li>
+</ol>
+<p><a href="https://kinetic27.github.io/2020/03/06/build-blog-with-hexo-github/">테마적용</a></p>
+]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2020/04/26/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
   </entry>
   <entry>
