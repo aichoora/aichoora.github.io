@@ -1,6 +1,375 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ThreadDump</title>
+    <url>/2020/04/26/ThreadDump/</url>
+    <content><![CDATA[<h1 id="ThreadDump"><a href="#ThreadDump" class="headerlink" title="ThreadDump"></a>ThreadDump</h1><hr>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p>   _<a href="https://dzone.com/articles/how-to-read-a-thread-dump">https://dzone.com/articles/how-to-read-a-thread-dump</a>_</p>
+]]></content>
+      <categories>
+        <category>troubleshooting</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Beanvalidation</title>
+    <url>/2020/04/26/beanvalidation/</url>
+    <content><![CDATA[<p><img src="https://miro.medium.com/max/600/0*Iuo-76uQ5sMXc_II.png" alt=""></p>
+<p><img src="https://miro.medium.com/max/600/0*emYychQXuUvMXwA7.png" alt=""></p>
+<h2 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target</span>(&#123; METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE &#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RUNTIME)</span><br><span class="line"><span class="meta">@Repeatable</span>(List<span class="class">.<span class="keyword">class</span>)</span></span><br><span class="line"><span class="class">@<span class="title">Documented</span></span></span><br><span class="line"><span class="class">@<span class="title">Constraint</span>(<span class="title">validatedBy</span> </span>= &#123; &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> NotNull &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">message</span><span class="params">()</span> <span class="keyword">default</span> "</span>&#123;javax.validation.constraints.NotNull.message&#125;<span class="string">";</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Class&lt;?&gt;[] groups() default &#123; &#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Class&lt;? extends Payload&gt;[] payload() default &#123; &#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    /**</span></span><br><span class="line"><span class="string">    * Defines several &#123;@link NotNull&#125; annotations on the same element.</span></span><br><span class="line"><span class="string">    *</span></span><br><span class="line"><span class="string">    * @see javax.validation.constraints.NotNull</span></span><br><span class="line"><span class="string">    */</span></span><br><span class="line"><span class="string">    @Target(&#123; METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE &#125;)</span></span><br><span class="line"><span class="string">    @Retention(RUNTIME)</span></span><br><span class="line"><span class="string">    @Documented</span></span><br><span class="line"><span class="string">    @interface List &#123;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        NotNull[] value();</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>message</p>
+<p>메세지를 넣거나, {번들키}를 지정.   <a href="https://beanvalidation.org/latest-draft/spec/#validationapi-message">https://beanvalidation.org/latest-draft/spec/#validationapi-message</a></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">   <span class="meta">@NotNull</span>(message=<span class="string">"&#123;com.example.constraints.actor_id.NotNull.message&#125;"</span>)</span><br><span class="line">   <span class="meta">@Size</span>(max = <span class="number">32</span>, min = <span class="number">1</span>, message = <span class="string">"actor_id max length is &#123;max&#125;"</span>)</span><br><span class="line"><span class="keyword">private</span> Long actor_id;</span><br></pre></td></tr></table></figure>
+<p>번들 위치 :  classpath:ValidationMessages.properties<br><a href="https://beanvalidation.org/2.0/spec/#standard-resolver-messages">디폴트 메세지</a></p>
+</li>
+</ol>
+<ol>
+<li><p>group</p>
+</li>
+<li><p>payload</p>
+</li>
+<li><p>list</p>
+</li>
+<li><p>Message interpolation 번들 위치 변경하려면</p>
+<ul>
+<li><p>message.properties</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">1022</span>=<span class="string">last_name2 length must  less than &#123;max&#125; characters.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@Configuration</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> MessageSource <span class="title">messageSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ReloadableResourceBundleMessageSource messageSource = <span class="keyword">new</span> ReloadableResourceBundleMessageSource();</span><br><span class="line">    messageSource.setBasename(<span class="string">"classpath:/messages/message"</span>);</span><br><span class="line">    messageSource.setDefaultEncoding(<span class="string">"UTF-8"</span>);</span><br><span class="line">    messageSource.setCacheSeconds(<span class="number">600</span>); <span class="comment">// 10분</span></span><br><span class="line">    <span class="keyword">return</span> messageSource;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// validation resource 번들을 message.properties 를 사용</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> LocalValidatorFactoryBean <span class="title">validator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    LocalValidatorFactoryBean bean = <span class="keyword">new</span> LocalValidatorFactoryBean();</span><br><span class="line">    bean.setValidationMessageSource(messageSource());</span><br><span class="line">    <span class="keyword">return</span> bean;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>validate</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Size</span>(max = <span class="number">10</span>, message = <span class="string">"&#123;1022&#125;"</span>)</span><br><span class="line"><span class="keyword">private</span> String last_name2;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>test</p>
+<p><img src="https://aichoora.github.io/images/beanvalidation/testresult.png" alt="testResult">    </p>
+</li>
+</ul>
+<p><a href="https://docs.jboss.org/hibernate/validator/5.1/reference/en-US/html/chapter-message-interpolation.html#chapter-message-interpolation">https://docs.jboss.org/hibernate/validator/5.1/reference/en-US/html/chapter-message-interpolation.html#chapter-message-interpolation</a></p>
+<p><a href="https://stackoverflow.com/questions/45692179/spring-boot-validation-message-is-not-being-resolved">https://stackoverflow.com/questions/45692179/spring-boot-validation-message-is-not-being-resolved</a></p>
+</li>
+<li><p>validation 결합</p>
+<ul>
+<li><p>composite annotation for @NotEmpty and @Size</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target</span>(&#123; METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE &#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RUNTIME)</span><br><span class="line"><span class="comment">//@Repeatable(List.class)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Constraint</span>(validatedBy = &#123; &#125;)</span><br><span class="line"><span class="meta">@NotEmpty</span>(message = <span class="string">"1011"</span>)</span><br><span class="line"><span class="meta">@Size</span>(max = <span class="number">32</span>, min = <span class="number">1</span>, message = <span class="string">"1012"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> ValidFirstname &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">message</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] groups() <span class="keyword">default</span> &#123; &#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;? extends Payload&gt;[] payload() <span class="keyword">default</span> &#123; &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>bean</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">   <span class="comment">// composite validation</span></span><br><span class="line"><span class="meta">@ValidFirstname</span></span><br><span class="line"><span class="keyword">private</span> String first_name;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>@Validated @Valid</p>
+<p> <a href="https://reflectoring.io/bean-validation-with-spring-boot/">https://reflectoring.io/bean-validation-with-spring-boot/</a></p>
+<ul>
+<li><p>@Validated</p>
+<ul>
+<li><p><code>package org.springframework.validation.annotation;</code></p>
+</li>
+<li><p>class type 에 사용하여 primitive type param validation</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@Validated</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ValidateParametersController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/validatePathVariable/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function">ResponseEntity&lt;String&gt; <span class="title">validatePathVariable</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        @PathVariable(<span class="string">"id"</span>)</span> @<span class="title">Min</span><span class="params">(<span class="number">5</span>)</span> <span class="keyword">int</span> id) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(<span class="string">"valid"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/validateRequestParameter"</span>)</span><br><span class="line">    <span class="function">ResponseEntity&lt;String&gt; <span class="title">validateRequestParameter</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        @RequestParam(<span class="string">"param"</span>)</span> @<span class="title">Min</span><span class="params">(<span class="number">5</span>)</span> <span class="keyword">int</span> param) </span>&#123; </span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(<span class="string">"valid"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>method type 에 사용시에는 validation group 으로 사용<br><a href="https://reflectoring.io/bean-validation-with-spring-boot/#using-validation-groups-to-validate-objects-differently-for-different-use-cases">Using Validation Groups to Validate Objects Differently for Different Use Cases</a></p>
+</li>
+<li><p>invalid 시에 MethodArgumentNotValidException 이 아니라 ConstraintViolationException 리턴.  <code>MethodValidationInterceptor 에서 처리</code> (Controller 와 관련없이 method 호출되기전 aop 로 호출됨.)</p>
+<blockquote>
+<p>In contrast to request body validation a failed validation will trigger a ConstraintViolationException instead of a MethodArgumentNotValidException. Spring does not register a default exception handler for this exception, so it will by default cause a response with HTTP status 500 (Internal Server Error).</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>@Valid</p>
+<ul>
+<li><p><code>package javax.validation;</code></p>
+</li>
+<li><p>class type 에 사용 불가. 주로 PARAMETER 으로 사용</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/add"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Actor <span class="title">add</span><span class="params">(@RequestBody @Valid Actor actor)</span> </span>&#123;</span><br><span class="line">    actorService.add(actor);</span><br><span class="line">    <span class="keyword">return</span> actorService.get(actor.getActor_id());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>invalid 시에 MethodArgumentNotValidException 리턴. </p>
+<p><code>RequestPartMethodArgumentResolver 에서 처리</code> (Controller req 파람 리졸버에서.)</p>
+</li>
+</ul>
+</li>
+<li><p>ConstraintViolationException, MethodArgumentNotValidException 함께 ExceptionHandle</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ExceptionHandler</span>(&#123; MethodArgumentNotValidException<span class="class">.<span class="keyword">class</span>, <span class="title">ConstraintViolationException</span>.<span class="title">class</span> &#125;)</span></span><br><span class="line"><span class="class"><span class="title">protected</span> <span class="title">ResponseEntity</span>&lt;<span class="title">Object</span>&gt; <span class="title">methodArgumentNotValidException</span>(<span class="title">Exception</span> <span class="title">ex</span>, <span class="title">WebRequest</span> <span class="title">request</span>) </span>&#123;</span><br><span class="line">    </span><br><span class="line">    String messageKey;</span><br><span class="line">    <span class="keyword">if</span>(ex <span class="keyword">instanceof</span> MethodArgumentNotValidException)</span><br><span class="line">        messageKey = ((MethodArgumentNotValidException)ex).getBindingResult().getFieldError().getDefaultMessage();</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        messageKey = CollectionUtils.lastElement(((ConstraintViolationException)ex).getConstraintViolations()).getMessage();</span><br><span class="line">    <span class="keyword">return</span> getExceptionResponseEntity(ex, messageKey, <span class="keyword">new</span> HttpHeaders(), HttpStatus.BAD_REQUEST, request);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> ResponseEntity&lt;Object&gt; <span class="title">getExceptionResponseEntity</span><span class="params">(Exception exception, String code, HttpHeaders headers,</span></span></span><br><span class="line"><span class="function"><span class="params">        HttpStatus status, WebRequest request)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Result result;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        result = <span class="keyword">new</span> Result(code, messageSource.getMessage(code, <span class="keyword">null</span>, request.getLocale()));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        result = <span class="keyword">new</span> Result(<span class="string">"9000"</span>, messageSource.getMessage(<span class="string">"9000"</span>, <span class="keyword">null</span>, request.getLocale()));</span><br><span class="line">    &#125;</span><br><span class="line">    log.error(<span class="string">"&#123;&#125;"</span>, result);</span><br><span class="line">    exception.printStackTrace();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity&lt;Object&gt;(result, headers, status);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p>   _<a href="https://beanvalidation.org/latest-draft/spec/">https://beanvalidation.org/latest-draft/spec/</a>_</p>
+<p>   _<a href="https://beanvalidation.org/latest-draft/spec/#builtinconstraints">https://beanvalidation.org/latest-draft/spec/#builtinconstraints</a>_</p>
+<p>   _<a href="https://reflectoring.io/bean-validation-with-spring-boot/">https://reflectoring.io/bean-validation-with-spring-boot/</a>_</p>
+<p>   _<a href="https://reflectoring.io/bean-validation-anti-patterns/">https://reflectoring.io/bean-validation-anti-patterns/</a>_</p>
+<p>   _<a href="https://www.baeldung.com/spring-boot-bean-validation">https://www.baeldung.com/spring-boot-bean-validation</a>_</p>
+<p>   _<a href="https://www.baeldung.com/javax-validation">https://www.baeldung.com/javax-validation</a>_</p>
+]]></content>
+      <categories>
+        <category>webdev</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>ChromeDevTool</title>
+    <url>/2020/04/26/ChromeDevTool/</url>
+    <content><![CDATA[<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p>   _<a href="https://developers.google.com/web/tools/chrome-devtools">https://developers.google.com/web/tools/chrome-devtools</a>_</p>
+]]></content>
+      <categories>
+        <category>webdev</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>dictionary</title>
+    <url>/2020/04/26/dictionary/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Dictionary"><a href="#Dictionary" class="headerlink" title="Dictionary"></a>Dictionary</h1><ol>
+<li><h4 id="용어설명"><a href="#용어설명" class="headerlink" title="용어설명"></a>용어설명</h4></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Title</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>REPL</td>
+<td>Read Eval Print Loop</td>
+</tr>
+<tr>
+<td>LTS</td>
+<td>Long Term Support</td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
+    <title>AsciiDoc</title>
+    <url>/2020/04/26/asciidoc/</url>
+    <content><![CDATA[<h3 id="AsciiDoc-Install"><a href="#AsciiDoc-Install" class="headerlink" title="AsciiDoc Install"></a>AsciiDoc Install</h3><p>&nbsp;&nbsp;&nbsp;gem package manager, asciidoctor 설치.</p>
+<ul>
+<li><p>ruby install</p>
+<p><em><a href="https://stackoverflow.com/questions/18908708/installing-ruby-gem-in-windows">stackoverflow</a></em></p>
+<p><em><a href="https://rubyinstaller.org/downloads/">rubyinstaller downloads</a></em></p>
+</li>
+</ul>
+<ul>
+<li><p>asciidoctor install</p>
+<p><em><a href="https://asciidoctor.org/">asciidoctor</a></em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem install asciidoctor</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h3 id="AsciiDoc-Convert"><a href="#AsciiDoc-Convert" class="headerlink" title="AsciiDoc Convert"></a>AsciiDoc Convert</h3><p>&nbsp;&nbsp;&nbsp;기본 html5 로 변환됨</p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://asciidoctor.org/docs/convert-documents/">convert-documents</a></em></p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">asciidoctor aaa.adoc</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Spring-Restdocs"><a href="#Spring-Restdocs" class="headerlink" title="Spring-Restdocs"></a>Spring-Restdocs</h3><p>&nbsp;&nbsp;&nbsp; maven test 시에 target 하위에 adoc 파일 생성되고 package 수행시에 미리 만들어둔 main 하위 adoc 파일로 html doc 파일이 생성된다. main 하위의 adoc 파일에 unit test 에 생성된 adoc 파일이 include 된다.</p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://spring.io/projects/spring-restdocs">spring-restdocs-reference</a></em></p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-spring-data-rest/src/main/asciidoc">restdoc sample git</a></em></p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="restdoc">restdoc sample</a></em>   </p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://docs.wildfly.org">wildfly doc</a></em>   </p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://beanvalidation.org/latest-draft/spec/#builtinconstraints">beanvalidation doc</a></em></p>
+<hr>
+<h3 id="AsciiDoc-Syntax-Quick-Reference"><a href="#AsciiDoc-Syntax-Quick-Reference" class="headerlink" title="AsciiDoc Syntax Quick Reference"></a>AsciiDoc Syntax Quick Reference</h3><p>   &nbsp;&nbsp;&nbsp;<em><a href="https://asciidoctor.org/docs/asciidoc-syntax-quick-reference">asciidoc-syntax-quick-reference</a></em></p>
+]]></content>
+      <categories>
+        <category>documentation</category>
+      </categories>
+      <tags>
+        <tag>documentation</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker</title>
+    <url>/2020/04/26/docker/</url>
+    <content><![CDATA[<h3 id="Get-Started"><a href="#Get-Started" class="headerlink" title="Get Started"></a>Get Started</h3><ul>
+<li><p><a href="aws">aws cloud9</a> 에서 test. <a href="https://ap-southeast-1.console.aws.amazon.com/cloud9/home?region=ap-southeast-1#">싱가폴 리젼</a></p>
+<p> <img src="https://aichoora.github.io/images/aws/cloud9.png" alt="cloud9">  </p>
+</li>
+</ul>
+<pre><code><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2087  docker ps -a</span><br><span class="line">2088  docker build -t getstarted:part2 .</span><br><span class="line">2089  docker tag getstarted:part2 aichoora&#x2F;private:getstartedpart2    </span><br><span class="line">2091  docker login     </span><br><span class="line">2093  docker info | grep User</span><br><span class="line">2095  docker push aichoora&#x2F;private:getstartedpart2</span><br><span class="line">2096  docker images</span><br><span class="line">2097  docker rmi -f 30        </span><br><span class="line">2100  docker run -d -p 4000:80 --name jj aichoora&#x2F;private:getstartedpart2</span><br><span class="line">2101  docker ps -l    </span><br><span class="line">2103  curl localhost:4000</span><br><span class="line">2104  docker logs b0</span><br><span class="line">2105  docker inspect b0</span><br><span class="line">2106  docker exec -it jj bash    </span><br><span class="line">2108  docker rm -f b0</span><br><span class="line">2109  docker ps -a</span><br><span class="line">2110  cd ..</span><br><span class="line">2111  cd part3</span><br><span class="line">2112  docker service ls    </span><br><span class="line">2114  docker swarm init</span><br><span class="line">2115  docker stack deploy -c docker-compose.yml getstartedpart2</span><br><span class="line">2116  docker service ls</span><br><span class="line">2117  docker service ps p3</span><br><span class="line">2118  docker ps -a</span><br><span class="line">2119  curl localhost:4000    </span><br><span class="line">2121  docker ps -a</span><br><span class="line">2122  docker kill 3f</span><br><span class="line">2123  docker serivce ls    </span><br><span class="line">2125  docker service ps p3</span><br><span class="line">2126  docker service rm p3</span><br><span class="line">2127  docker stack ls</span><br><span class="line">2128  docker service ls</span><br><span class="line">2129  docker swarm leave --force</span><br><span class="line">2130  docker images</span><br><span class="line">2131  docker rmi -f 30</span><br><span class="line">2132  docker logout</span><br><span class="line">2133  docker system prune</span><br></pre></td></tr></table></figure></code></pre><h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<li><em><a href="https://docs.docker.com/">docs.docker.com</a></em></li>
+</ul>
+]]></content>
+      <categories>
+        <category>deploy</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Dos Command</title>
+    <url>/2020/04/26/dos/</url>
+    <content><![CDATA[<p><a href="#netstat">netstat</a></p>
+<h2 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h2><ul>
+<li><p>_<a href="https://web.csulb.edu/~murdock/tree.html">https://web.csulb.edu/~murdock/tree.html</a>_</p>
+<p><code>tree /F</code>  : 파일까지 출력</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tree &#x2F;f</span><br><span class="line">├─static</span><br><span class="line">│  └─docs</span><br><span class="line">│          index.html</span><br></pre></td></tr></table></figure>
+
+<p><code>tree /A</code>  : tree /a 라고 하면, 트리구조를 표현할 때, 그래픽 문자가 아닌, 키보드로 입력 가능한 일반 문자로 표현합니다.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tree &#x2F;a &#x2F;f</span><br><span class="line">+---static</span><br><span class="line">|   \---docs</span><br><span class="line">|           index.html</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>cli</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>draft</title>
+    <url>/2020/04/26/draft/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h1><ul>
+<li>_<a href="https://www.baeldung.com/spring-boot-ehcache">https://www.baeldung.com/spring-boot-ehcache</a>_</li>
+</ul>
+<ol>
+<li><h4 id="순서"><a href="#순서" class="headerlink" title="순서"></a>순서</h4><p> 설명1<br> 설명2</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>코드<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <br/>
+
+
+
+
+
+
+
+
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>Ehcache</title>
+    <url>/2020/04/26/ehcache/</url>
+    <content><![CDATA[<h1 id="Spring-Boot-에서-Ehcache-version-3-설정"><a href="#Spring-Boot-에서-Ehcache-version-3-설정" class="headerlink" title="Spring Boot 에서 Ehcache version 3 설정"></a>Spring Boot 에서 Ehcache version 3 설정</h1><ul>
+<li>_<a href="https://www.baeldung.com/spring-boot-ehcache">https://www.baeldung.com/spring-boot-ehcache</a>_</li>
+</ul>
+<ol>
+<li><h4 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h4><p> net.sf.ehcache 는 version 2 , org.ehcache 는 version3<br> ehcache.xml 설정방법이 많이 달라졌다.<br> 내용은 비슷한듯…<br> CacheEventListener 로 로깅 하기가 version3 가 좀더 쉬운듯하다.<br> 기본 어노테이션 설정만 하면 로깅 설정을 trace 로 해도 별로 찍히는게 없어서 mbean 통해서 별도 서버를 구축하거나,<br> statistics 정보만 주기적으로 로그에 쌓거나 하기까지 작업이 필요 없을 경우<br> 간단히 CacheEventListener 로 로그를 남기면 될듯 하다.</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-cache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.cache<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cache-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.ehcache<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>ehcache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <br/>
+</li>
+<li><h4 id="ehcache-xml"><a href="#ehcache-xml" class="headerlink" title="ehcache.xml"></a>ehcache.xml</h4><p> _<a href="https://www.ehcache.org/documentation/3.0/xml.html">https://www.ehcache.org/documentation/3.0/xml.html</a>_<br> Spring boot 2 이상? 은 version2 3 모두지원.<br> Spring boot 에서 사용시 key vaule type 은 삭제한다.</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">config</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns</span>=<span class="string">"http://www.ehcache.org/v3"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:jsr107</span>=<span class="string">"http://www.ehcache.org/v3/jsr107"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">            http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">            http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache-template</span> <span class="attr">name</span>=<span class="string">"commonTemplate"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;key-type&gt;java.lang.Long&lt;/key-type&gt; --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;value-type&gt;java.math.BigDecimal&lt;/value-type&gt; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">expiry</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ttl</span> <span class="attr">unit</span>=<span class="string">"seconds"</span>&gt;</span>300<span class="tag">&lt;/<span class="name">ttl</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">expiry</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">listeners</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">class</span>&gt;</span>com.baeldung.cachetest.config.CacheEventLogger<span class="tag">&lt;/<span class="name">class</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">event-firing-mode</span>&gt;</span>ASYNCHRONOUS<span class="tag">&lt;/<span class="name">event-firing-mode</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">event-ordering-mode</span>&gt;</span>UNORDERED<span class="tag">&lt;/<span class="name">event-ordering-mode</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">events-to-fire-on</span>&gt;</span>CREATED<span class="tag">&lt;/<span class="name">events-to-fire-on</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">events-to-fire-on</span>&gt;</span>EXPIRED<span class="tag">&lt;/<span class="name">events-to-fire-on</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">listeners</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">heap</span> <span class="attr">unit</span>=<span class="string">"entries"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">heap</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">offheap</span> <span class="attr">unit</span>=<span class="string">"MB"</span>&gt;</span>10<span class="tag">&lt;/<span class="name">offheap</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">cache-template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span> <span class="attr">alias</span>=<span class="string">"device"</span> <span class="attr">use-template</span>=<span class="string">"commonTemplate"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <br/>
+</li>
+<li><h4 id="config-에-ehcahce-xml-위치-지정"><a href="#config-에-ehcahce-xml-위치-지정" class="headerlink" title="config 에 ehcahce.xml 위치 지정"></a>config 에 ehcahce.xml 위치 지정</h4> <figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="meta">spring.cache.jcache.config</span>=<span class="string">classpath:ehcache.xml</span></span><br></pre></td></tr></table></figure>
+ <br/>
+
+
+</li>
+</ol>
+<ol>
+<li><h4 id="EnableCaching-추가"><a href="#EnableCaching-추가" class="headerlink" title="@EnableCaching 추가"></a>@EnableCaching 추가</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableCaching</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(Application<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<br/>
+
+
+</li>
+</ol>
+<ol>
+<li><h4 id="cache-대상-설정"><a href="#cache-대상-설정" class="headerlink" title="cache 대상 설정"></a>cache 대상 설정</h4><p> key condition 을 지정할수 있으나, 기본 전달하는 파라메터 단위로 설정된다.<br> _<a href="https://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/cache.html#cache-annotations-cacheable-default-key">https://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/cache.html#cache-annotations-cacheable-default-key</a>_</p>
+<blockquote>
+<p>If no params are given, return 0.<br>If only one param is given, return that instance.<br>If more the one param is given, return a key computed from the hashes of all parameters.</p>
+</blockquote>
+<p> 파람이 object 의 경우 hashcode &amp; equal 값으로 결정되니 lombok 사용할경우<br> <code>@EqualsAndHashCode(exclude = {&quot;id&quot;})</code> 형태로 지정.</p>
+ <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeviceService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="meta">@Cacheable</span>(</span><br><span class="line">    value = <span class="string">"device"</span>, </span><br><span class="line">    key = <span class="string">"#deviceId"</span>, </span><br><span class="line">    condition = <span class="string">"#deviceId&gt;10"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Device <span class="title">getDevice</span><span class="params">(Long deviceId)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Device();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <br/>
+</li>
+<li><h4 id="logging-CacheEventLogger"><a href="#logging-CacheEventLogger" class="headerlink" title="logging CacheEventLogger"></a>logging CacheEventLogger</h4> <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheEventLogger</span> </span></span><br><span class="line"><span class="class"><span class="keyword">implements</span> <span class="title">CacheEventListener</span>&lt;<span class="title">Object</span>, <span class="title">Object</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    CacheEvent&lt;? extends Object, ? extends Object&gt; cacheEvent)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="comment">/* message */</span>,</span><br><span class="line">        cacheEvent.getKey(), cacheEvent.getOldValue(), cacheEvent.getNewValue());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 결과</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INFO [e [_default_]-0] c.b.cachetest.config.CacheEventLogger : Cache event CREATED for item with key 12. Old value &#x3D; null, New value &#x3D; 144</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>webdev</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>git</title>
+    <url>/2020/04/26/git/</url>
+    <content><![CDATA[<h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git --version</span><br><span class="line">git config --global user.name aichoora</span><br><span class="line">git config --global user.email aichoora@gmail.com</span><br><span class="line">git config --get user.email</span><br><span class="line">git config --list</span><br><span class="line">git config --global --edit</span><br><span class="line">git status</span><br></pre></td></tr></table></figure>
+
+<h2 id="Work-Tree"><a href="#Work-Tree" class="headerlink" title="Work Tree"></a>Work Tree</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add [file]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Index-Stage"><a href="#Index-Stage" class="headerlink" title="Index (Stage)"></a>Index (Stage)</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git commit -m "desc"</span><br></pre></td></tr></table></figure>
+
+<h2 id="Local-Repository-gt-git-init"><a href="#Local-Repository-gt-git-init" class="headerlink" title="Local Repository (&gt;git init)"></a>Local Repository (&gt;git init)</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<h2 id="log"><a href="#log" class="headerlink" title="log"></a>log</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+
+<h2 id="push"><a href="#push" class="headerlink" title="push"></a>push</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<h2 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+
+<h2 id="add-to-index-commit-to-local-repo-push-to-remote-repo"><a href="#add-to-index-commit-to-local-repo-push-to-remote-repo" class="headerlink" title="add to index, commit to local repo, push to remote repo"></a>add to index, commit to local repo, push to remote repo</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add . &amp;&amp; git commit -m &quot;...&quot; &amp;&amp; git push</span><br></pre></td></tr></table></figure>
+
+<h2 id="branch"><a href="#branch" class="headerlink" title="branch"></a>branch</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch -a</span><br><span class="line">git branch -vv</span><br><span class="line">git checkout -b localbranchh orain&#x2F;remotebranch</span><br></pre></td></tr></table></figure>
+
+<h2 id="new-repository-에-기존-project-추가"><a href="#new-repository-에-기존-project-추가" class="headerlink" title="new repository 에 기존 project 추가"></a>new repository 에 기존 project 추가</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git remote add origin https:&#x2F;&#x2F;github.com&#x2F;aichoora&#x2F;spring-oauth2.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>team</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>fcm</title>
+    <url>/2020/04/26/fcm/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h1><ul>
+<li>_<a href="https://www.baeldung.com/spring-boot-ehcache">https://www.baeldung.com/spring-boot-ehcache</a>_</li>
+</ul>
+<ol>
+<li><h4 id="순서"><a href="#순서" class="headerlink" title="순서"></a>순서</h4><p> 설명1<br> 설명2</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>코드<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <br/>
+
+
+
+
+
+
+
+
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>Java process 확인</title>
+    <url>/2020/04/26/findjavaprocess/</url>
+    <content><![CDATA[<ul>
+<li><p>jps</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">C:\&gt;jps</span><br><span class="line">18816 BootLanguagServerBootApp</span><br><span class="line">4904 JJApiApplication</span><br><span class="line">9192 Jps</span><br><span class="line">18732</span><br></pre></td></tr></table></figure></li>
+<li><p>tasklist</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">C:\&gt;tasklist | find "java"</span><br><span class="line">javaw.exe                    18816 Console                    1    153,500K</span><br><span class="line">javaw.exe                     4904 Console                    1    351,972K</span><br><span class="line"></span><br><span class="line">C:\&gt;jps</span><br><span class="line">18816 BootLanguagServerBootApp</span><br><span class="line">18052 Jps</span><br><span class="line">4904 JJApiApplication</span><br><span class="line">18732</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>netstat -o</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">C:\&gt;jps</span><br><span class="line">18816 BootLanguagServerBootApp</span><br><span class="line">4904 JJApiApplication</span><br><span class="line">18732</span><br><span class="line">5340 Jps</span><br><span class="line"></span><br><span class="line">C:\&gt;netstat -ano | find "4904"</span><br><span class="line">  TCP    0.0.0.0:3128           0.0.0.0:0              LISTENING       4904</span><br><span class="line">  TCP    0.0.0.0:3132           0.0.0.0:0              LISTENING       4904</span><br><span class="line">  TCP    0.0.0.0:3133           0.0.0.0:0              LISTENING       4904</span><br><span class="line">  TCP    0.0.0.0:8080           0.0.0.0:0              LISTENING       4904</span><br><span class="line">  TCP    0.0.0.0:35729          0.0.0.0:0              LISTENING       4904</span><br><span class="line">  TCP    127.0.0.1:3131         127.0.0.1:3129         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3136         127.0.0.1:3306         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3137         127.0.0.1:3306         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3138         127.0.0.1:3306         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3139         127.0.0.1:3306         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3140         127.0.0.1:3306         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3141         127.0.0.1:3306         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3142         127.0.0.1:3306         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3143         127.0.0.1:3306         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3144         127.0.0.1:3306         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3145         127.0.0.1:3306         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3147         127.0.0.1:3148         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3148         127.0.0.1:3147         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3149         127.0.0.1:3150         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:3150         127.0.0.1:3149         ESTABLISHED     4904</span><br><span class="line">  TCP    127.0.0.1:8080         127.0.0.1:3241         FIN_WAIT_2      4904</span><br><span class="line">  TCP    127.0.0.1:8080         127.0.0.1:3242         FIN_WAIT_2      4904</span><br><span class="line">  TCP    127.0.0.1:8080         127.0.0.1:3246         FIN_WAIT_2      4904</span><br><span class="line">  TCP    127.0.0.1:8080         127.0.0.1:3247         FIN_WAIT_2      4904</span><br><span class="line">  TCP    127.0.0.1:8080         127.0.0.1:3248         FIN_WAIT_2      4904</span><br><span class="line">  TCP    127.0.0.1:8080         127.0.0.1:3249         FIN_WAIT_2      4904</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p>   _<a href="https://dzone.com/articles/how-to-read-a-thread-dump">https://dzone.com/articles/how-to-read-a-thread-dump</a>_</p>
+]]></content>
+      <categories>
+        <category>troubleshooting</category>
+      </categories>
+  </entry>
+  <entry>
     <title>Hexo blog</title>
     <url>/2020/04/26/hexo/</url>
     <content><![CDATA[<h1 id="Hexo-blog-만들기"><a href="#Hexo-blog-만들기" class="headerlink" title="Hexo blog 만들기"></a>Hexo blog 만들기</h1><h2 id="Hexo-설치"><a href="#Hexo-설치" class="headerlink" title="Hexo 설치"></a>Hexo 설치</h2><ol>
@@ -65,37 +434,941 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2020/04/26/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+    <title>intellij</title>
+    <url>/2020/04/26/intellij/</url>
+    <content><![CDATA[<h1 id="eclipse-vs-intellij"><a href="#eclipse-vs-intellij" class="headerlink" title="eclipse vs intellij"></a>eclipse vs intellij</h1><h2 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h2><ul>
+<li>전체적으로 인텔리 센싱 기능이 좋음</li>
+<li>최초 IDE 구동시 indexing 하는 시간이 필요하지만, 이후 버벅거림? 이 적음. 전체적으로 빠른느낌. 자동완성이나 quick fix, refactor 할때 등.</li>
+<li>Community 버전은 프레임웍 지원이 안되고, 로컬 was 프로파일이 없어서 설정이 어려움. ultimate 버전 안쓸거면 그냥 eclipse</li>
+<li>dark 테마가 eclipse 보다 보기 편함.</li>
+</ul>
+<ul>
+<li><p>검색 결과가 빠름. </p>
+</li>
+<li><p>플러그인 설치가 용이</p>
+</li>
+<li><p>mybatis 플러그인 설치하면 mapper 에서 바로 xml sql 로 이동됨. spring 빈 정의로 바로 이동되거나 있었으면 했던 부분이 있음.</p>
+</li>
+</ul>
+<h2 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h2><ul>
+<li>한개 project 가 한개의 window 가 이므로 이클립스처럼 여러개 띄워놓고 한꺼번에 검색이 안됨.</li>
+<li>pom jar 이름으로 검색이 안됨. dependency 확인할때 많이 쓰던 부분인데…</li>
+<li>jboss 설정을 수동으로 해야함. base director 설정등 vmoption 으로 전달해 주어야함.</li>
+</ul>
+<h1 id="intellij-keymap"><a href="#intellij-keymap" class="headerlink" title="intellij keymap"></a>intellij keymap</h1><p>기본 intellij keymap 에 적응하려 했으나, 이젠 잘 안된다. 자꾸 손에 익은걸로 가게 되네.. 이클립스 keymap 사용하기로 했다. 아래는 수동으로 mapping 해준 부분 이다.</p>
+<ul>
+<li>find actions : ctrl + 3</li>
+<li>terminal : ctrl + `</li>
+<li>close : ctrl + f4 -&gt; ctrl + w</li>
+</ul>
+<h1 id="intellij-plugin"><a href="#intellij-plugin" class="headerlink" title="intellij plugin"></a>intellij plugin</h1><ul>
+<li>lombok</li>
+<li>mybatis</li>
+</ul>
+]]></content>
+      <categories>
+        <category>ide</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>bouncycastle 추가</title>
+    <url>/2020/04/26/java_addprovider/</url>
+    <content><![CDATA[<h1 id="Jdk-8-bouncycastle-provider-추가하기"><a href="#Jdk-8-bouncycastle-provider-추가하기" class="headerlink" title="Jdk 8 bouncycastle provider 추가하기"></a>Jdk 8 bouncycastle provider 추가하기</h1><p>jre 에 추가 하거나 소스에 추가한다.</p>
+<h2 id="JRE-에-추가-하기"><a href="#JRE-에-추가-하기" class="headerlink" title="JRE 에 추가 하기"></a>JRE 에 추가 하기</h2><ol>
+<li><h4 id="jar-설치"><a href="#jar-설치" class="headerlink" title="jar 설치"></a>jar 설치</h4><p> <a href="https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on/1.64">https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on/1.64</a><br> jar 다운로드후 <code>jre_home/lib/ext</code> 에 복사  </p>
+ <br/>
+</li>
+<li><h4 id="java-security-파일에-프로바이더-추가"><a href="#java-security-파일에-프로바이더-추가" class="headerlink" title="java.security 파일에 프로바이더 추가."></a>java.security 파일에 프로바이더 추가.</h4><p> <code>jre_home/lib/security/java.security</code> 파일에 BC 프로바이더 추가</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">security.provider.1=sun.security.provider.Sun</span><br><span class="line">security.provider.2=sun.security.rsa.SunRsaSign</span><br><span class="line">security.provider.3=sun.security.ec.SunEC</span><br><span class="line">security.provider.4=com.sun.net.ssl.internal.ssl.Provider</span><br><span class="line">security.provider.5=com.sun.crypto.provider.SunJCE</span><br><span class="line">security.provider.6=sun.security.jgss.SunProvider</span><br><span class="line">security.provider.7=com.sun.security.sasl.Provider</span><br><span class="line">security.provider.8=org.jcp.xml.dsig.internal.dom.XMLDSigRI</span><br><span class="line">security.provider.9=sun.security.smartcardio.SunPCSC</span><br><span class="line">security.provider.10=sun.security.mscapi.SunMSCAPI</span><br><span class="line"><span class="meta">#</span><span class="bash"> 추가</span></span><br><span class="line">security.provider.11=org.bouncycastle.jce.provider.BouncyCastleProvider</span><br></pre></td></tr></table></figure>
+ <br/>
+</li>
+<li><h4 id="테스트"><a href="#테스트" class="headerlink" title="테스트"></a>테스트</h4> <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> security;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.security.Security;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddBCProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Arrays.asList(Security.getProviders()).stream().forEach(pv -&gt; System.out.println(pv.getInfo()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SUN (DSA key&#x2F;parameter generation; DSA signing; SHA-1, MD5 digests; SecureRandom; X.509 certificates; JKS &amp; DKS keystores; PKIX CertPathValidator; PKIX CertPathBuilder;</span><br><span class="line">...</span><br><span class="line">BouncyCastle Security Provider v1.64</span><br></pre></td></tr></table></figure>
+<p> <br/><br/></p>
+</li>
+</ol>
+<h2 id="프로그램에서-추가하기"><a href="#프로그램에서-추가하기" class="headerlink" title="프로그램에서 추가하기"></a>프로그램에서 추가하기</h2><ol>
+<li><h4 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h4> <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.bouncycastle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>bcprov-jdk15on<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.64<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <br/>
+</li>
+<li><h4 id="코드에-프로바이더-추가-및-테스트"><a href="#코드에-프로바이더-추가-및-테스트" class="headerlink" title="코드에 프로바이더 추가 및 테스트"></a>코드에 프로바이더 추가 및 테스트</h4> <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.bouncycastle.jce.provider.BouncyCastleProvider;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddBCProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 프로바이더 추가</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        Security.addProvider(<span class="keyword">new</span> BouncyCastleProvider());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Arrays.asList(Security.getProviders()).stream().forEach(pv -&gt; System.out.println(pv.getInfo()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SUN (DSA key&#x2F;parameter generation; DSA signing; SHA-1, MD5 digests; SecureRandom; X.509 certificates; JKS &amp; DKS keystores; PKIX CertPathValidator; PKIX CertPathBuilder;</span><br><span class="line">...</span><br><span class="line">BouncyCastle Security Provider v1.64</span><br></pre></td></tr></table></figure>
+<p> <br/><br/></p>
+</li>
+</ol>
+<h2 id="프로바이더-선택"><a href="#프로바이더-선택" class="headerlink" title="프로바이더 선택"></a>프로바이더 선택</h2><p><code>%JRE_HOME%/lib/security/java.security</code> 번호순 우선순위.</p>
+<ol>
+<li><h4 id="Figure-2-1-Request-SHA-256-Message-Digest-Implementation-Without-Specifying-Provider"><a href="#Figure-2-1-Request-SHA-256-Message-Digest-Implementation-Without-Specifying-Provider" class="headerlink" title="Figure 2-1 Request SHA-256 Message Digest Implementation Without Specifying Provider"></a>Figure 2-1 Request SHA-256 Message Digest Implementation Without Specifying Provider</h4> <img src="https://docs.oracle.com/javase/9/security/img/security-overview-message-digest-wo-provider.png" alt="">   <br/>    </li>
+<li><h4 id="Figure-2-2-Request-SHA-256-Message-Digest-with-ProviderC"><a href="#Figure-2-2-Request-SHA-256-Message-Digest-with-ProviderC" class="headerlink" title="Figure 2-2 Request SHA-256 Message Digest with ProviderC"></a>Figure 2-2 Request SHA-256 Message Digest with ProviderC</h4> <img src="https://docs.oracle.com/javase/9/security/img/security-overview-message-digest-providerc.png" alt=""><br> <br/><br/></li>
+</ol>
+<h2 id="디버깅"><a href="#디버깅" class="headerlink" title="디버깅"></a>디버깅</h2><p>_<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/troubleshooting-security.html">https://docs.oracle.com/javase/8/docs/technotes/guides/security/troubleshooting-security.html</a>_<br>-D 옵션추가  </p>
+<pre><code>예) 프로바이더 로깅 : -Djava.security.debug=provider</code></pre><p><br/><br/></p>
+<h2 id="wildfly-에-bouncy-castle-추가하기"><a href="#wildfly-에-bouncy-castle-추가하기" class="headerlink" title="wildfly 에 bouncy castle 추가하기"></a>wildfly 에 bouncy castle 추가하기</h2><p>war 로 디플로이 할경우 bouncy castle class path 는 </p>
+<ol>
+<li>WEB-INF/lib</li>
+<li>wildfly module</li>
+<li>jre extension lib  </li>
+</ol>
+<p>세곳에 들어 갈수 있으나, 1&amp;2, 1&amp;3 에 bc jar 가 함께 포함 될경우 런타임에 참조되는 class 가 다를수 있다. </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ECNamedCurveParameterSpec namedCurve = ECNamedCurveTable.getParameterSpec(<span class="string">"P-256"</span>);</span><br><span class="line">org.bouncycastle.jce.spec.ECPublicKeySpec pubSpec = <span class="keyword">new</span> org.bouncycastle.jce.spec.ECPublicKeySpec(namedCurve.getCurve().createPoint(PubX, PubY), namedCurve);</span><br><span class="line">KeyFactory kFact = KeyFactory.getInstance(<span class="string">"EC"</span>, <span class="string">"BC"</span>);</span><br><span class="line">PublicKey pubKey = kFact.generatePublic(pubSpec);</span><br></pre></td></tr></table></figure>
+<p>위 <code>kFact.generatePublic(pubSpec)</code> 코드의 샐행시<br><code>KeyFactory</code> 의 BC 구현체(<em>org.bouncycastle.jcajce.provider.asymmetric.ec.KeyFactory<code>Spi</code></em>)에서<br><code>if (keySpec instanceof ECPublicKeySpec)</code> 를 검증하지만<br>이 <code>ECPublicKeySpec</code> 는 jre 의 참조 인스턴스이고,<br>넘겨받은 <code>keySpec</code> 은 war 또는 wildfly 의 jar 를 참조하므로 검증에 실패하게 된다.<br>_<a href="https://stackoverflow.com/questions/29700288/bouncycastle-1-51-loading-in-war-on-wildfly-8-0">https://stackoverflow.com/questions/29700288/bouncycastle-1-51-loading-in-war-on-wildfly-8-0</a>_</p>
+<p>jre 에만 provider 설정을 남겨놓거나, 이게 어려울경우 (wildfly 에 jre/ext jar 추가하는 방법을 찿지 못함;;)<br>소스상에서 jre 프로바이더를 제거하고 war 에서 참조하고 있는 bc lib 로 다시 프로바이더를 생성 추가한다.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);</span><br><span class="line">Security.addProvider(<span class="keyword">new</span> BouncyCastleProvider());</span><br></pre></td></tr></table></figure>
+<p>_<a href="https://liferay.dev/forums/-/message_boards/message/111998866">https://liferay.dev/forums/-/message_boards/message/111998866</a>_</p>
+<h4 id="wildfly-module-dependency-추가"><a href="#wildfly-module-dependency-추가" class="headerlink" title="wildfly module dependency 추가"></a>wildfly module dependency 추가</h4><p>bouncycastle 모듈은 wildfly 9 이상? 포함되어 있다.<br>때문에 어플리케이션의 jboss 배포 디스크립터에 의존성만 추가하면 된다.<br>_<a href="https://developer.jboss.org/thread/175395">https://developer.jboss.org/thread/175395</a>_<br>jboss-deployment-structure.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version='1.0' encoding='UTF-8'?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">jboss-deployment-structure</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns</span>=<span class="string">"urn:jboss:deployment-structure:1.1"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">deployment</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span> <span class="attr">name</span>=<span class="string">"org.bouncycastle"</span> <span class="attr">slot</span>=<span class="string">"main"</span> <span class="attr">export</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">deployment</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jboss-deployment-structure</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h4 id="wildfly-class-loading"><a href="#wildfly-class-loading" class="headerlink" title="wildfly class loading"></a>wildfly class loading</h4><p>_<a href="https://docs.jboss.org/author/display/WFLY/Class+Loading+in+WildFly">https://docs.jboss.org/author/display/WFLY/Class+Loading+in+WildFly</a>_<br>In order of highest priority to lowest priority  </p>
+<blockquote>
+<p>System Dependencies - These are dependencies that are added to the module automatically by the container, including the Java EE api’s.<br>User Dependencies - These are dependencies that are added through jboss-deployment-structure.xml or through the Dependencies: manifest entry.<br>Local Resource - Class files packaged up inside the deployment itself, e.g. class files from WEB-INF/classes or WEB-INF/lib of a war.<br>Inter deployment dependencies - These are dependencies on other deployments in an ear deployment. This can include classes in an ear’s lib directory, or classes defined in other ejb jars. </p>
+</blockquote>
+<p><br/><br/></p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><em><a href="https://docs.oracle.com/javase/9/security/java-cryptography-architecture-jca-reference-guide.htm#JSSEC-GUID-71693272-7F57-4155-99F9-A2139271FD6D">Java Cryptography Architecture (JCA) Reference Guide</a></em></p>
+]]></content>
+      <categories>
+        <category>security</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>java</title>
+    <url>/2020/04/26/java/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><hr>
+<h2 id="openjdk"><a href="#openjdk" class="headerlink" title="openjdk"></a>openjdk</h2><p>   _<a href="https://github.com/ojdkbuild/ojdkbuild">https://github.com/ojdkbuild/ojdkbuild</a>_</p>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1>]]></content>
+  </entry>
+  <entry>
+    <title>Logging</title>
+    <url>/2020/04/26/logging/</url>
+    <content><![CDATA[<h2 id="Logger"><a href="#Logger" class="headerlink" title="Logger"></a>Logger</h2><table>
+<thead>
+<tr>
+<th>logger</th>
+<th>config file</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>jul(java utility logging) logging</td>
+<td>logging.properties</td>
+</tr>
+<tr>
+<td>jcl(apache common logging)</td>
+<td>commong-logging.properties</td>
+</tr>
+<tr>
+<td><a href="https://logging.apache.org/log4j/2.x/manual/migration.html">log4j</a></td>
+<td>log4j.{xml,properties}</td>
+</tr>
+<tr>
+<td><a href="https://logging.apache.org/log4j/2.x/manual/layouts.html">log4j2</a></td>
+<td>log4j2.{xml,properties}</td>
+</tr>
+<tr>
+<td><a href="http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout">logback</a></td>
+<td>logback.{xml,properties}</td>
+</tr>
+<tr>
+<td>jboss-logging</td>
+<td>jboss-logging.{xml,properties}</td>
+</tr>
+</tbody></table>
+<h2 id="slf4j"><a href="#slf4j" class="headerlink" title="slf4j"></a><a href="http://www.slf4j.org/manual.html">slf4j</a></h2><ul>
+<li>api</li>
+<li>bridge</li>
+<li>binding</li>
+</ul>
+<p><img src="http://www.slf4j.org/images/concrete-bindings.png" alt=""></p>
+<h2 id="spring-boot-logging"><a href="#spring-boot-logging" class="headerlink" title="spring boot logging"></a>spring boot logging</h2><ul>
+<li><p>기본 config 위치</p>
+<p> <em><a href="https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml">org/springframework/boot/logging/logback/defaults.xml</a></em></p>
+</li>
+</ul>
+<h2 id="wildfly-logging"><a href="#wildfly-logging" class="headerlink" title="wildfly logging"></a>wildfly logging</h2><ul>
+<li><p><em><a href="https://docs.wildfly.org/12/Admin_Guide.html#Logging">Admin_Guide logging</a></em></p>
+<blockquote>
+<p>The following configuration files are allowed:</p>
+</blockquote>
+<ul>
+<li>logging.properties</li>
+<li>jboss-logging.properties</li>
+<li>log4j.properties</li>
+<li>log4j.xml</li>
+<li>jboss-log4j.xml</li>
+</ul>
+<p>log4j2 나 logback 은 없다.  쓰려면 module 을 추가하거나, logging subsystem 을 jboss-deployment-structure 에서 exclude 하거나 jboss configuration  file (standalone.xml  이나 domain.xml) 에 logging subsystem 에서 dependency 제거 하는 설정( <em><a href="https://docs.wildfly.org/12/Admin_Guide.html#add-logging-api-dependencies">add-logging-api-dependencies</a></em> )을 해야한다. </p>
+<p>반대로 application 에서 지정된 logging config 파일을 무시 하려면 (per-deployment logging 스캔을 skip) <code>use-deployment-logging-config</code> 를 <code>false</code> 지정한다.</p>
+<p>wildfly 는 기본 설치되어 있는 <em><a href="https://docs.wildfly.org/12/Admin_Guide.html#why-is-there-a-logging.properties-file">logging.properties</a></em> 를 서버 기동(boot) 시에 사용한다.<br> boot 이후 deployment 로드 이후에는 사용가능한 logging config 를 찿으면 대체 한다. 하지만 wildfly module 에는 기본 log4j2 나 logback 에 설치되어있지 않고, 이를 사용하기 위해 단순히 jboss logging subsystem 만 exclude 하면 server.log 에는 기본 logging.properties 패턴 + [stdout] + log4j2|logback 의 console output 이 출력된다.</p>
+</li>
+</ul>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><p>   _<a href="https://logging.apache.org/log4j/2.x/manual/migration.html">https://logging.apache.org/log4j/2.x/manual/migration.html</a>_<br>   _<a href="https://logging.apache.org/log4j/2.x/manual/layouts.html">https://logging.apache.org/log4j/2.x/manual/layouts.html</a>_<br>   _<a href="http://logback.qos.ch/manual/architecture.html">http://logback.qos.ch/manual/architecture.html</a>_<br>   _<a href="http://www.slf4j.org/manual.html">http://www.slf4j.org/manual.html</a>_<br>   _<a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-logging">https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-logging</a>_<br>   _<a href="https://docs.wildfly.org/12/Admin_Guide.html#Logging">https://docs.wildfly.org/12/Admin_Guide.html#Logging</a>_</p>
+]]></content>
+      <categories>
+        <category>logging</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>java_security</title>
+    <url>/2020/04/26/java_security/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="java-security-overview"><a href="#java-security-overview" class="headerlink" title="java-security-overview"></a>java-security-overview</h1><ul>
+<li>_<a href="https://www.baeldung.com/java-security-overview#public_key_infrastructure">https://www.baeldung.com/java-security-overview#public_key_infrastructure</a>_</li>
+</ul>
+<ol>
+<li><p>HSM</p>
+<p> 설명1<br> 설명2</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>코드<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <br/>
+</li>
+<li><p>인증서</p>
+</li>
+<li><p>키생성</p>
+</li>
+<li><p>키스토어</p>
+</li>
+<li><p>CA</p>
+</li>
+<li><p>서명</p>
+</li>
+<li><p>서명확인</p>
+</li>
+<li><p>메세지다이제스트</p>
+</li>
+<li><p>JCA/JCE</p>
+</li>
+</ol>
 ]]></content>
   </entry>
   <entry>
-    <title>new post</title>
-    <url>/2020/04/26/new-post/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>new draft</title>
-    <url>/2020/04/26/new-draft/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>재용이포스트</title>
-    <url>/2020/04/26/%EC%9E%AC%EC%9A%A9%EC%9D%B4%ED%8F%AC%EC%8A%A4%ED%8A%B8/</url>
-    <content><![CDATA[<p>재용이포스트 입니다. 숙제 여기다 올리게요..<del>~</del></p>
+    <title>maven</title>
+    <url>/2020/04/26/maven/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h1><hr>
+<h3 id="AsciiDoc-Install"><a href="#AsciiDoc-Install" class="headerlink" title="AsciiDoc Install"></a>AsciiDoc Install</h3><p>&nbsp;&nbsp;&nbsp;gem package manager, asciidoctor 설치.</p>
+<ul>
+<li><p>ruby install</p>
+<p><em><a href="https://stackoverflow.com/questions/18908708/installing-ruby-gem-in-windows">stackoverflow</a></em></p>
+<p><em><a href="https://rubyinstaller.org/downloads/">rubyinstaller downloads</a></em></p>
+</li>
+</ul>
+<ul>
+<li><p>asciidoctor install</p>
+<p><em><a href="https://asciidoctor.org/">asciidoctor</a></em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem install asciidoctor</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h3 id="AsciiDoc-Convert"><a href="#AsciiDoc-Convert" class="headerlink" title="AsciiDoc Convert"></a>AsciiDoc Convert</h3><p>&nbsp;&nbsp;&nbsp;기본 html5 로 변환됨</p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://asciidoctor.org/docs/convert-documents/">convert-documents</a></em></p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">asciidoctor aaa.adoc</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Spring-Restdocs"><a href="#Spring-Restdocs" class="headerlink" title="Spring-Restdocs"></a>Spring-Restdocs</h3><p>&nbsp;&nbsp;&nbsp; maven test 시에 target 하위에 adoc 파일 생성되고 package 수행시에 미리 만들어둔 main 하위 adoc 파일로 html doc 파일이 생성된다. main 하위의 adoc 파일에 unit test 에 생성된 adoc 파일이 include 된다.</p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://spring.io/projects/spring-restdocs">spring-restdocs-reference</a></em></p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-spring-data-rest/src/main/asciidoc">restdoc sample git</a></em></p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="restdoc">restdoc sample</a></em>   </p>
+<hr>
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><p>   &nbsp;&nbsp;&nbsp;<em><a href="https://maven.apache.org/">https://maven.apache.org/</a></em></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>node</title>
+    <url>/2020/04/26/node/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h1><ol>
+<li><h4 id="전역변수"><a href="#전역변수" class="headerlink" title="전역변수"></a>전역변수</h4><ul>
+<li>global</li>
+<li>console</li>
+<li>export</li>
+<li>process<br>…</li>
+</ul>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>MarkDown</title>
+    <url>/2020/04/26/markdown/</url>
+    <content><![CDATA[<h1 id="MarkDown"><a href="#MarkDown" class="headerlink" title="MarkDown"></a>MarkDown</h1><ol>
+<li><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a></li>
+<li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></li>
+<li><a href="https://help.github.com/en/articles/basic-writing-and-formatting-syntax#styling-text">Basic writing and formatting syntax</a></li>
+<li><a href="https://asciidoctor.org/docs/asciidoc-vs-markdown/">asciidoc-vs-markdown</a></li>
+<li><a href="https://www.markdownguide.org/extended-syntax/">extended-syntax</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>documentation</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>식물들</title>
+    <url>/2020/04/26/plant/</url>
+    <content><![CDATA[<h1 id="죽이지말자"><a href="#죽이지말자" class="headerlink" title="죽이지말자"></a>죽이지말자</h1><blockquote>
+<p>😍 : 아주 좋아함, 😄 : 좋아함, 🤨 : 보통, 🥵 : 싫어함 , ☠ : 죽을것 같다<br>내건성 : (토양수분 건조에 견디는 힘) 5단계<br>①매우 약함 ②약함 ③보통 ④강함 ⑤매우 강함</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">식물</th>
+<th align="center">빛</th>
+<th align="center">바람</th>
+<th align="center">물</th>
+<th align="center">흙</th>
+<th align="center">온도</th>
+<th align="center">월동</th>
+<th align="left">번식</th>
+<th align="center">과</th>
+<th align="left">주의</th>
+<th align="center">내건성</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><em><a href="https://terms.naver.com/entry.nhn?docId=769587&cid=46694&categoryId=46694">로즈마리</a></em></td>
+<td align="center">😍</td>
+<td align="center">😍</td>
+<td align="center">🥵</td>
+<td align="center">사양토</td>
+<td align="center">20~25℃</td>
+<td align="center">10℃</td>
+<td align="left">5~7cm삽목. 늦봄 or 초여름. 차광</td>
+<td align="center">꿀풀과</td>
+<td align="left">과습</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><em><a href="https://terms.naver.com/entry.nhn?docId=4351297&cid=46685&categoryId=46685">율마</a></em></td>
+<td align="center">😍</td>
+<td align="center">😍</td>
+<td align="center">😍</td>
+<td align="center">사양토</td>
+<td align="center">16~20℃</td>
+<td align="center">10℃</td>
+<td align="left">5~7cm삽목. 늦봄 or 초여름. 차광</td>
+<td align="center">측백나무과</td>
+<td align="left">물부족</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><em><a href="https://terms.naver.com/entry.nhn?docId=4351217&cid=46694&categoryId=46694">뱅갈고무나무</a></em></td>
+<td align="center">😍</td>
+<td align="center">😍</td>
+<td align="center">😍</td>
+<td align="center">사양토</td>
+<td align="center">21~25℃</td>
+<td align="center">13℃</td>
+<td align="left">5~7cm삽목. 늦봄 or 초여름. 차광</td>
+<td align="center">뽕나무과</td>
+<td align="left">저온, 햇빛(강하면 타고 부족하면 잎이 떨어짐)</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><em><a href="https://terms.naver.com/entry.nhn?docId=4351088&cid=46695&categoryId=46695">황금죽</a></em></td>
+<td align="center">😍</td>
+<td align="center">😍</td>
+<td align="center">😍</td>
+<td align="center">사양토</td>
+<td align="center">16~20℃</td>
+<td align="center">13℃</td>
+<td align="left">5~7cm삽목. 늦봄 or 초여름. 차광</td>
+<td align="center">백합과</td>
+<td align="left"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><em><a href="https://terms.naver.com/entry.nhn?docId=4351127&cid=46695&categoryId=46695">테이블야자</a></em></td>
+<td align="center">😍</td>
+<td align="center">😍</td>
+<td align="center">🤨</td>
+<td align="center">사양토</td>
+<td align="center">21~25℃</td>
+<td align="center">13℃</td>
+<td align="left">5~7cm삽목. 늦봄 or 초여름. 차광</td>
+<td align="center">야자과</td>
+<td align="left"></td>
+<td align="center">4</td>
+</tr>
+</tbody></table>
+<ul>
+<li><a href="http://www.rda.go.kr/download_file/act/bookcafe014.PDF">실내정원물관리</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>plant</category>
+      </categories>
+      <tags>
+        <tag>plant</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>project management</title>
+    <url>/2020/04/26/project/</url>
+    <content><![CDATA[<h1 id="개발-전반"><a href="#개발-전반" class="headerlink" title="개발 전반"></a>개발 전반</h1><hr>
+<h2 id="cloud"><a href="#cloud" class="headerlink" title="cloud"></a>cloud</h2><ul>
+<li><p>Top 5 Alternatives to Heroku</p>
+<p>_<a href="https://blog.back4app.com/2018/03/13/heroku-alternatives/">https://blog.back4app.com/2018/03/13/heroku-alternatives/</a>_<br><img src="https://blog.back4app.com/wp-content/uploads/2018/03/henroku-alternatives.png" alt=""></p>
+</li>
+</ul>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1>]]></content>
+      <categories>
+        <category>pm</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>springRestService</title>
+    <url>/2020/04/26/springRestService/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="간단한-rest-api-service-만들기"><a href="#간단한-rest-api-service-만들기" class="headerlink" title="간단한 rest api service 만들기"></a>간단한 rest api service 만들기</h1><hr>
+<h2 id="Infra"><a href="#Infra" class="headerlink" title="Infra"></a>Infra</h2><ul>
+<li>nginx</li>
+<li>wildfly12</li>
+<li>mysql 8.0.17 Community Server GPL </li>
+</ul>
+<h2 id="software-stack"><a href="#software-stack" class="headerlink" title="software stack"></a>software stack</h2><ul>
+<li>openjdk 1.8</li>
+<li>spring boot 2.2.1<ul>
+<li>web</li>
+<li>mybatis</li>
+<li>mysql-connector</li>
+<li>lombok</li>
+<li>devtool</li>
+<li>restdocs</li>
+<li>actuator</li>
+</ul>
+</li>
+<li>mybatis</li>
+<li>ehcache</li>
+<li>log4j (logback 제거. jboss config 파일로 바로 사용하기 위해)</li>
+</ul>
+<h2 id="deployment"><a href="#deployment" class="headerlink" title="deployment"></a>deployment</h2><ul>
+<li>maven</li>
+<li>git</li>
+<li>jenkins</li>
+<li>docker</li>
+</ul>
+<h2 id="documentation"><a href="#documentation" class="headerlink" title="documentation"></a>documentation</h2><ul>
+<li>restdoc</li>
+</ul>
+<h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><ul>
+<li>junit</li>
+<li>swagger</li>
+<li>postman</li>
+<li>curl</li>
+</ul>
+<h2 id="security"><a href="#security" class="headerlink" title="security"></a>security</h2><ul>
+<li>spring security</li>
+</ul>
+<h2 id="개발순서"><a href="#개발순서" class="headerlink" title="개발순서"></a>개발순서</h2><ol>
+<li>jdk 설치</li>
+<li>sts 설치</li>
+<li>sts jboss 설치</li>
+<li>spring boot starter 프로젝트 생성</li>
+<li>properties 생성</li>
+<li>logging (container,req,res,sql,exception)</li>
+<li>mysql 설치 및 sakila sample db 설치</li>
+<li>mysql 연동</li>
+<li>interceptor</li>
+<li>controller</li>
+<li>exception</li>
+<li>restdoc</li>
+<li>caching</li>
+<li>scheduler</li>
+<li>unit test</li>
+<li>documentation</li>
+</ol>
+<h2 id="OpenJDK"><a href="#OpenJDK" class="headerlink" title="OpenJDK"></a>OpenJDK</h2><p>   _<a href="https://github.com/ojdkbuild/ojdkbuild">https://github.com/ojdkbuild/ojdkbuild</a>_</p>
+<h2 id="STS"><a href="#STS" class="headerlink" title="STS"></a>STS</h2><p>   _<a href="https://spring.io/tools">https://spring.io/tools</a>_</p>
+<h2 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h2><p>   _<a href="https://www.baeldung.com/properties-with-spring">https://www.baeldung.com/properties-with-spring</a>_</p>
+<p>   _<a href="https://www.baeldung.com/spring-yaml">https://www.baeldung.com/spring-yaml</a>_</p>
+<p>   <em><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html">Common Application properties</a></em></p>
+<h2 id="Mybatis"><a href="#Mybatis" class="headerlink" title="Mybatis"></a>Mybatis</h2><p>   <em><a href="https://github.com/aichoora/spring-boot-examples/tree/master/spring-boot-mybatis/spring-boot-mybatis-xml">Mybatis Sample</a></em></p>
+<p>   <em><a href="http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/">Mybatis Spring Boot</a></em></p>
+<p>   <em><a href="https://mybatis.org/generator/">Mybatis Generator</a></em></p>
+<h2 id="log4jdbc"><a href="#log4jdbc" class="headerlink" title="log4jdbc"></a>log4jdbc</h2><ul>
+<li>_<a href="https://log4jdbc.brunorozendo.com/">https://log4jdbc.brunorozendo.com/</a>_<ul>
+<li>pom<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">      <span class="comment">&lt;!-- log4jdbc --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.bgee.log4jdbc-log4j2<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4jdbc-log4j2-jdbc4.1<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">```      </span><br><span class="line">- resources\log4jdbc.log4j2.properties</span><br><span class="line">```properties</span><br><span class="line">log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator</span><br><span class="line">log4jdbc.dump.sql.maxlinelength=0</span><br></pre></td></tr></table></figure></li>
+<li>application.yml (datasource)<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">datasource:</span></span><br><span class="line"><span class="attr">driver-class-name :</span> <span class="string">net.sf.log4jdbc.sql.jdbcapi.DriverSpy</span></span><br><span class="line"><span class="attr">url :</span> <span class="string">jdbc:log4jdbc:mysql://localhost:3306/sakila?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=true</span></span><br></pre></td></tr></table></figure></li>
+<li>application.yml (logging)<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line">   <span class="attr">level:</span></span><br><span class="line">   <span class="comment"># mybatis sql log off</span></span><br><span class="line">   <span class="attr">com.zaxxer :</span> <span class="string">off</span></span><br><span class="line">   <span class="attr">com.xxx.api.mapper :</span> <span class="string">off</span></span><br><span class="line">   <span class="attr">org.mybatis :</span> <span class="string">off</span></span><br><span class="line">   <span class="attr">org.springframework.jdbc.datasource :</span> <span class="string">off</span></span><br><span class="line">   </span><br><span class="line">   <span class="comment"># log4jdbc</span></span><br><span class="line">   <span class="attr">jdbc :</span> <span class="string">off</span> </span><br><span class="line">   <span class="attr">jdbc.sqlonly :</span> <span class="string">off</span></span><br><span class="line">   <span class="attr">jdbc.sqltiming :</span> <span class="string">debug</span></span><br><span class="line">   <span class="attr">jdbc.audit :</span> <span class="string">off</span></span><br><span class="line">   <span class="attr">jdbc.resultset :</span> <span class="string">off</span></span><br><span class="line">   <span class="attr">jdbc.resultsettable :</span> <span class="string">debug</span></span><br><span class="line">   <span class="attr">jdbc.connection :</span> <span class="string">off</span></span><br></pre></td></tr></table></figure></li>
+<li>output<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">19-11-30 토 02:39:38.725 DEBUG 12012 --- [nio-8080-exec-1] sqltiming                                :  com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)</span><br><span class="line">11. SELECT</span><br><span class="line"></span><br><span class="line">      actor_id, first_name, last_name, last_update</span><br><span class="line"></span><br><span class="line">      FROM actor</span><br><span class="line">      WHERE actor_id &#x3D; 1</span><br><span class="line">&#123;executed in 1 msec&#125;</span><br><span class="line">19-11-30 토 02:39:38.726 INFO  12012 --- [nio-8080-exec-1] resultsettable                           : </span><br><span class="line">|---------|-----------|----------|----------------------|</span><br><span class="line">|actor_id |first_name |last_name |last_update           |</span><br><span class="line">|---------|-----------|----------|----------------------|</span><br><span class="line">|1        |PENELOPE   |GUINESS   |2006-02-15 13:34:33.0 |</span><br><span class="line">|---------|-----------|----------|----------------------|</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Error-Handling"><a href="#Error-Handling" class="headerlink" title="Error Handling"></a>Error Handling</h2><p>-<a href="https://www.baeldung.com/global-error-handler-in-a-spring-rest-api">https://www.baeldung.com/global-error-handler-in-a-spring-rest-api</a>_</p>
+<h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><h2 id="Interceptor"><a href="#Interceptor" class="headerlink" title="Interceptor"></a>Interceptor</h2><h2 id="Response-공통처리"><a href="#Response-공통처리" class="headerlink" title="Response 공통처리"></a>Response 공통처리</h2><p>   ResponseBodyAdvice</p>
+<h2 id="input-validation"><a href="#input-validation" class="headerlink" title="input validation"></a>input validation</h2><h2 id="testing"><a href="#testing" class="headerlink" title="testing"></a>testing</h2><ul>
+<li><p>swagger<br>_<a href="https://github.com/springfox/springfox/issues/1499">https://github.com/springfox/springfox/issues/1499</a>_</p>
+<p>ResponseBodyAdvice 적용된 controller 는 ui 에 나타나지 않음. </p>
+<p>=&gt; 해결 package controller 만지정. _<a href="https://github.com/springfox/springfox/issues/1499">https://github.com/springfox/springfox/issues/1499</a>_</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ControllerAdvice</span>(basePackages = <span class="string">"com.yourpacackge.requesthandler"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ul>
+<h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><p>   _<a href="https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html">https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html</a>_</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>spring</title>
+    <url>/2020/04/26/spring/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><hr>
+<h2 id="Spring-MVC-request-life-cycle"><a href="#Spring-MVC-request-life-cycle" class="headerlink" title="Spring MVC request life cycle"></a>Spring MVC request life cycle</h2><p><img src="https://justforchangesake.files.wordpress.com/2014/05/spring-request-lifecycle.jpg" alt=""></p>
+<hr>
+<h2 id="Static-Resources"><a href="#Static-Resources" class="headerlink" title="Static Resources"></a>Static Resources</h2><h3 id="docs-index-html-로-접근하려면"><a href="#docs-index-html-로-접근하려면" class="headerlink" title="/docs/index.html 로 접근하려면.."></a><code>/docs/index.html</code> 로 접근하려면..</h3><ul>
+<li><p>_<a href="https://docs.spring.io/spring/docs/5.2.1.RELEASE/spring-framework-reference/web.html#mvc-config-static-resources">https://docs.spring.io/spring/docs/5.2.1.RELEASE/spring-framework-reference/web.html#mvc-config-static-resources</a>_</p>
+</li>
+<li><p>_<a href="https://www.baeldung.com/spring-mvc-static-resources">https://www.baeldung.com/spring-mvc-static-resources</a>_</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">src&#x2F;main&#x2F;resources</span><br><span class="line">            └─static</span><br><span class="line">               └─docs</span><br><span class="line">                  └─ index.html</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+   <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">  <span class="meta">@Configuration</span></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestDocConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// classpath</span></span><br><span class="line">	registry.addResourceHandler(<span class="string">"/docs/**"</span>).addResourceLocations(<span class="string">"classpath:/static/docs/"</span>).setCachePeriod(<span class="number">3600</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// web root (WEB-INF parent directory) ex) WebContent/public/index.html</span></span><br><span class="line">     <span class="comment">// jar 배포시에는 사용하지말것.</span></span><br><span class="line">	registry.addResourceHandler(<span class="string">"/docs/**"</span>).addResourceLocations(<span class="string">"/public"</span>).setCachePeriod(<span class="number">3600</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// file full path</span></span><br><span class="line">	registry.addResourceHandler(<span class="string">"/docs/**"</span>).addResourceLocations(<span class="string">"file:src/main/resources/static/docs/"</span>).setCachePeriod(<span class="number">3600</span>);</span><br><span class="line">&#125;</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+<p>   default mapping<br>   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ResourceHttpRequestHandler [&quot;classpath:&#x2F;META-INF&#x2F;resources&#x2F;&quot;, &quot;classpath:&#x2F;resources&#x2F;&quot;, &quot;classpath:&#x2F;static&#x2F;&quot;, &quot;classpath:&#x2F;public&#x2F;&quot;, &quot;&#x2F;&quot;]</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Error-Handle"><a href="#Error-Handle" class="headerlink" title="Error Handle"></a>Error Handle</h2><p>_<a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-exceptionhandlers">https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-exceptionhandlers</a>_</p>
+<ul>
+<li><p>ResponseEntityExceptionHandler 에서 global exception 처리</p>
+<p> @ControllerAdvice 를 사용하여  ResponseEntityExceptionHandler 상속받아 별도의 exception handling 을 하려는 경우  @ExceptionHandler(Exception.class) 로 global exception 으로 사용하려 해도 ResponseEntityExceptionHandler 내의 @ExceptionHandler 가 정의 되어있으면 그것을 사용하게 되어 global exception 으로 일원화 하여 response 를 관리 할 수 없게 된다. </p>
+<p> 이미 제공된 핸들러는 아래와 같으므로, 제공된 핸들러를 사용하지 않을 경우  ResponseEntityExceptionHandler 를 상속하지 않는다.</p>
+ <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Provides handling for standard Spring MVC exceptions.</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> ex the target exception</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> request the current request</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@ExceptionHandler</span>(&#123;</span><br><span class="line">      HttpRequestMethodNotSupportedException<span class="class">.<span class="keyword">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">HttpMediaTypeNotSupportedException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">HttpMediaTypeNotAcceptableException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">MissingPathVariableException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">MissingServletRequestParameterException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">ServletRequestBindingException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">ConversionNotSupportedException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">TypeMismatchException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">HttpMessageNotReadableException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">HttpMessageNotWritableException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">MethodArgumentNotValidException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">MissingServletRequestPartException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">BindException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">NoHandlerFoundException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">AsyncRequestTimeoutException</span>.<span class="title">class</span></span></span><br><span class="line"><span class="class">   &#125;)</span></span><br></pre></td></tr></table></figure>
+<p> ExceptionHandlerExceptionResolver &gt; ResponseStatusExceptionResolver &gt; DefaultHandlerExceptionResolver &gt; SimpleMappingExceptionResolver 순으로 처리한다. SimpleMappingExceptionResolver 은 기본빈으로 등록되어 있지 않음.</p>
+<p> afterCompletion(HttpServletRequest, HttpServletResponse, Object, Exception) 를 사용하여 Exception 을 처리 할 수 있음<br> HandlerExceptionResolver 와 같이 사용 했을 때 유의 할 점은 이미 처리 된 Exception 에 대해서는 Interceptor 하지 않는점이다.</p>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>openssh</title>
+    <url>/2020/04/26/openssh/</url>
+    <content><![CDATA[<p>==== openssh</p>
+<hr>
+<p><a href="https://hahaite.tistory.com/307">https://hahaite.tistory.com/307</a></p>
+<p><a href="https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_keymanagement">https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_keymanagement</a></p>
+<hr>
+]]></content>
+  </entry>
+  <entry>
+    <title>springboot_errorhandling</title>
+    <url>/2020/04/26/springboot_errorhandling/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h1><ul>
+<li>_<a href="https://www.baeldung.com/spring-boot-ehcache">https://www.baeldung.com/spring-boot-ehcache</a>_</li>
+</ul>
+<ol>
+<li><h4 id="순서"><a href="#순서" class="headerlink" title="순서"></a>순서</h4><p> 설명1<br> 설명2</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>코드<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <br/>
+
+
+
+
+
+
+
+
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>Spring Boot &amp; Liquibase</title>
+    <url>/2020/04/26/springboot_liquidbase/</url>
+    <content><![CDATA[<h1 id="Spring-Boot-amp-Liquibase"><a href="#Spring-Boot-amp-Liquibase" class="headerlink" title="Spring Boot &amp; Liquibase"></a>Spring Boot &amp; Liquibase</h1><p>was 구동 또는 메이븐 실행(mvn liquibase:update) 시점에 sql이 실행된다.<br>_<a href="https://javadeveloperzone.com/spring-boot/spring-boot-liquibase-example">https://javadeveloperzone.com/spring-boot/spring-boot-liquibase-example</a>_</p>
+<ol>
+<li><h4 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h4> <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">  	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.h2database<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>h2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.liquibase<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>liquibase-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h4> <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">logging:</span></span><br><span class="line">    <span class="attr">level:</span></span><br><span class="line">        <span class="attr">liquibase:</span> <span class="string">debug</span></span><br><span class="line">        </span><br><span class="line">    <span class="attr">spring:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">driver-class-name:</span> <span class="string">org.h2.Driver</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">sa</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:h2:mem:test;</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">sa</span></span><br><span class="line">        </span><br><span class="line">    <span class="attr">h2:</span></span><br><span class="line">        <span class="attr">console:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">        </span><br><span class="line">    <span class="attr">liquibase:</span></span><br><span class="line">        <span class="attr">change-log:</span> <span class="string">classpath:liquibase.xml</span></span><br><span class="line">        <span class="attr">drop-first:</span> <span class="literal">false</span> <span class="comment"># default</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span> <span class="comment"># default</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="liquibase-script"><a href="#liquibase-script" class="headerlink" title="liquibase script"></a>liquibase script</h4><ul>
+<li><p>위치<br><img src="https://aichoora.github.io/images/springboot_liquibase/1.png" alt=""> </p>
+</li>
+<li><p><code>liquibase.xml</code></p>
+  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">databaseChangeLog</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:ext</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog-ext"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">file</span>=<span class="string">"/db/user_create.xml"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">file</span>=<span class="string">"/db/user_insert.xml"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">include</span> <span class="attr">file</span>=<span class="string">"/db/user_update.xml"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">databaseChangeLog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>user_create.xml</code></p>
+  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">databaseChangeLog</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:ext</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog-ext"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">changeSet</span> <span class="attr">author</span>=<span class="string">"admin"</span> <span class="attr">id</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">createTable</span> <span class="attr">tableName</span>=<span class="string">"person"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">autoIncrement</span>=<span class="string">"true"</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">type</span>=<span class="string">"INT"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">constraints</span> <span class="attr">primaryKey</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">column</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">type</span>=<span class="string">"VARCHAR(255)"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">constraints</span> <span class="attr">nullable</span>=<span class="string">"false"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">column</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"address"</span> <span class="attr">type</span>=<span class="string">"VARCHAR(255)"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">createTable</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rollback</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dropTable</span> <span class="attr">tableName</span>=<span class="string">"person"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollback</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">changeSet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">databaseChangeLog</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>user_insert.xml</code>  </p>
+  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">databaseChangeLog</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:ext</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog-ext"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">changeSet</span> <span class="attr">author</span>=<span class="string">"admin"</span> <span class="attr">id</span>=<span class="string">"2"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">insert</span> <span class="attr">tableName</span>=<span class="string">"person"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">valueNumeric</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"Tom"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"address"</span> <span class="attr">value</span>=<span class="string">"USA"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">changeSet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">databaseChangeLog</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>user_update.xml</code>  </p>
+  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">databaseChangeLog</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:ext</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog-ext"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">changeSet</span> <span class="attr">author</span>=<span class="string">"admin"</span> <span class="attr">id</span>=<span class="string">"3"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">preConditions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dbms</span> <span class="attr">type</span>=<span class="string">"h2"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">preConditions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">update</span> <span class="attr">tableName</span>=<span class="string">"person"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">column</span> <span class="attr">name</span>=<span class="string">"address"</span> <span class="attr">value</span>=<span class="string">"India"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">where</span>&gt;</span>name = 'Tom'<span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">changeSet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">databaseChangeLog</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h4 id="서버-구동후-결과"><a href="#서버-구동후-결과" class="headerlink" title="서버 구동후 결과"></a>서버 구동후 결과</h4><p> <a href="http://localhost:8080/h2-console">http://localhost:8080/h2-console</a></p>
+<p> <img src="https://aichoora.github.io/images/springboot_liquibase/2.png" alt=""> </p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>transaction</title>
+    <url>/2020/04/26/transactional/</url>
+    <content><![CDATA[<h1 id="Transactional"><a href="#Transactional" class="headerlink" title="Transactional"></a>Transactional</h1><hr>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p>   _<a href="https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html">https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html</a>_</p>
+]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>MarkDown Template</title>
+    <url>/2020/04/26/template/</url>
+    <content><![CDATA[<h2 id="SubTitle"><a href="#SubTitle" class="headerlink" title="SubTitle"></a>SubTitle</h2><ul>
+<li><a href="#subtitle">SubTitle</a></li>
+<li><a href="#List">List</a></li>
+<li><a href="#Paragraph">Paragraph</a></li>
+<li><a href="#Table">Table</a></li>
+<li><a href="#Links">Links</a></li>
+<li><a href="#Code">Code</a></li>
+<li><a href="#Image">Image</a></li>
+<li><a href="#emphasys">emphasys</a></li>
+<li><a href="#Blockquotes">Blockquotes</a></li>
+<li><a href="#Inline_code">Inline code</a></li>
+<li><a href="#Task_lists">Task lists</a></li>
+</ul>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ul>
+<li>unordered list<ul>
+<li>unordered list</li>
+<li>unordered list</li>
+</ul>
+</li>
+<li>unordered list</li>
+<li>unordered list</li>
+</ul>
+<ol>
+<li>ordered list<ol>
+<li>ordered list</li>
+<li>ordered list</li>
+</ol>
+</li>
+<li>ordered list</li>
+<li>ordered list</li>
+</ol>
+<h2 id="Paragraph"><a href="#Paragraph" class="headerlink" title="Paragraph"></a>Paragraph</h2><ul>
+<li><p>title1</p>
+<p> ⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we’ll use three here to also align the raw Markdown).</p>
+</li>
+</ul>
+<h2 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h2><table>
+<thead>
+<tr>
+<th>table</th>
+<th align="center">center align</th>
+<th align="right">description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name1</td>
+<td align="center">center</td>
+<td align="right">right</td>
+</tr>
+<tr>
+<td>name2</td>
+<td align="center">center</td>
+<td align="right">right</td>
+</tr>
+</tbody></table>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><p><em><a href="https://docs.wildfly.org/12/Admin_Guide.html#Logging">Admin_Guide logging</a></em></p>
+<p>_<a href="https://docs.wildfly.org/12/Admin_Guide.html#Logging">https://docs.wildfly.org/12/Admin_Guide.html#Logging</a>_</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2>  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gem install asciidoctor</span><br></pre></td></tr></table></figure>
+
+
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">   System.out.println(<span class="string">"test!!!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h2><blockquote>
+<p><img src="https://aichoora.github.io/images/aws/cloud9.png" alt="cloud9">    </p>
+</blockquote>
+<h2 id="emphasys"><a href="#emphasys" class="headerlink" title="emphasys"></a>emphasys</h2><p><em>You <strong>can</strong> <del>combine</del> them</em></p>
+<h2 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h2><blockquote>
+<p><code>win + ctrl + D</code> : <em>create virtual desktop</em></p>
+</blockquote>
+<h2 id="Inline-code"><a href="#Inline-code" class="headerlink" title="Inline code"></a>Inline code</h2><p><code>&lt;addr&gt;</code> element here instead.</p>
+<h2 id="Horizontal-Rule"><a href="#Horizontal-Rule" class="headerlink" title="Horizontal Rule"></a>Horizontal Rule</h2><hr>
+<h2 id="Task-lists"><a href="#Task-lists" class="headerlink" title="Task lists"></a>Task lists</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> Finish my changes</li>
+<li><input disabled="" type="checkbox"> Push my commits to GitHub</li>
+<li><input disabled="" type="checkbox"> Open a pull request</li>
+</ul>
+]]></content>
+      <categories>
+        <category>blog</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>미국주식 주문하기(영웅문)</title>
+    <url>/2020/04/26/stock/</url>
+    <content><![CDATA[<h3 id="계좌개설"><a href="#계좌개설" class="headerlink" title="계좌개설"></a>계좌개설</h3><ul>
+<li>키움증권계좌개설 앱에서 계좌신청. 신청후 바로 문자로 계좌번호가 발급되지만 본인확인은 안된상태.</li>
+<li>하루정도에 본인확인후에 매매가능.</li>
+</ul>
+<h3 id="이벤트"><a href="#이벤트" class="headerlink" title="이벤트"></a>이벤트</h3><ul>
+<li>미국주식 40달러 이벤트. 이벤트 신청하면 계정당(계좌당x) 40달러 받을수 있음. 영웅문글로벌에서 메뉴&gt;홈&gt;맨아래 이벤트 배너에서 40달러 이벤트 신청.</li>
+<li>환전 수수료 이벤트. 영웅문글로벌에서 메뉴&gt;홈&gt;맨아래 이벤트 배너에서 해외주식수수료 0.1% + 환율우대 95% 이벤트 신청</li>
+<li><h3 id="입금"><a href="#입금" class="headerlink" title="입금"></a>입금</h3><ul>
+<li>입금시 비대면 계좌의 경우 연계은행 조회가 불가함. 아래 방법으로 입금가능.</li>
+</ul>
+</li>
+<li>기존 키움계좌에서 글로벌 계좌로 입금.</li>
+<li>8 자리 증권계좌로 은행 인터넷 뱅킹으로 바로 송금.</li>
+</ul>
+<h3 id="매매"><a href="#매매" class="headerlink" title="매매"></a>매매</h3><ul>
+<li>입금후 바로 원화로 매매를 하려하면 증거금이 부족하다고 나옴. 아래 방법으로 매매가능.<ul>
+<li>달러로 환전후 매매.</li>
+<li>원화로 매매하려면, 원화주문 서비스 신청필요. 영웅문글로벌에서 메뉴&gt;원화주문&gt;신청/해지 에서 신청</li>
+<li><blockquote>
+<p><em>오후 10:30분에 미국장이 열리므로 그전에는 예약주문으로됨. 오후 7:30 분부터는 바로 예약 주문이 가능하므로 원화로 주문하여도 환율차이 없이 바로 주문 가능하지만, 그전에 주문 할 경우 환율변동으로 인해 실제 주문가격과 다를 수 있음.</em></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="환전-가능한-시간"><a href="#환전-가능한-시간" class="headerlink" title="환전 가능한 시간"></a>환전 가능한 시간</h3><ul>
+<li>영업일 : 00:10<del>16:50 , 17:00</del>23:50</li>
+<li>토/일/공휴일 : 00:10~23:50 </li>
+</ul>
+<h3 id="개장-폐장-시간"><a href="#개장-폐장-시간" class="headerlink" title="개장 폐장 시간"></a>개장 폐장 시간</h3><ul>
+<li>뉴욕시간으로<ul>
+<li>오전 9 : 30 개장 - 오후 4 : 00 폐장 입니다 (후장 10분간 동시호가)</li>
+</ul>
+</li>
+<li>한국시간으로는<ul>
+<li>4월~10월 : 밤 10 : 30 개장 - 다음날 새벽 5 : 00 폐장 (미국의 써머타임 적용기)</li>
+<li>11월~3월 : 밤 11 : 30 개장 - 다음날 새벽 6 : 00 폐장</li>
+</ul>
+</li>
+</ul>
+<h3 id="용어"><a href="#용어" class="headerlink" title="용어"></a>용어</h3><ul>
+<li>가환율 :  17:00 이후에 환전할 시 적용되는 환율.  영업일인 17:00 직적환율에서 +- 5%정도를 적용한 환율. 추가된 환율의 차액분은 16:35에 일괄 입출금.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>stock</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>vs code</title>
+    <url>/2020/04/26/vscode/</url>
+    <content><![CDATA[<h1 id="Visual-Studio-Cdoe"><a href="#Visual-Studio-Cdoe" class="headerlink" title="Visual Studio Cdoe"></a>Visual Studio Cdoe</h1><p><em><a href="https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf">keyboard-shortcuts-windows</a></em><br><em><img src="https://www.devacron.com/wp-content/uploads/2017/10/Visual_Studio_Code_Keyboard_Shortcuts_Windows.png" alt="keyboard-shortcuts-windows"></em></p>
+<p><a href="#Shortcut">Shortcut</a><br><a href="#Extension">Extension</a></p>
+<h2 id="Common-Shortcut"><a href="#Common-Shortcut" class="headerlink" title="Common Shortcut"></a>Common Shortcut</h2><ul>
+<li>quick command (@qc) : ctrl + 3 , ctrl + shift + p</li>
+<li>go to symbol : ctrl + o</li>
+<li>open file :ctrl + p</li>
+<li>open shortcut setting : @qc &amp; type “open shortcut”</li>
+<li>open default settings : @qc &amp; type “open default settings”</li>
+<li>open settings ui : @qc &amp; type “open settings ui”</li>
+<li>view : ctrl + shift + E(explore)</li>
+<li>view : ctrl + shift + F(find), ctrl + h</li>
+<li>view : ctrl + shift + g(scm)</li>
+<li>view : ctrl + shift + d(debug)</li>
+<li>view : ctrl + shift + x(extension)</li>
+</ul>
+<h2 id="Common-Extension"><a href="#Common-Extension" class="headerlink" title="Common Extension"></a>Common Extension</h2><ul>
+<li>colonize : auto semicolon</li>
+<li>Comma Enter (alt + enter 로 변경)</li>
+<li>eclipse keymap</li>
+<li>npm intellisense</li>
+<li>vetur</li>
+<li>Vue2 Snippets</li>
+<li>open browser</li>
+</ul>
+<h2 id="vscode-에서-마크다운-작성을-편하게"><a href="#vscode-에서-마크다운-작성을-편하게" class="headerlink" title="vscode 에서 마크다운 작성을 편하게"></a>vscode 에서 마크다운 작성을 편하게</h2><ul>
+<li>extension<ul>
+<li>Markdzhang.markdown-all-in-one<ul>
+<li>ctrl + b : bold</li>
+<li>ctrl + i : italic</li>
+<li>ctrl + ] : add #</li>
+<li>ctrl + [ : remove #</li>
+<li>ctrl + shfit + F : formatter</li>
+<li>(selection) + ctrl + v : make link</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="git-bash-로-터미널-설정"><a href="#git-bash-로-터미널-설정" class="headerlink" title="git bash 로 터미널 설정"></a>git bash 로 터미널 설정</h2><ol>
+<li>git bash 설치</li>
+<li>bash profile 변경 (<a href="https://medium.com/@violetboralee/windows-%EC%82%AC%EC%9A%A9%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-git-bash-%EC%84%A4%EC%A0%95-ac50acb34c46">링크</a>)</li>
+<li>open settings : ctrl + , </li>
+<li><code>terminal.integrated.shell.windows</code> search</li>
+<li>Edit in settings.json  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"terminal.integrated.shell.windows"</span>: <span class="string">"C:\\Program Files\\Git\\bin\\bash.exe"</span>,</span><br><span class="line">    <span class="string">"git.autofetch"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"git.enableSmartCommit"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"git.confirmSync"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"window.zoomLevel"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">"diffEditor.ignoreTrimWhitespace"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.shellArgs.windows"</span>: [</span><br><span class="line">        <span class="string">"--login"</span>,</span><br><span class="line">        <span class="string">"-i"</span></span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>ide</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>window</title>
+    <url>/2020/04/26/window/</url>
+    <content><![CDATA[<h4 id="lonovo"><a href="#lonovo" class="headerlink" title="lonovo"></a>lonovo</h4><blockquote>
+<p><code>fn + shift + esc or ctrl + shift + esc</code> : <em>hotkey lock</em></p>
+</blockquote>
+<h4 id="window-10"><a href="#window-10" class="headerlink" title="window 10"></a>window 10</h4><blockquote>
+<p><code>win + ctrl + D</code> : <em>create virtual desktop</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + ctrl + f4</code> : <em>delete virtual desktop</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + ctrl + arrow</code> : <em>move virtual desktop</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + s</code> : <em>search</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + x</code> : <em>admin menu</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + k</code> : <em>search wireless device</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + i</code> : <em>open control panel</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + Shift + S</code> : <em>선택한 영역만 캡처</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + PrtScn</code> : <em>화면 전체 캡처 + 자동 저장</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + s + snip</code> : <em>캡쳐도구</em></p>
+</blockquote>
+<h4 id="window-10-설치"><a href="#window-10-설치" class="headerlink" title="window 10 설치"></a>window 10 설치</h4><ul>
+<li>rufus-3.9p.exe 로 win 10 remiz 부팅/설치 디스크 생성. MBR 로..<br> <em>(오피스 한글 따로 설치하기 귀찮아서.. 2016 통합버전을 그대로 쓰려한다)</em></li>
+<li>설치시 파티션 GTP 로 안맞을경우 파티션 삭제후 재생성후 설치</li>
+<li>올드 버전이라 기본 드라이버 안잡아주므로 무선드라이버도 설치안됨.. 다행히 이더넷 드라이버는 잡아주네. 랜선으로 연결.</li>
+<li>윈도우 업데이트 실패시, 에러코드로 검색하여 최신 업데이트 installer 를 설치후 업데이트<ul>
+<li>(<a href="https://www.microsoft.com/ko-kr/software-download/windows10">https://www.microsoft.com/ko-kr/software-download/windows10</a> 윈도우업데이트 설치후 다시시도)</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>os</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>vue</title>
+    <url>/2020/04/26/vue/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><hr>
+]]></content>
+  </entry>
+  <entry>
+    <title>Spring Security Oauth2 </title>
+    <url>/2020/04/26/springsecurity_oauth2/</url>
+    <content><![CDATA[<h1 id="Spring-Security-Oauth2"><a href="#Spring-Security-Oauth2" class="headerlink" title="Spring Security Oauth2"></a>Spring Security Oauth2</h1><ol>
+<li><h4 id="Oauth2-란"><a href="#Oauth2-란" class="headerlink" title="Oauth2 란?"></a>Oauth2 란?</h4></li>
+</ol>
+<pre><code>slide _&lt;https://speakerdeck.com/aaronpk/securing-your-apis-with-oauth-2-dot-0?slide=16&gt;_
+&lt;!-- ![](https://aichoora.github.io/images/springsecurity_oauth2/1.png)
+![](https://aichoora.github.io/images/springsecurity_oauth2/2.png)
+![](https://aichoora.github.io/images/springsecurity_oauth2/3.png) --&gt;
+![](https://aichoora.github.io/images/springsecurity_oauth2/4.png)
+
+[![Video Label](https://img.youtube.com/vi/PfvSD6MmEmQ/0.jpg)](https://www.youtube.com/watch?v=PfvSD6MmEmQ)
+
+_&lt;https://www.oauth.com/playground/&gt;_  
+_&lt;https://www.oauth.com/oauth2-servers/access-tokens/&gt;_</code></pre><ol start="2">
+<li><h4 id="spring-oauth2-blog"><a href="#spring-oauth2-blog" class="headerlink" title="spring oauth2 blog"></a>spring oauth2 blog</h4><p> _<a href="https://coding-start.tistory.com/158">https://coding-start.tistory.com/158</a>_</p>
+</li>
+<li><h4 id="OAuth-2-Developers-Guide"><a href="#OAuth-2-Developers-Guide" class="headerlink" title="OAuth 2 Developers Guide"></a>OAuth 2 Developers Guide</h4><p> _<a href="https://projects.spring.io/spring-security-oauth/docs/oauth2.html">https://projects.spring.io/spring-security-oauth/docs/oauth2.html</a>_ </p>
+</li>
+<li><h4 id="spring-security-Ref"><a href="#spring-security-Ref" class="headerlink" title="spring security Ref"></a>spring security Ref</h4><p> _<a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/">https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/</a>_</p>
+</li>
+<li><h4 id="Baeldung-Spring-REST-API-OAuth2-Angular"><a href="#Baeldung-Spring-REST-API-OAuth2-Angular" class="headerlink" title="Baeldung : Spring REST API + OAuth2 + Angular"></a>Baeldung : Spring REST API + OAuth2 + Angular</h4><p> _<a href="https://www.baeldung.com/rest-api-spring-oauth2-angular">https://www.baeldung.com/rest-api-spring-oauth2-angular</a>_</p>
+</li>
+<li><h4 id="Understanding-OAuth2"><a href="#Understanding-OAuth2" class="headerlink" title="Understanding OAuth2"></a>Understanding OAuth2</h4><p> _<a href="http://www.bubblecode.net/en/2016/01/22/understanding-oauth2/">http://www.bubblecode.net/en/2016/01/22/understanding-oauth2/</a>_</p>
+</li>
+</ol>
+<h1 id="sample-client-credential"><a href="#sample-client-credential" class="headerlink" title="sample (client_credential)"></a>sample (client_credential)</h1><p>_<a href="https://docs.spring.io/spring-security-oauth2-boot/docs/current/reference/htmlsingle/">https://docs.spring.io/spring-security-oauth2-boot/docs/current/reference/htmlsingle/</a>_</p>
+<ol>
+<li><em>pom 설정</em></li>
+<li><em>@EnableAuthorizationServer 추가</em></li>
+<li><em>client ID and secret pair</em></li>
+<li><em>test</em></li>
+</ol>
+<hr>
+<ol>
+<li><h4 id="pom"><a href="#pom" class="headerlink" title="pom"></a>pom</h4><p> oauth2-autoconfiguration : 왠만한 자동설정  </p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security.oauth.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-oauth2-autoconfigure<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="EnableAuthorizationServer"><a href="#EnableAuthorizationServer" class="headerlink" title="@EnableAuthorizationServer"></a>@EnableAuthorizationServer</h4><p> main 에 @EnableAuthorizationServer 추가</p>
+ <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(Application<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="client-id-secret"><a href="#client-id-secret" class="headerlink" title="client id , secret"></a>client id , secret</h4><p> 지정 안하면 기동 콘솔에 임의로 만들어준다. </p>
+ <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">security:</span></span><br><span class="line"><span class="attr">oauth2:</span></span><br><span class="line">    <span class="attr">client:</span></span><br><span class="line">    <span class="attr">client-id:</span> <span class="string">first-client</span></span><br><span class="line">    <span class="attr">client-secret:</span> <span class="string">noonewilleverguess</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="test"><a href="#test" class="headerlink" title="test"></a>test</h4><p> curl client1:password@localhost:8080/oauth/token -dgrant_type=client_credentials -dscope=any</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[C:\~]$ curl client1:password@localhost:8080/oauth/token -dgrant_type=client_credentials -dscope=any</span><br><span class="line"><span class="meta">%</span><span class="bash"> Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span></span><br><span class="line">                                Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100   148    0   109  100    39    109     39  0:00:01 --:--:--  0:00:01   394</span><br><span class="line">&#123;"access_token":"98b33f98-a478-41bd-b291-acabab5544a0","token_type":"bearer","expires_in":2999,"scope":"any"&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="sample-client-credential-db"><a href="#sample-client-credential-db" class="headerlink" title="sample (client_credential) + db"></a>sample (client_credential) + db</h1><ol>
+<li><em>pom 설정</em></li>
+<li><em>db config 설정</em></li>
+<li><em>sql</em></li>
+<li><em>DataSourceInitializer</em></li>
+<li><em>AuthorizationServer 설정</em></li>
+<li><em>test</em></li>
+</ol>
+<hr>
+<ol>
+<li><h4 id="pom-1"><a href="#pom-1" class="headerlink" title="pom"></a>pom</h4><p> h2 , jdbc 의존성을 추가한다.</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.h2database<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>h2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><h4 id="db-config-설정"><a href="#db-config-설정" class="headerlink" title="db config 설정"></a>db config 설정</h4><p> sa/sa 계정으로 연결설정하고 console enable 한다.</p>
+ <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">        <span class="attr">driver-class-name:</span> <span class="string">org.h2.Driver</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">sa</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:h2:mem:test;</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">sa</span></span><br><span class="line">            </span><br><span class="line">    <span class="attr">h2:</span></span><br><span class="line">        <span class="attr">console:</span></span><br><span class="line">            <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="sql"><a href="#sql" class="headerlink" title="sql"></a>sql</h4><p> _<a href="https://www.baeldung.com/rest-api-spring-oauth2-angular">https://www.baeldung.com/rest-api-spring-oauth2-angular</a>_<br> client_credentials, authorization_code type 으로 2개 client 생성<br> bcrypt password 로 secret 생성(<code>PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(&quot;password&quot;)</code>)</p>
+ <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> oauth_client_details;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> oauth_client_details (</span><br><span class="line">client_id <span class="built_in">VARCHAR</span>(<span class="number">255</span>) PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">resource_ids <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">client_secret <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line"><span class="keyword">scope</span> <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">authorized_grant_types <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">web_server_redirect_uri <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">authorities <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">access_token_validity <span class="built_in">INTEGER</span>,</span><br><span class="line">refresh_token_validity <span class="built_in">INTEGER</span>,</span><br><span class="line">additional_information <span class="built_in">VARCHAR</span>(<span class="number">4096</span>),</span><br><span class="line">autoapprove <span class="built_in">VARCHAR</span>(<span class="number">255</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- client_credentials</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> oauth_client_details</span><br><span class="line">    (client_id, resource_ids, client_secret, <span class="keyword">scope</span>, authorized_grant_types,</span><br><span class="line">    web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity,</span><br><span class="line">    additional_information, autoapprove)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">    (<span class="string">'client1'</span>, <span class="literal">null</span>, <span class="string">'&#123;bcrypt&#125;$2a$10$icO7AZq0uSKNNAlcnejKWeKJFSjdPC8xMrLAOFTRZ0pBxy/4PiCK2'</span>,</span><br><span class="line">    <span class="string">'any'</span>, <span class="string">'client_credentials'</span>,</span><br><span class="line">    <span class="literal">null</span>,</span><br><span class="line">    <span class="literal">null</span>, <span class="number">3000</span>, <span class="number">-1</span>, <span class="literal">null</span>, <span class="string">'false'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- authorization_code  </span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> oauth_client_details</span><br><span class="line">    (client_id, resource_ids, client_secret, <span class="keyword">scope</span>, authorized_grant_types,</span><br><span class="line">    web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity,</span><br><span class="line">    additional_information, autoapprove)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">    (<span class="string">'client2'</span>, <span class="literal">null</span>, <span class="string">'&#123;bcrypt&#125;$2a$10$icO7AZq0uSKNNAlcnejKWeKJFSjdPC8xMrLAOFTRZ0pBxy/4PiCK2'</span>,</span><br><span class="line">    <span class="string">'read_profile,read_posts'</span>, <span class="string">'authorization_code,refresh_token'</span>,</span><br><span class="line">    <span class="string">'http://localhost:9000/callback'</span>,</span><br><span class="line">    <span class="literal">null</span>, <span class="number">3000</span>, <span class="number">-1</span>, <span class="literal">null</span>, <span class="string">'false'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> oauth_client_token;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> oauth_client_token (</span><br><span class="line">token_id <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">token <span class="built_in">VARCHAR</span>(<span class="number">256</span>),</span><br><span class="line">authentication_id <span class="built_in">VARCHAR</span>(<span class="number">255</span>) PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">user_name <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">client_id <span class="built_in">VARCHAR</span>(<span class="number">255</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> oauth_access_token;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> oauth_access_token (</span><br><span class="line">token_id <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">token <span class="built_in">VARCHAR</span>(<span class="number">256</span>),</span><br><span class="line">authentication_id <span class="built_in">VARCHAR</span>(<span class="number">255</span>) PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">user_name <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">client_id <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line"><span class="keyword">authentication</span> <span class="built_in">VARCHAR</span>(<span class="number">256</span>),</span><br><span class="line">refresh_token <span class="built_in">VARCHAR</span>(<span class="number">255</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> oauth_refresh_token;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> oauth_refresh_token (</span><br><span class="line">token_id <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">token <span class="built_in">VARCHAR</span>(<span class="number">256</span>),</span><br><span class="line"><span class="keyword">authentication</span> <span class="built_in">VARCHAR</span>(<span class="number">256</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> oauth_code;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> oauth_code (</span><br><span class="line">code <span class="built_in">VARCHAR</span>(<span class="number">255</span>), <span class="keyword">authentication</span> <span class="built_in">VARCHAR</span>(<span class="number">256</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> oauth_approvals;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> oauth_approvals (</span><br><span class="line">    userId <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">    clientId <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">    <span class="keyword">scope</span> <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">    <span class="keyword">status</span> <span class="built_in">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">    expiresAt <span class="built_in">TIMESTAMP</span>,</span><br><span class="line">    lastModifiedAt <span class="built_in">TIMESTAMP</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> ClientDetails;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> ClientDetails (</span><br><span class="line">appId <span class="built_in">VARCHAR</span>(<span class="number">255</span>) PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">resourceIds <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">appSecret <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line"><span class="keyword">scope</span> <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">grantTypes <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">redirectUrl <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">authorities <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">access_token_validity <span class="built_in">INTEGER</span>,</span><br><span class="line">refresh_token_validity <span class="built_in">INTEGER</span>,</span><br><span class="line">additionalInformation <span class="built_in">VARCHAR</span>(<span class="number">4096</span>),</span><br><span class="line">autoApproveScopes <span class="built_in">VARCHAR</span>(<span class="number">255</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="DataSourceInitializer-데이터-로드"><a href="#DataSourceInitializer-데이터-로드" class="headerlink" title="DataSourceInitializer 데이터 로드"></a>DataSourceInitializer 데이터 로드</h4> <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatasourceInitializer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"classpath:db/oauth2.sql"</span>)</span><br><span class="line">    <span class="keyword">private</span> Resource schemaScript;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSourceInitializer <span class="title">dataSourceInitializer</span><span class="params">(DataSource dataSource)</span> </span>&#123;</span><br><span class="line">        DataSourceInitializer initializer = <span class="keyword">new</span> DataSourceInitializer();</span><br><span class="line">        initializer.setDataSource(dataSource);</span><br><span class="line">        initializer.setDatabasePopulator(databasePopulator());</span><br><span class="line">        <span class="keyword">return</span> initializer;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> DatabasePopulator <span class="title">databasePopulator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ResourceDatabasePopulator populator = <span class="keyword">new</span> ResourceDatabasePopulator();</span><br><span class="line">        populator.addScript(schemaScript);</span><br><span class="line">        <span class="keyword">return</span> populator;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 서버기동후 <a href="http://localhost:8080/h2-console">http://localhost:8080/h2-console</a> 에서 데이터 로드 확인.</p>
+</li>
+<li><h4 id="AuthorizationServer-설정"><a href="#AuthorizationServer-설정" class="headerlink" title="AuthorizationServer 설정"></a>AuthorizationServer 설정</h4><p> <code>ClientDetailsServiceConfigurer</code> 설정하면 application.yml 설정은 무시된다.<br> db 를 사용하도록하고 client secret 에 사용되는 PasswordEncoder 는 기본 bcrypt 로 설정</p>
+ <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthorizationServer</span> <span class="keyword">extends</span> <span class="title">AuthorizationServerConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span> DataSource dataSource;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(ClientDetailsServiceConfigurer clients)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        clients</span><br><span class="line">            .jdbc(<span class="keyword">this</span>.dataSource)</span><br><span class="line">            .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="test-1"><a href="#test-1" class="headerlink" title="test"></a>test</h4> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[C:\~]$ curl client1:password@localhost:8080/oauth/token -dgrant_type=client_credentials -dscope=any</span><br><span class="line"><span class="meta">%</span><span class="bash"> Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span></span><br><span class="line">                                Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100   148    0   109  100    39    109     39  0:00:01 --:--:--  0:00:01   394</span><br><span class="line">&#123;"access_token":"98b33f98-a478-41bd-b291-acabab5544a0","token_type":"bearer","expires_in":2999,"scope":"any"&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h1 id="sample-authorization-code"><a href="#sample-authorization-code" class="headerlink" title="sample (authorization_code)"></a>sample (authorization_code)</h1><p><img src="http://www.bubblecode.net/wp-content/uploads/2013/03/auth_code_flow.png" alt=""></p>
+<ol>
+<li><em>End User(Resource Owner) 설정</em></li>
+<li><em>redirect Uri 설정</em></li>
+<li><em>test</em></li>
+</ol>
+<hr>
+<ol>
+<li><h4 id="End-User-Resource-Owner-설정"><a href="#End-User-Resource-Owner-설정" class="headerlink" title="End User(Resource Owner) 설정"></a>End User(Resource Owner) 설정</h4> <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurity</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UserDetailsService <span class="title">userDetailsService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> InMemoryUserDetailsManager(</span><br><span class="line">            User.withDefaultPasswordEncoder()</span><br><span class="line">                .username(<span class="string">"user"</span>)</span><br><span class="line">                .password(<span class="string">"password"</span>)</span><br><span class="line">                .roles(<span class="string">"USER"</span>)</span><br><span class="line">                .build());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><h4 id="redirect-Uri-설정"><a href="#redirect-Uri-설정" class="headerlink" title="redirect Uri 설정"></a>redirect Uri 설정</h4><p> 위 sql 에 client2 부분.</p>
+</li>
+<li><h4 id="test-2"><a href="#test-2" class="headerlink" title="test"></a>test</h4><p> login page 와 approve 페이지는 authorization server 에서 제공한다.  </p>
+<ul>
+<li>Flow : oauth/authorize (code 요청) -&gt; 로그인 -&gt; 권한승인 -&gt; redirect   </li>
+</ul>
+<ol>
+<li><p>브라우저 요청.<br><a href="http://localhost:8080/oauth/authorize?grant_type=authorization_code&amp;response_type=code&amp;client_id=client2&amp;state=1234">http://localhost:8080/oauth/authorize?grant_type=authorization_code&amp;response_type=code&amp;client_id=client2&amp;state=1234</a></p>
+</li>
+<li><p>로그인<br><img src="https://aichoora.github.io/images/springsecurity_oauth2/5.png" alt=""></p>
+</li>
+<li><p>권한승인<br><img src="https://aichoora.github.io/images/springsecurity_oauth2/6.png" alt=""></p>
+</li>
+<li><p>redirecturi (리소스서버로 code 전달 url)<br><a href="http://localhost:9000/callback?code=lcGAj8&amp;state=1234">http://localhost:9000/callback?code=lcGAj8&amp;state=1234</a></p>
+</li>
+<li><p>accesstoken 발급<br> curl client2:password@localhost:8080/oauth/token -dcode=lcGAj8 -dgrant_type=authorization_code -dscope=read_profile -dredirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[C:\~]$ curl client2:password@localhost:8080/oauth/token -dcode=lcGAj8 -dgrant_type=authorization_code -dscope=read_profile -dredirect_uri=http%3A%2F%2Flocalhost%3A9000%2Fcallback</span><br><span class="line"><span class="meta">%</span><span class="bash"> Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span></span><br><span class="line">                                Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100   298    0   184  100   114    184    114  0:00:01 --:--:--  0:00:01  2709</span><br><span class="line">&#123;"access_token":"a3dc423b-dbdc-467d-b87b-7f1b0d137a42","token_type":"bearer","refresh_token":"af2a7eb5-4bb0-4312-9154-8bb1f1874906","expires_in":2999,"scope":"read_profile read_posts"&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>security</category>
+      </categories>
   </entry>
 </search>
