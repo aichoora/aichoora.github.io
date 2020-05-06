@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>ThreadDump</title>
-    <url>/2020/04/26/ThreadDump/</url>
-    <content><![CDATA[<h1 id="ThreadDump"><a href="#ThreadDump" class="headerlink" title="ThreadDump"></a>ThreadDump</h1><hr>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p>   _<a href="https://dzone.com/articles/how-to-read-a-thread-dump">https://dzone.com/articles/how-to-read-a-thread-dump</a>_</p>
+    <title>AsciiDoc</title>
+    <url>/2020/04/26/asciidoc/</url>
+    <content><![CDATA[<h3 id="AsciiDoc-Install"><a href="#AsciiDoc-Install" class="headerlink" title="AsciiDoc Install"></a>AsciiDoc Install</h3><p>&nbsp;&nbsp;&nbsp;gem package manager, asciidoctor 설치.</p>
+<ul>
+<li><p>ruby install</p>
+<p><em><a href="https://stackoverflow.com/questions/18908708/installing-ruby-gem-in-windows">stackoverflow</a></em></p>
+<p><em><a href="https://rubyinstaller.org/downloads/">rubyinstaller downloads</a></em></p>
+</li>
+</ul>
+<ul>
+<li><p>asciidoctor install</p>
+<p><em><a href="https://asciidoctor.org/">asciidoctor</a></em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem install asciidoctor</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h3 id="AsciiDoc-Convert"><a href="#AsciiDoc-Convert" class="headerlink" title="AsciiDoc Convert"></a>AsciiDoc Convert</h3><p>&nbsp;&nbsp;&nbsp;기본 html5 로 변환됨</p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://asciidoctor.org/docs/convert-documents/">convert-documents</a></em></p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">asciidoctor aaa.adoc</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Spring-Restdocs"><a href="#Spring-Restdocs" class="headerlink" title="Spring-Restdocs"></a>Spring-Restdocs</h3><p>&nbsp;&nbsp;&nbsp; maven test 시에 target 하위에 adoc 파일 생성되고 package 수행시에 미리 만들어둔 main 하위 adoc 파일로 html doc 파일이 생성된다. main 하위의 adoc 파일에 unit test 에 생성된 adoc 파일이 include 된다.</p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://spring.io/projects/spring-restdocs">spring-restdocs-reference</a></em></p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-spring-data-rest/src/main/asciidoc">restdoc sample git</a></em></p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="restdoc">restdoc sample</a></em>   </p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://docs.wildfly.org">wildfly doc</a></em>   </p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://beanvalidation.org/latest-draft/spec/#builtinconstraints">beanvalidation doc</a></em></p>
+<hr>
+<h3 id="AsciiDoc-Syntax-Quick-Reference"><a href="#AsciiDoc-Syntax-Quick-Reference" class="headerlink" title="AsciiDoc Syntax Quick Reference"></a>AsciiDoc Syntax Quick Reference</h3><p>   &nbsp;&nbsp;&nbsp;<em><a href="https://asciidoctor.org/docs/asciidoc-syntax-quick-reference">asciidoc-syntax-quick-reference</a></em></p>
 ]]></content>
       <categories>
-        <category>troubleshooting</category>
+        <category>documentation</category>
       </categories>
+      <tags>
+        <tag>documentation</tag>
+      </tags>
   </entry>
   <entry>
     <title>Beanvalidation</title>
@@ -109,6 +138,16 @@
       </categories>
   </entry>
   <entry>
+    <title>ThreadDump</title>
+    <url>/2020/04/26/ThreadDump/</url>
+    <content><![CDATA[<h1 id="ThreadDump"><a href="#ThreadDump" class="headerlink" title="ThreadDump"></a>ThreadDump</h1><hr>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p>   _<a href="https://dzone.com/articles/how-to-read-a-thread-dump">https://dzone.com/articles/how-to-read-a-thread-dump</a>_</p>
+]]></content>
+      <categories>
+        <category>troubleshooting</category>
+      </categories>
+  </entry>
+  <entry>
     <title>ChromeDevTool</title>
     <url>/2020/04/26/ChromeDevTool/</url>
     <content><![CDATA[<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p>   _<a href="https://developers.google.com/web/tools/chrome-devtools">https://developers.google.com/web/tools/chrome-devtools</a>_</p>
@@ -116,6 +155,145 @@
       <categories>
         <category>webdev</category>
       </categories>
+  </entry>
+  <entry>
+    <title>centos</title>
+    <url>/2020/04/29/centos/</url>
+    <content><![CDATA[<h1 id="Cetnos-이거저거"><a href="#Cetnos-이거저거" class="headerlink" title="Cetnos 이거저거"></a>Cetnos 이거저거</h1><h2 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h2><ul>
+<li><p>파일명<br>  패키지명-버전-릴리즈번호.OS버전.CPU아키텍처.rpm<br>  (ex. zip-3.0-10.el7.x86_64.rpm)</p>
+</li>
+<li><p>설치<br>rpm -Uvh 패키지파일.rpm<br>(U : install or upgrade, v : verbose, h : hash 표시)</p>
+</li>
+<li><p>삭제<br>rpm -e 패키지명</p>
+</li>
+<li><p>설치 패키지 조회</p>
+<ul>
+<li>rpm -qa 패키지명  : 설피확인</li>
+<li>rpm -qf 파일경로(절대) : 설치된 파일이 어느 패키지에 포함된 것인지.</li>
+<li>rpm -ql 패키지명 : 특정패키지에 포함되 파일 확인.</li>
+<li>rmp -qi 패키지명 : 설피되 패키지 상세정보 보기</li>
+</ul>
+</li>
+<li><p>rmp 파일조회</p>
+<ul>
+<li>rpm -qlp 패키지파일.rpm : 패키지 파일에 포함되 파일들 확인</li>
+<li>rpm -qip 패키지파일.rmp : 패키지 파일의 상세정보 보기</li>
+</ul>
+</li>
+</ul>
+<h2 id="yum"><a href="#yum" class="headerlink" title="yum"></a><a href="https://access.redhat.com/ko/solutions/82093">yum</a></h2><p>rpm 처럼 설치파일이 필요 없다.</p>
+<p>1) 패키지 설치:<br>yum install package<br>Example:<br>yum install httpd</p>
+<p>2) 패키지 삭제:<br>yum remove package<br>Example:<br>yum remove httpd</p>
+<p>3) 패키지 업데이트:<br>yum update package<br>Example:<br>yum update httpd</p>
+<p>4) 패키지 검색:<br>yum search package<br>Example:<br>yum search httpd</p>
+<p>5) 패키지 정보:<br>yum info package<br>Example:<br>yum info httpd</p>
+<p>6) 특정단어가 포함 된 패키지 리스트:<br>yum list term<br>Example:<br>yum list httpd</p>
+<p>7) 특정 파일을 제공한 패키지 검색:<br>yum whatprovides filename<br>Example:<br>yum whatprovides httpd.conf</p>
+<p>8) 커널 패키지에 설치된 모든 패키지를   업데이트:<br>yum -y update<br>Example:<br>yum -y update</p>
+<p>9) 설치된 패키지 확인<br>yum list installed</p>
+<h2 id="ip-확인"><a href="#ip-확인" class="headerlink" title="ip 확인"></a>ip 확인</h2><p>yum install net-tools</p>
+<h2 id="locale-설정"><a href="#locale-설정" class="headerlink" title="locale 설정"></a>locale 설정</h2><p>centos 7 부터는 i18n 을 사용하지 않음</p>
+<ul>
+<li>현재 locale 확인<ul>
+<li>[root@3386ae4861e8 /]# env | grep -e LANG -e LC<br>LANG=en_US.UTF-8</li>
+</ul>
+</li>
+</ul>
+<h2 id="os-version-확인"><a href="#os-version-확인" class="headerlink" title="os version 확인"></a>os version 확인</h2><blockquote>
+<p>cat /etc/system-release</p>
+</blockquote>
+<h2 id="설치된-key-list"><a href="#설치된-key-list" class="headerlink" title="설치된 key list"></a>설치된 key list</h2><p>rpm -qa gpg-pubkey*</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>dev</title>
+    <url>/2020/04/29/dev/</url>
+    <content><![CDATA[<h2 id="간단한-웹-개발기-설정"><a href="#간단한-웹-개발기-설정" class="headerlink" title="간단한 웹 개발기 설정"></a>간단한 웹 개발기 설정</h2><h1 id="개발기-설치-서비스-정보"><a href="#개발기-설치-서비스-정보" class="headerlink" title="개발기 설치 서비스 정보"></a>개발기 설치 서비스 정보</h1><table>
+<thead>
+<tr>
+<th></th>
+<th align="left">ssh</th>
+<th align="left">jenkins</th>
+<th align="left">apache</th>
+<th align="left">tomcat</th>
+<th align="left">mysql</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>version</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Apache/2.4.37</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>ip</td>
+<td align="left">3022</td>
+<td align="left">9080</td>
+<td align="left">80</td>
+<td align="left">8080</td>
+<td align="left">3600</td>
+</tr>
+<tr>
+<td>port</td>
+<td align="left">3022</td>
+<td align="left">9080</td>
+<td align="left">80</td>
+<td align="left">8080</td>
+<td align="left">3600</td>
+</tr>
+<tr>
+<td>설치</td>
+<td align="left">/usr/sbin/apache2</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>설정파일</td>
+<td align="left">/etc/apache2/</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>로그</td>
+<td align="left">/var/log/apache2;/var/log/httpd</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>계정</td>
+<td align="left">root</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>비밀번호</td>
+<td align="left">-</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>외부접근url</td>
+<td align="left">-</td>
+<td align="left"><a href="http://domain:9080/">http://domain:9080/</a></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>/etc/apache2/</p>
+]]></content>
   </entry>
   <entry>
     <title>dictionary</title>
@@ -142,45 +320,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>AsciiDoc</title>
-    <url>/2020/04/26/asciidoc/</url>
-    <content><![CDATA[<h3 id="AsciiDoc-Install"><a href="#AsciiDoc-Install" class="headerlink" title="AsciiDoc Install"></a>AsciiDoc Install</h3><p>&nbsp;&nbsp;&nbsp;gem package manager, asciidoctor 설치.</p>
-<ul>
-<li><p>ruby install</p>
-<p><em><a href="https://stackoverflow.com/questions/18908708/installing-ruby-gem-in-windows">stackoverflow</a></em></p>
-<p><em><a href="https://rubyinstaller.org/downloads/">rubyinstaller downloads</a></em></p>
-</li>
-</ul>
-<ul>
-<li><p>asciidoctor install</p>
-<p><em><a href="https://asciidoctor.org/">asciidoctor</a></em></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem install asciidoctor</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<hr>
-<h3 id="AsciiDoc-Convert"><a href="#AsciiDoc-Convert" class="headerlink" title="AsciiDoc Convert"></a>AsciiDoc Convert</h3><p>&nbsp;&nbsp;&nbsp;기본 html5 로 변환됨</p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://asciidoctor.org/docs/convert-documents/">convert-documents</a></em></p>
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">asciidoctor aaa.adoc</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Spring-Restdocs"><a href="#Spring-Restdocs" class="headerlink" title="Spring-Restdocs"></a>Spring-Restdocs</h3><p>&nbsp;&nbsp;&nbsp; maven test 시에 target 하위에 adoc 파일 생성되고 package 수행시에 미리 만들어둔 main 하위 adoc 파일로 html doc 파일이 생성된다. main 하위의 adoc 파일에 unit test 에 생성된 adoc 파일이 include 된다.</p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://spring.io/projects/spring-restdocs">spring-restdocs-reference</a></em></p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-spring-data-rest/src/main/asciidoc">restdoc sample git</a></em></p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="restdoc">restdoc sample</a></em>   </p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://docs.wildfly.org">wildfly doc</a></em>   </p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://beanvalidation.org/latest-draft/spec/#builtinconstraints">beanvalidation doc</a></em></p>
-<hr>
-<h3 id="AsciiDoc-Syntax-Quick-Reference"><a href="#AsciiDoc-Syntax-Quick-Reference" class="headerlink" title="AsciiDoc Syntax Quick Reference"></a>AsciiDoc Syntax Quick Reference</h3><p>   &nbsp;&nbsp;&nbsp;<em><a href="https://asciidoctor.org/docs/asciidoc-syntax-quick-reference">asciidoc-syntax-quick-reference</a></em></p>
-]]></content>
-      <categories>
-        <category>documentation</category>
-      </categories>
-      <tags>
-        <tag>documentation</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker</title>
     <url>/2020/04/26/docker/</url>
     <content><![CDATA[<h3 id="Get-Started"><a href="#Get-Started" class="headerlink" title="Get Started"></a>Get Started</h3><ul>
@@ -188,7 +327,11 @@
 <p> <img src="https://aichoora.github.io/images/aws/cloud9.png" alt="cloud9">  </p>
 </li>
 </ul>
-<pre><code><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2087  docker ps -a</span><br><span class="line">2088  docker build -t getstarted:part2 .</span><br><span class="line">2089  docker tag getstarted:part2 aichoora&#x2F;private:getstartedpart2    </span><br><span class="line">2091  docker login     </span><br><span class="line">2093  docker info | grep User</span><br><span class="line">2095  docker push aichoora&#x2F;private:getstartedpart2</span><br><span class="line">2096  docker images</span><br><span class="line">2097  docker rmi -f 30        </span><br><span class="line">2100  docker run -d -p 4000:80 --name jj aichoora&#x2F;private:getstartedpart2</span><br><span class="line">2101  docker ps -l    </span><br><span class="line">2103  curl localhost:4000</span><br><span class="line">2104  docker logs b0</span><br><span class="line">2105  docker inspect b0</span><br><span class="line">2106  docker exec -it jj bash    </span><br><span class="line">2108  docker rm -f b0</span><br><span class="line">2109  docker ps -a</span><br><span class="line">2110  cd ..</span><br><span class="line">2111  cd part3</span><br><span class="line">2112  docker service ls    </span><br><span class="line">2114  docker swarm init</span><br><span class="line">2115  docker stack deploy -c docker-compose.yml getstartedpart2</span><br><span class="line">2116  docker service ls</span><br><span class="line">2117  docker service ps p3</span><br><span class="line">2118  docker ps -a</span><br><span class="line">2119  curl localhost:4000    </span><br><span class="line">2121  docker ps -a</span><br><span class="line">2122  docker kill 3f</span><br><span class="line">2123  docker serivce ls    </span><br><span class="line">2125  docker service ps p3</span><br><span class="line">2126  docker service rm p3</span><br><span class="line">2127  docker stack ls</span><br><span class="line">2128  docker service ls</span><br><span class="line">2129  docker swarm leave --force</span><br><span class="line">2130  docker images</span><br><span class="line">2131  docker rmi -f 30</span><br><span class="line">2132  docker logout</span><br><span class="line">2133  docker system prune</span><br></pre></td></tr></table></figure></code></pre><h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
+<pre><code><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2087  docker ps -a</span><br><span class="line">2088  docker build -t getstarted:part2 .</span><br><span class="line">2089  docker tag getstarted:part2 aichoora&#x2F;private:getstartedpart2    </span><br><span class="line">2091  docker login     </span><br><span class="line">2093  docker info | grep User</span><br><span class="line">2095  docker push aichoora&#x2F;private:getstartedpart2</span><br><span class="line">2096  docker images</span><br><span class="line">2097  docker rmi -f 30        </span><br><span class="line">2100  docker run -d -p 4000:80 --name jj aichoora&#x2F;private:getstartedpart2</span><br><span class="line">2101  docker ps -l    </span><br><span class="line">2103  curl localhost:4000</span><br><span class="line">2104  docker logs b0</span><br><span class="line">2105  docker inspect b0</span><br><span class="line">2106  docker exec -it jj bash    </span><br><span class="line">2108  docker rm -f b0</span><br><span class="line">2109  docker ps -a</span><br><span class="line">2110  cd ..</span><br><span class="line">2111  cd part3</span><br><span class="line">2112  docker service ls    </span><br><span class="line">2114  docker swarm init</span><br><span class="line">2115  docker stack deploy -c docker-compose.yml getstartedpart2</span><br><span class="line">2116  docker service ls</span><br><span class="line">2117  docker service ps p3</span><br><span class="line">2118  docker ps -a</span><br><span class="line">2119  curl localhost:4000    </span><br><span class="line">2121  docker ps -a</span><br><span class="line">2122  docker kill 3f</span><br><span class="line">2123  docker serivce ls    </span><br><span class="line">2125  docker service ps p3</span><br><span class="line">2126  docker service rm p3</span><br><span class="line">2127  docker stack ls</span><br><span class="line">2128  docker service ls</span><br><span class="line">2129  docker swarm leave --force</span><br><span class="line">2130  docker images</span><br><span class="line">2131  docker rmi -f 30</span><br><span class="line">2132  docker logout</span><br><span class="line">2133  docker system prune</span><br></pre></td></tr></table></figure></code></pre><h2 id="start-한-container-에-port-binding"><a href="#start-한-container-에-port-binding" class="headerlink" title="start 한 container 에 port binding"></a>start 한 container 에 port binding</h2><p>commit 후 다시 run</p>
+<blockquote>
+<p>docker stop 컨테이너이름<br>docker commit 컨테이너이름 이미지이름<br>docker run -dit -p xx:xx 이미지이름</p>
+</blockquote>
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><ul>
 <li><em><a href="https://docs.docker.com/">docs.docker.com</a></em></li>
 </ul>
 ]]></content>
@@ -300,6 +443,28 @@
       </categories>
   </entry>
   <entry>
+    <title>fcm</title>
+    <url>/2020/04/26/fcm/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h1><ul>
+<li>_<a href="https://www.baeldung.com/spring-boot-ehcache">https://www.baeldung.com/spring-boot-ehcache</a>_</li>
+</ul>
+<ol>
+<li><h4 id="순서"><a href="#순서" class="headerlink" title="순서"></a>순서</h4><p> 설명1<br> 설명2</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>코드<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <br/>
+
+
+
+
+
+
+
+
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>git</title>
     <url>/2020/04/26/git/</url>
     <content><![CDATA[<h2 id="config"><a href="#config" class="headerlink" title="config"></a>config</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git --version</span><br><span class="line">git config --global user.name aichoora</span><br><span class="line">git config --global user.email aichoora@gmail.com</span><br><span class="line">git config --get user.email</span><br><span class="line">git config --list</span><br><span class="line">git config --global --edit</span><br><span class="line">git status</span><br></pre></td></tr></table></figure>
@@ -325,28 +490,6 @@
       <categories>
         <category>team</category>
       </categories>
-  </entry>
-  <entry>
-    <title>fcm</title>
-    <url>/2020/04/26/fcm/</url>
-    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h1><ul>
-<li>_<a href="https://www.baeldung.com/spring-boot-ehcache">https://www.baeldung.com/spring-boot-ehcache</a>_</li>
-</ul>
-<ol>
-<li><h4 id="순서"><a href="#순서" class="headerlink" title="순서"></a>순서</h4><p> 설명1<br> 설명2</p>
- <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>코드<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
- <br/>
-
-
-
-
-
-
-
-
-</li>
-</ol>
-]]></content>
   </entry>
   <entry>
     <title>Java process 확인</title>
@@ -434,6 +577,340 @@
       </tags>
   </entry>
   <entry>
+    <title>install-apache-ubuntu</title>
+    <url>/2020/04/29/install-apache-ubuntu/</url>
+    <content><![CDATA[<h2 id="Ubuntu-Apache-설치"><a href="#Ubuntu-Apache-설치" class="headerlink" title="Ubuntu Apache 설치"></a>Ubuntu Apache 설치</h2><ul>
+<li><p>설치</p>
+<blockquote>
+<p>apt install apache2</p>
+</blockquote>
+</li>
+<li><p>시작</p>
+<blockquote>
+<p>service apache2 start</p>
+</blockquote>
+</li>
+<li><p>버전확인</p>
+<blockquote>
+<p>apachectl -version</p>
+</blockquote>
+</li>
+<li><p>모듈 사용 설정 확인</p>
+<blockquote>
+<p>apachectl -M</p>
+</blockquote>
+</li>
+<li><p>Reverse Proxy 설정<br>a2enmod 명령어를 통해 아래 모듈 활성화</p>
+<blockquote>
+<p>a2enmod proxy<br>a2enmod proxy_http<br>a2enmod proxy_balancer<br>a2enmod lbmethod_byrequests  </p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p>아파치 설정 디렉토리<br>/etc/apache2/</p>
+</li>
+<li><p>아파치 기본 설정 파일<br>/etc/apache2/apache2.conf</p>
+</li>
+<li><p>아파치 포트 설정 파일<br>/etc/apache2/ports.conf</p>
+</li>
+<li><p>virtual host 관리 디렉토리 (아파치에서는 해당 디렉토리를 직접 참조하지는 않는다.)<br>/etc/apache2/sites-available/</p>
+</li>
+<li><p>virtual host를 이용하기 위한 설정 디렉토리<br>/etc/apache2/sites-enabled/<br>000-default.conf -&gt; ../sites-available/000-default.conf 와 같이 심볼릭 링크를 이용하여 sites-available 디렉토리 파일을 참조하는 방식으로 사용되어진다.</p>
+</li>
+<li><p>모듈 설정 디렉토리<br>/etc/apache2/mods-available/, /etc/apache2/mods-enabled/</p>
+</li>
+</ul>
+<h1 id="apache-tomcat-연동"><a href="#apache-tomcat-연동" class="headerlink" title="apache tomcat 연동"></a>apache tomcat 연동</h1><h2 id="mod-jk-컨넥터-설치"><a href="#mod-jk-컨넥터-설치" class="headerlink" title="mod_jk 컨넥터 설치"></a>mod_jk 컨넥터 설치</h2><p>apt install libapache2-mod-jk</p>
+<h2 id="workers-properties-파일-생성"><a href="#workers-properties-파일-생성" class="headerlink" title="workers.properties 파일 생성"></a>workers.properties 파일 생성</h2><p>/etc/apache2/workers.properties</p>
+<pre><code><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">workers.tomcat_home=/usr/share/tomcat8</span><br><span class="line">workers.java_home=/usr/lib/jvm/java-8-openjdk-amd64</span><br><span class="line"><span class="comment"># oracle jdk 사용시</span></span><br><span class="line"><span class="comment"># workers.java_home=/usr/lib/jvm//java-8-oracle/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define 1 real worker ajp13</span></span><br><span class="line">worker.list=tomcat1</span><br><span class="line"><span class="comment"># worker.list=tomcat1,tomcat2 # 복수개이경우</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set properties for tomcat1 (ajp13)</span></span><br><span class="line">worker.tomcat1.port = 8009</span><br><span class="line"><span class="comment"># worker.tomcat1.host = 192.168.123.120 </span></span><br><span class="line"><span class="comment"># 로컬일 경우</span></span><br><span class="line">worker.tomcat1.host = localhost</span><br><span class="line">worker.tomcat1.type = ajp13</span><br><span class="line">worker.tomcat1.lbfactor = 20</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set properties for tomcat2 (ajp13)</span></span><br><span class="line"><span class="comment"># worker.tomcat2.port = 8019</span></span><br><span class="line"><span class="comment"># worker.tomcat2.host = ip</span></span><br><span class="line"><span class="comment"># worker.tomcat2.type = ajp13</span></span><br><span class="line"><span class="comment"># worker.tomcat2.lbfactor = 30</span></span><br></pre></td></tr></table></figure></code></pre><h2 id="jk-conf-파일-수정"><a href="#jk-conf-파일-수정" class="headerlink" title="jk.conf  파일 수정"></a>jk.conf  파일 수정</h2><p>/etc/apache2/mods-available/jk.conf<br>    <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># JkWorkersFile /etc/libapache2-mod-jk/workers.properties</span></span><br><span class="line">JkWorkersFile /etc/apache2/workers.properties</span><br></pre></td></tr></table></figure></p>
+<h2 id="default-conf-수정"><a href="#default-conf-수정" class="headerlink" title="default.conf 수정"></a>default.conf 수정</h2><p>/etc/apache2/sites-available/000-default.conf</p>
+<pre><code><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">        DocumentRoot /var/www/html</span><br><span class="line"></span><br><span class="line">        JkMount /* tomcat1</span><br><span class="line">    ```    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## server.xml ajp 포트 설정</span></span><br><span class="line">/var/lib/tomcat8/conf/server.xml </span><br><span class="line">    8009 connector 주석 해제</span><br><span class="line"></span><br><span class="line"><span class="comment">## apache2, tomcat restart</span></span><br><span class="line">    ``` sh</span><br><span class="line">    root@80debf1018f4:/etc/init.d<span class="comment"># ./apache2 restart</span></span><br><span class="line">    root@80debf1018f4:/etc/init.d<span class="comment"># ./tomcat8 restart</span></span><br></pre></td></tr></table></figure></code></pre>]]></content>
+  </entry>
+  <entry>
+    <title>install-apache-centos</title>
+    <url>/2020/04/28/install-apache-centos/</url>
+    <content><![CDATA[<h1 id="centos-아파치-서버-설치"><a href="#centos-아파치-서버-설치" class="headerlink" title="centos 아파치 서버 설치"></a>centos 아파치 서버 설치</h1><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><blockquote>
+<p>yum -y install httpd</p>
+</blockquote>
+<h2 id="설치확인"><a href="#설치확인" class="headerlink" title="설치확인"></a>설치확인</h2><blockquote>
+<p>yum list installed | grep httpd</p>
+</blockquote>
+<h2 id="버전-확인"><a href="#버전-확인" class="headerlink" title="버전 확인"></a>버전 확인</h2><blockquote>
+<p>httpd -v</p>
+</blockquote>
+<h2 id="데몬시작"><a href="#데몬시작" class="headerlink" title="데몬시작"></a>데몬시작</h2><blockquote>
+<p>systemctl  start httpd.service</p>
+</blockquote>
+<h2 id="부팅시-httpd-등록"><a href="#부팅시-httpd-등록" class="headerlink" title="부팅시 httpd 등록"></a>부팅시 httpd 등록</h2><blockquote>
+<p>systemctl enable httpd.service</p>
+</blockquote>
+<h2 id="방화벽-오픈"><a href="#방화벽-오픈" class="headerlink" title="방화벽 오픈"></a>방화벽 오픈</h2><blockquote>
+<p>firewall-cmd –permanent –zone=public –add-service=http<br>firewall-cmd –reload<br>firewall-cmd –list-port</p>
+</blockquote>
+<h1 id="tomcat-연동"><a href="#tomcat-연동" class="headerlink" title="tomcat 연동"></a>tomcat 연동</h1><h2 id="gcc-gcc-c-httpd-devel-make-설치"><a href="#gcc-gcc-c-httpd-devel-make-설치" class="headerlink" title="gcc gcc-c++ httpd-devel make 설치"></a>gcc gcc-c++ httpd-devel make 설치</h2><p>yum install gcc gcc-c++ httpd-devel make</p>
+<h2 id="mod-jk-다운로드-amp-설치"><a href="#mod-jk-다운로드-amp-설치" class="headerlink" title="mod_jk(다운로드 &amp; 설치)"></a>mod_jk(다운로드 &amp; 설치)</h2><p>wget <a href="http://mirror.navercorp.com/apache/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.48-src.tar.gz">http://mirror.navercorp.com/apache/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.48-src.tar.gz</a><br>tar zxvf tomcat-connector*<br>cd tomcat-connectors-1.2.48-src/native<br>./configure –with-apxs=/usr/bin/apxs<br>make<br>make install</p>
+<h2 id="LoadModule-추가"><a href="#LoadModule-추가" class="headerlink" title="LoadModule 추가"></a>LoadModule 추가</h2><h1 id="vi-etc-httpd-conf-httpd-conf"><a href="#vi-etc-httpd-conf-httpd-conf" class="headerlink" title="vi /etc/httpd/conf/httpd.conf"></a>vi /etc/httpd/conf/httpd.conf</h1><h1 id="LoadModule-jk-module-modules-mod-jk-so"><a href="#LoadModule-jk-module-modules-mod-jk-so" class="headerlink" title="LoadModule jk_module modules/mod_jk.so"></a>LoadModule jk_module modules/mod_jk.so</h1><h2 id="httpd-jk-conf-생성"><a href="#httpd-jk-conf-생성" class="headerlink" title="httpd-jk.conf 생성"></a>httpd-jk.conf 생성</h2><p>vi /etc/httpd/conf.d/httpd-jk.conf</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LoadModule jk_module modules&#x2F;mod_jk.so</span><br><span class="line">&lt;IfModule jk_module&gt;</span><br><span class="line">  JkWorkersFile conf.d&#x2F;workers.properties</span><br><span class="line">  JkLogFile logs&#x2F;mod_jk.log</span><br><span class="line">  JkLogLevel info</span><br><span class="line">  JkShmFile run&#x2F;mod_jk.shm</span><br><span class="line">  JkMountFile conf.d&#x2F;uriworkermap.properties</span><br><span class="line">&lt;&#x2F;IfModule&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="worker-생성"><a href="#worker-생성" class="headerlink" title="worker 생성"></a>worker 생성</h2><p>vi /etc/httpd/conf.d/workers.properties</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">worker.list&#x3D;tomcat1 </span><br><span class="line">worker.tomcat1.port&#x3D;8009 </span><br><span class="line">worker.tomcat1.host&#x3D;localhost </span><br><span class="line">worker.tomcat1.type&#x3D;ajp13 </span><br><span class="line">worker.tomcat1.lbfactor&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<h2 id="uriworkermap-생성"><a href="#uriworkermap-생성" class="headerlink" title="uriworkermap 생성"></a>uriworkermap 생성</h2><p>vi /etc/httpd/conf.d/uriworkermap.properties</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;*&#x3D;tomcat1</span><br></pre></td></tr></table></figure>
+
+<h2 id="config-테스트"><a href="#config-테스트" class="headerlink" title="config 테스트"></a>config 테스트</h2><p>apachectl configtest</p>
+<h2 id="tomcat-ajp-port-오픈"><a href="#tomcat-ajp-port-오픈" class="headerlink" title="tomcat ajp port 오픈"></a>tomcat ajp port 오픈</h2><p>vi /opt/tomcat/conf/server.xml<br>ajp 포트설정<br><Connector port="8009" protocol="AJP/1.3" redirectPort="8443" address="0.0.0.0" secretRequired="false"/></p>
+<h2 id="apache2-tomcat-재기동"><a href="#apache2-tomcat-재기동" class="headerlink" title="apache2, tomcat 재기동"></a>apache2, tomcat 재기동</h2><p>systemctl  restart tomcat<br>systemctl  restart httpd</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><a href="https://suwoni-codelab.com/linux/2017/05/29/Linux-CentOS-Apache-Tomcat/">09. 리눅스(CentOS) 개발 놀이터 만들기 - Apache와 Tomcat 연동</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>install-tomcat-ubuntu</title>
+    <url>/2020/04/29/install-java-ubuntu/</url>
+    <content><![CDATA[<h1 id="Ubuntu-에-java-설치하기"><a href="#Ubuntu-에-java-설치하기" class="headerlink" title="Ubuntu 에 java 설치하기"></a>Ubuntu 에 java 설치하기</h1><h2 id="설치확인"><a href="#설치확인" class="headerlink" title="설치확인"></a>설치확인</h2><p>java -version</p>
+<h2 id="설치할패키지-확인"><a href="#설치할패키지-확인" class="headerlink" title="설치할패키지 확인"></a>설치할패키지 확인</h2><p>apt list | grep openjdk</p>
+<h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><p>apt install openjdk-8-jdk -y</p>
+<h2 id="파일위치"><a href="#파일위치" class="headerlink" title="파일위치"></a>파일위치</h2><table>
+<thead>
+<tr>
+<th></th>
+<th align="left">위치</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>설치</td>
+<td align="left">/usr/lib/jvm/java-8-openjdk-amd64</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
+    <title>install-mysql-centos</title>
+    <url>/2020/04/28/install-mysql-centos/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>install-jenkins-centos</title>
+    <url>/2020/04/28/install-jenkins-centos/</url>
+    <content><![CDATA[<h1 id="CentOS-jenkins-설치"><a href="#CentOS-jenkins-설치" class="headerlink" title="CentOS jenkins 설치"></a>CentOS jenkins 설치</h1><h2 id="LTS-version-다운로드-키-import-설치"><a href="#LTS-version-다운로드-키-import-설치" class="headerlink" title="LTS version 다운로드,키 import,설치"></a>LTS version 다운로드,키 import,설치</h2><blockquote>
+<p>wget -O /etc/yum.repos.d/jenkins.repo <a href="http://pkg.jenkins.io/redhat-stable/jenkins.repo">http://pkg.jenkins.io/redhat-stable/jenkins.repo</a><br>rpm –import <a href="http://pkg.jenkins.io/redhat-stable/jenkins.io.key">http://pkg.jenkins.io/redhat-stable/jenkins.io.key</a><br>rpm -qa gpg-pubkey* # 설치된 키확인 (d50582e6)<br>yum install jenkins</p>
+</blockquote>
+<h2 id="Java-설치"><a href="#Java-설치" class="headerlink" title="Java 설치"></a>Java 설치</h2><blockquote>
+<p>yum install java-1.8.0-openjdk</p>
+</blockquote>
+<h2 id="포트-변경"><a href="#포트-변경" class="headerlink" title="포트 변경"></a>포트 변경</h2><blockquote>
+<p>/etc/sysconfig/jenkins<br>JENKINS_PORT=9080</p>
+</blockquote>
+<h2 id="방화벽-오픈"><a href="#방화벽-오픈" class="headerlink" title="방화벽 오픈"></a>방화벽 오픈</h2><blockquote>
+<p>firewall-cmd –permanent –zone=public –add-port=9080/tcp<br>firewall-cmd –reload<br>firewall-cmd –list-port</p>
+</blockquote>
+<h2 id="기동"><a href="#기동" class="headerlink" title="기동"></a>기동</h2><blockquote>
+<p>systemctl start jenkins</p>
+</blockquote>
+<h2 id="시스템부팅시-기동"><a href="#시스템부팅시-기동" class="headerlink" title="시스템부팅시 기동"></a>시스템부팅시 기동</h2><blockquote>
+<p>systemctl enable jenkins</p>
+</blockquote>
+<h2 id="접근-url"><a href="#접근-url" class="headerlink" title="접근 url"></a>접근 url</h2><p>  domain:9080</p>
+<h2 id="초기-admin-password"><a href="#초기-admin-password" class="headerlink" title="초기 admin password"></a>초기 admin password</h2><p>  /var/lib/jenkins/secrets/initialAdminPassword</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><p>  <a href="https://pkg.jenkins.io/redhat-stable/">RedHat Linux RPM packages for Jenkins</a><br>  <a href="https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions">Installing Jenkins on Red Hat distributions</a>  </p>
+]]></content>
+  </entry>
+  <entry>
+    <title>install_svn_centos</title>
+    <url>/2020/04/27/install-svn-centos/</url>
+    <content><![CDATA[<h1 id="CentOS-SVN-설치"><a href="#CentOS-SVN-설치" class="headerlink" title="CentOS SVN 설치"></a>CentOS SVN 설치</h1><h2 id="SVN-설치"><a href="#SVN-설치" class="headerlink" title="SVN 설치"></a>SVN 설치</h2><ul>
+<li><p>설치여부확인</p>
+<ul>
+<li>svn</li>
+</ul>
+</li>
+<li><p>설치할 패키지확인</p>
+<ul>
+<li>yum list subversion</li>
+</ul>
+</li>
+<li><p>설치</p>
+<ul>
+<li>yum install subversion -y</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>infra</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>install-ssh-centos</title>
+    <url>/2020/04/28/install-ssh-centos/</url>
+    <content><![CDATA[<h1 id="ssh-설치"><a href="#ssh-설치" class="headerlink" title="ssh 설치"></a>ssh 설치</h1><ul>
+<li>설치<blockquote>
+<p>yum install openssh-server openssh-clients openssh-askpass</p>
+</blockquote>
+</li>
+<li>위치확인<blockquote>
+<p>which sshd</p>
+</blockquote>
+</li>
+<li>포트변경<blockquote>
+<p>vi /etc/ssh/sshd_config</p>
+</blockquote>
+</li>
+<li>방화벽해제<blockquote>
+<p>firewall-cmd –permanent –zone=public –add-port=3022/tcp<br>firewall-cmd not found 시 firewalld 설치</p>
+</blockquote>
+</li>
+<li>구동<blockquote>
+<p>/bin/systemctl sshd restart</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>install-ssh-ubuntu</title>
+    <url>/2020/04/29/install-ssh-ubuntu/</url>
+    <content><![CDATA[<h1 id="Ubuntu-SSH-설치"><a href="#Ubuntu-SSH-설치" class="headerlink" title="Ubuntu SSH 설치"></a>Ubuntu SSH 설치</h1><ul>
+<li><p>설치</p>
+<blockquote>
+<p>apt install openssh-sever -y</p>
+</blockquote>
+</li>
+<li><p>포트변경</p>
+<blockquote>
+<p>/etc/ssh/sshd_config</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>install-jvm-centos</title>
+    <url>/2020/04/28/install-jvm-centos/</url>
+    <content><![CDATA[<h1 id="CentOS-java-설치"><a href="#CentOS-java-설치" class="headerlink" title="CentOS java 설치"></a>CentOS java 설치</h1><h2 id="설치-확인"><a href="#설치-확인" class="headerlink" title="설치 확인"></a>설치 확인</h2><blockquote>
+<p>yum list installed | grep java<br>or<br>java -version</p>
+</blockquote>
+<h2 id="설치학-패키지-확인"><a href="#설치학-패키지-확인" class="headerlink" title="설치학 패키지 확인"></a>설치학 패키지 확인</h2><blockquote>
+<p>yum search java  </p>
+</blockquote>
+<p>버전 확인후 패키지명 으로 검색</p>
+<blockquote>
+<p>yum list java-1.8.0-openjdk</p>
+</blockquote>
+<h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><blockquote>
+<p>yum install java-1.8.0-openjdk</p>
+</blockquote>
+<h2 id="삭제"><a href="#삭제" class="headerlink" title="삭제"></a>삭제</h2><blockquote>
+<p>yum remove java-1.8.0-openjdk</p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
+    <title>intall-tomcat-centos</title>
+    <url>/2020/04/28/install-tomcat-centos/</url>
+    <content><![CDATA[<h1 id="Centos-에-Tomcat-설치하기"><a href="#Centos-에-Tomcat-설치하기" class="headerlink" title="Centos 에 Tomcat 설치하기"></a>Centos 에 Tomcat 설치하기</h1><h2 id="버전-선택"><a href="#버전-선택" class="headerlink" title="버전 선택"></a><a href="http://tomcat.apache.org/whichversion.html">버전 선택</a></h2><h2 id="tomcat-그룹-유저생성"><a href="#tomcat-그룹-유저생성" class="headerlink" title="tomcat 그룹, 유저생성"></a>tomcat 그룹, 유저생성</h2><blockquote>
+<p>groupadd tomcat<br>useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat tomcat</p>
+</blockquote>
+<h2 id="다운로드-amp-설치"><a href="#다운로드-amp-설치" class="headerlink" title="다운로드 &amp; 설치"></a>다운로드 &amp; 설치</h2><blockquote>
+<p>cd; wget <a href="http://mirror.navercorp.com/apache/tomcat/tomcat-8/v8.5.54/bin/apache-tomcat-8.5.54.tar.gz">http://mirror.navercorp.com/apache/tomcat/tomcat-8/v8.5.54/bin/apache-tomcat-8.5.54.tar.gz</a><br>mkdir /opt/tomcat;<br>tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat –strip-components=1</p>
+</blockquote>
+<h2 id="권한설정"><a href="#권한설정" class="headerlink" title="권한설정"></a>권한설정</h2><blockquote>
+<p>chgrp -R tomcat /opt/tomcat<br>chmod -R g+r /opt/tomcat/conf<br>chmod g+x /opt/tomcat/conf<br>chown -R tomcat webapps/ work/ temp/ logs/</p>
+</blockquote>
+<h2 id="서비스추가"><a href="#서비스추가" class="headerlink" title="서비스추가"></a>서비스추가</h2><p>vi /etc/systemd/system/tomcat.service</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Systemd unit file for tomcat</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Apache Tomcat Web Application Container</span><br><span class="line">After=syslog.target network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line"></span><br><span class="line">Environment=JAVA_HOME=/usr/lib/jvm/jre</span><br><span class="line">Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid</span><br><span class="line">Environment=CATALINA_HOME=/opt/tomcat</span><br><span class="line">Environment=CATALINA_BASE=/opt/tomcat</span><br><span class="line">Environment=<span class="string">'CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'</span></span><br><span class="line">Environment=<span class="string">'JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'</span></span><br><span class="line"></span><br><span class="line">ExecStart=/opt/tomcat/bin/startup.sh</span><br><span class="line">ExecStop=/bin/<span class="built_in">kill</span> -15 <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">User=tomcat</span><br><span class="line">Group=tomcat</span><br><span class="line">UMask=0007</span><br><span class="line">RestartSec=10</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>systemctl daemon-reload<br>systemctl start tomcat</p>
+</blockquote>
+<h2 id="admin-계정생성"><a href="#admin-계정생성" class="headerlink" title="admin 계정생성"></a>admin 계정생성</h2><p>vi /opt/tomcat/conf/tomcat-users.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tomcat-users</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">user</span> <span class="attr">username</span>=<span class="string">"admin"</span> <span class="attr">password</span>=<span class="string">"password"</span> <span class="attr">roles</span>=<span class="string">"manager-gui,admin-gui"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tomcat-users</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="manager-access-ip-제한-삭제"><a href="#manager-access-ip-제한-삭제" class="headerlink" title="manager access ip 제한 삭제"></a>manager access ip 제한 삭제</h2><p>vi /opt/tomcat/webapps/manager/META-INF/context.xml<br>ip 설정 삭제(comment out)</p>
+<h2 id="재기동"><a href="#재기동" class="headerlink" title="재기동"></a>재기동</h2><blockquote>
+<p>systemctl restart tomcat</p>
+</blockquote>
+<h2 id="admin-접속"><a href="#admin-접속" class="headerlink" title="admin 접속"></a>admin 접속</h2><p>http://도메인/manager/html  </p>
+<h2 id="설치경로"><a href="#설치경로" class="headerlink" title="설치경로"></a>설치경로</h2><table>
+<thead>
+<tr>
+<th></th>
+<th align="left">위치</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>설치경로</td>
+<td align="left">/opt/tomcat</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>실행파일</td>
+<td align="left">/opt/tomcat/bin</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>설정파일</td>
+<td align="left">/opt/tomcat/conf</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>배포경로</td>
+<td align="left">/opt/tomcat/webapps</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>로그파일</td>
+<td align="left">/opt/tomcat/logs</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-8-on-centos-7">How To Install Apache Tomcat 8 on CentOS 7</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>install-tomcat-ubuntu</title>
+    <url>/2020/04/29/install-tomcat-ubuntu/</url>
+    <content><![CDATA[<h1 id="Ubuntu-에-Tomcat-설치하기"><a href="#Ubuntu-에-Tomcat-설치하기" class="headerlink" title="Ubuntu 에 Tomcat 설치하기"></a>Ubuntu 에 Tomcat 설치하기</h1><h2 id="버전-선택"><a href="#버전-선택" class="headerlink" title="버전 선택"></a><a href="http://tomcat.apache.org/whichversion.html">버전 선택</a></h2><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><p>apt install tomcat8 tomcat8-docs tomcat8-examples tomcat8-admin -y</p>
+<h2 id="기동"><a href="#기동" class="headerlink" title="기동"></a>기동</h2><p>service tomcat8 start<br>or<br>sh /etc/init.d/tomcat8 start</p>
+<h2 id="파일위치"><a href="#파일위치" class="headerlink" title="파일위치"></a>파일위치</h2><table>
+<thead>
+<tr>
+<th></th>
+<th align="left">위치</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>설치</td>
+<td align="left">/var/lib/tomcat8</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>기동</td>
+<td align="left">/usr/share/tomcat8/bin</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>설정</td>
+<td align="left">/var/lib/tomcat8/conf/</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>배포</td>
+<td align="left">/var/lib/tomcat8/webapps</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td>로그</td>
+<td align="left">/var/lib/tomcat8/logs</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+]]></content>
+  </entry>
+  <entry>
     <title>intellij</title>
     <url>/2020/04/26/intellij/</url>
     <content><![CDATA[<h1 id="eclipse-vs-intellij"><a href="#eclipse-vs-intellij" class="headerlink" title="eclipse vs intellij"></a>eclipse vs intellij</h1><h2 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h2><ul>
@@ -469,6 +946,76 @@
       <categories>
         <category>ide</category>
       </categories>
+  </entry>
+  <entry>
+    <title>java</title>
+    <url>/2020/04/26/java/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><hr>
+<h2 id="openjdk"><a href="#openjdk" class="headerlink" title="openjdk"></a>openjdk</h2><p>   _<a href="https://github.com/ojdkbuild/ojdkbuild">https://github.com/ojdkbuild/ojdkbuild</a>_</p>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1>]]></content>
+  </entry>
+  <entry>
+    <title>java_security</title>
+    <url>/2020/04/26/java_security/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="java-security-overview"><a href="#java-security-overview" class="headerlink" title="java-security-overview"></a>java-security-overview</h1><ul>
+<li>_<a href="https://www.baeldung.com/java-security-overview#public_key_infrastructure">https://www.baeldung.com/java-security-overview#public_key_infrastructure</a>_</li>
+</ul>
+<ol>
+<li><p>HSM</p>
+<p> 설명1<br> 설명2</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>코드<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+ <br/>
+</li>
+<li><p>인증서</p>
+</li>
+<li><p>키생성</p>
+</li>
+<li><p>키스토어</p>
+</li>
+<li><p>CA</p>
+</li>
+<li><p>서명</p>
+</li>
+<li><p>서명확인</p>
+</li>
+<li><p>메세지다이제스트</p>
+</li>
+<li><p>JCA/JCE</p>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>maven</title>
+    <url>/2020/04/26/maven/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h1><hr>
+<h3 id="AsciiDoc-Install"><a href="#AsciiDoc-Install" class="headerlink" title="AsciiDoc Install"></a>AsciiDoc Install</h3><p>&nbsp;&nbsp;&nbsp;gem package manager, asciidoctor 설치.</p>
+<ul>
+<li><p>ruby install</p>
+<p><em><a href="https://stackoverflow.com/questions/18908708/installing-ruby-gem-in-windows">stackoverflow</a></em></p>
+<p><em><a href="https://rubyinstaller.org/downloads/">rubyinstaller downloads</a></em></p>
+</li>
+</ul>
+<ul>
+<li><p>asciidoctor install</p>
+<p><em><a href="https://asciidoctor.org/">asciidoctor</a></em></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem install asciidoctor</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h3 id="AsciiDoc-Convert"><a href="#AsciiDoc-Convert" class="headerlink" title="AsciiDoc Convert"></a>AsciiDoc Convert</h3><p>&nbsp;&nbsp;&nbsp;기본 html5 로 변환됨</p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://asciidoctor.org/docs/convert-documents/">convert-documents</a></em></p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">asciidoctor aaa.adoc</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="Spring-Restdocs"><a href="#Spring-Restdocs" class="headerlink" title="Spring-Restdocs"></a>Spring-Restdocs</h3><p>&nbsp;&nbsp;&nbsp; maven test 시에 target 하위에 adoc 파일 생성되고 package 수행시에 미리 만들어둔 main 하위 adoc 파일로 html doc 파일이 생성된다. main 하위의 adoc 파일에 unit test 에 생성된 adoc 파일이 include 된다.</p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://spring.io/projects/spring-restdocs">spring-restdocs-reference</a></em></p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-spring-data-rest/src/main/asciidoc">restdoc sample git</a></em></p>
+<p>   &nbsp;&nbsp;&nbsp;<em><a href="restdoc">restdoc sample</a></em>   </p>
+<hr>
+<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><p>   &nbsp;&nbsp;&nbsp;<em><a href="https://maven.apache.org/">https://maven.apache.org/</a></em></p>
+]]></content>
   </entry>
   <entry>
     <title>bouncycastle 추가</title>
@@ -528,13 +1075,6 @@
       <categories>
         <category>security</category>
       </categories>
-  </entry>
-  <entry>
-    <title>java</title>
-    <url>/2020/04/26/java/</url>
-    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><hr>
-<h2 id="openjdk"><a href="#openjdk" class="headerlink" title="openjdk"></a>openjdk</h2><p>   _<a href="https://github.com/ojdkbuild/ojdkbuild">https://github.com/ojdkbuild/ojdkbuild</a>_</p>
-<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1>]]></content>
   </entry>
   <entry>
     <title>Logging</title>
@@ -606,67 +1146,19 @@
       </categories>
   </entry>
   <entry>
-    <title>java_security</title>
-    <url>/2020/04/26/java_security/</url>
-    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="java-security-overview"><a href="#java-security-overview" class="headerlink" title="java-security-overview"></a>java-security-overview</h1><ul>
-<li>_<a href="https://www.baeldung.com/java-security-overview#public_key_infrastructure">https://www.baeldung.com/java-security-overview#public_key_infrastructure</a>_</li>
-</ul>
-<ol>
-<li><p>HSM</p>
-<p> 설명1<br> 설명2</p>
- <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>코드<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
- <br/>
-</li>
-<li><p>인증서</p>
-</li>
-<li><p>키생성</p>
-</li>
-<li><p>키스토어</p>
-</li>
-<li><p>CA</p>
-</li>
-<li><p>서명</p>
-</li>
-<li><p>서명확인</p>
-</li>
-<li><p>메세지다이제스트</p>
-</li>
-<li><p>JCA/JCE</p>
-</li>
+    <title>MarkDown</title>
+    <url>/2020/04/26/markdown/</url>
+    <content><![CDATA[<h1 id="MarkDown"><a href="#MarkDown" class="headerlink" title="MarkDown"></a>MarkDown</h1><ol>
+<li><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a></li>
+<li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></li>
+<li><a href="https://help.github.com/en/articles/basic-writing-and-formatting-syntax#styling-text">Basic writing and formatting syntax</a></li>
+<li><a href="https://asciidoctor.org/docs/asciidoc-vs-markdown/">asciidoc-vs-markdown</a></li>
+<li><a href="https://www.markdownguide.org/extended-syntax/">extended-syntax</a></li>
 </ol>
 ]]></content>
-  </entry>
-  <entry>
-    <title>maven</title>
-    <url>/2020/04/26/maven/</url>
-    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h1><hr>
-<h3 id="AsciiDoc-Install"><a href="#AsciiDoc-Install" class="headerlink" title="AsciiDoc Install"></a>AsciiDoc Install</h3><p>&nbsp;&nbsp;&nbsp;gem package manager, asciidoctor 설치.</p>
-<ul>
-<li><p>ruby install</p>
-<p><em><a href="https://stackoverflow.com/questions/18908708/installing-ruby-gem-in-windows">stackoverflow</a></em></p>
-<p><em><a href="https://rubyinstaller.org/downloads/">rubyinstaller downloads</a></em></p>
-</li>
-</ul>
-<ul>
-<li><p>asciidoctor install</p>
-<p><em><a href="https://asciidoctor.org/">asciidoctor</a></em></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gem install asciidoctor</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<hr>
-<h3 id="AsciiDoc-Convert"><a href="#AsciiDoc-Convert" class="headerlink" title="AsciiDoc Convert"></a>AsciiDoc Convert</h3><p>&nbsp;&nbsp;&nbsp;기본 html5 로 변환됨</p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://asciidoctor.org/docs/convert-documents/">convert-documents</a></em></p>
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">asciidoctor aaa.adoc</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="Spring-Restdocs"><a href="#Spring-Restdocs" class="headerlink" title="Spring-Restdocs"></a>Spring-Restdocs</h3><p>&nbsp;&nbsp;&nbsp; maven test 시에 target 하위에 adoc 파일 생성되고 package 수행시에 미리 만들어둔 main 하위 adoc 파일로 html doc 파일이 생성된다. main 하위의 adoc 파일에 unit test 에 생성된 adoc 파일이 include 된다.</p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://spring.io/projects/spring-restdocs">spring-restdocs-reference</a></em></p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-spring-data-rest/src/main/asciidoc">restdoc sample git</a></em></p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="restdoc">restdoc sample</a></em>   </p>
-<hr>
-<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><p>   &nbsp;&nbsp;&nbsp;<em><a href="https://maven.apache.org/">https://maven.apache.org/</a></em></p>
-]]></content>
+      <categories>
+        <category>documentation</category>
+      </categories>
   </entry>
   <entry>
     <title>node</title>
@@ -683,18 +1175,27 @@
 ]]></content>
   </entry>
   <entry>
-    <title>MarkDown</title>
-    <url>/2020/04/26/markdown/</url>
-    <content><![CDATA[<h1 id="MarkDown"><a href="#MarkDown" class="headerlink" title="MarkDown"></a>MarkDown</h1><ol>
-<li><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a></li>
-<li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></li>
-<li><a href="https://help.github.com/en/articles/basic-writing-and-formatting-syntax#styling-text">Basic writing and formatting syntax</a></li>
-<li><a href="https://asciidoctor.org/docs/asciidoc-vs-markdown/">asciidoc-vs-markdown</a></li>
-<li><a href="https://www.markdownguide.org/extended-syntax/">extended-syntax</a></li>
-</ol>
+    <title>openssh</title>
+    <url>/2020/04/26/openssh/</url>
+    <content><![CDATA[<p>==== openssh</p>
+<hr>
+<p><a href="https://hahaite.tistory.com/307">https://hahaite.tistory.com/307</a></p>
+<p><a href="https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_keymanagement">https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_keymanagement</a></p>
+<hr>
 ]]></content>
+  </entry>
+  <entry>
+    <title>project management</title>
+    <url>/2020/04/26/project/</url>
+    <content><![CDATA[<h1 id="개발-전반"><a href="#개발-전반" class="headerlink" title="개발 전반"></a>개발 전반</h1><hr>
+<h2 id="cloud"><a href="#cloud" class="headerlink" title="cloud"></a>cloud</h2><ul>
+<li><p>Top 5 Alternatives to Heroku</p>
+<p>_<a href="https://blog.back4app.com/2018/03/13/heroku-alternatives/">https://blog.back4app.com/2018/03/13/heroku-alternatives/</a>_<br><img src="https://blog.back4app.com/wp-content/uploads/2018/03/henroku-alternatives.png" alt=""></p>
+</li>
+</ul>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1>]]></content>
       <categories>
-        <category>documentation</category>
+        <category>pm</category>
       </categories>
   </entry>
   <entry>
@@ -795,20 +1296,6 @@
       <tags>
         <tag>plant</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>project management</title>
-    <url>/2020/04/26/project/</url>
-    <content><![CDATA[<h1 id="개발-전반"><a href="#개발-전반" class="headerlink" title="개발 전반"></a>개발 전반</h1><hr>
-<h2 id="cloud"><a href="#cloud" class="headerlink" title="cloud"></a>cloud</h2><ul>
-<li><p>Top 5 Alternatives to Heroku</p>
-<p>_<a href="https://blog.back4app.com/2018/03/13/heroku-alternatives/">https://blog.back4app.com/2018/03/13/heroku-alternatives/</a>_<br><img src="https://blog.back4app.com/wp-content/uploads/2018/03/henroku-alternatives.png" alt=""></p>
-</li>
-</ul>
-<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1>]]></content>
-      <categories>
-        <category>pm</category>
-      </categories>
   </entry>
   <entry>
     <title>springRestService</title>
@@ -939,16 +1426,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>openssh</title>
-    <url>/2020/04/26/openssh/</url>
-    <content><![CDATA[<p>==== openssh</p>
-<hr>
-<p><a href="https://hahaite.tistory.com/307">https://hahaite.tistory.com/307</a></p>
-<p><a href="https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_keymanagement">https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_keymanagement</a></p>
-<hr>
-]]></content>
-  </entry>
-  <entry>
     <title>springboot_errorhandling</title>
     <url>/2020/04/26/springboot_errorhandling/</url>
     <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h1><ul>
@@ -1004,6 +1481,57 @@
       </categories>
   </entry>
   <entry>
+    <title>미국주식 주문하기(영웅문)</title>
+    <url>/2020/04/26/stock/</url>
+    <content><![CDATA[<h3 id="계좌개설"><a href="#계좌개설" class="headerlink" title="계좌개설"></a>계좌개설</h3><ul>
+<li>키움증권계좌개설 앱에서 계좌신청. 신청후 바로 문자로 계좌번호가 발급되지만 본인확인은 안된상태.</li>
+<li>하루정도에 본인확인후에 매매가능.</li>
+</ul>
+<h3 id="이벤트"><a href="#이벤트" class="headerlink" title="이벤트"></a>이벤트</h3><ul>
+<li>미국주식 40달러 이벤트. 이벤트 신청하면 계정당(계좌당x) 40달러 받을수 있음. 영웅문글로벌에서 메뉴&gt;홈&gt;맨아래 이벤트 배너에서 40달러 이벤트 신청.</li>
+<li>환전 수수료 이벤트. 영웅문글로벌에서 메뉴&gt;홈&gt;맨아래 이벤트 배너에서 해외주식수수료 0.1% + 환율우대 95% 이벤트 신청</li>
+<li><h3 id="입금"><a href="#입금" class="headerlink" title="입금"></a>입금</h3><ul>
+<li>입금시 비대면 계좌의 경우 연계은행 조회가 불가함. 아래 방법으로 입금가능.</li>
+</ul>
+</li>
+<li>기존 키움계좌에서 글로벌 계좌로 입금.</li>
+<li>8 자리 증권계좌로 은행 인터넷 뱅킹으로 바로 송금.</li>
+</ul>
+<h3 id="매매"><a href="#매매" class="headerlink" title="매매"></a>매매</h3><ul>
+<li>입금후 바로 원화로 매매를 하려하면 증거금이 부족하다고 나옴. 아래 방법으로 매매가능.<ul>
+<li>달러로 환전후 매매.</li>
+<li>원화로 매매하려면, 원화주문 서비스 신청필요. 영웅문글로벌에서 메뉴&gt;원화주문&gt;신청/해지 에서 신청</li>
+<li><blockquote>
+<p><em>오후 10:30분에 미국장이 열리므로 그전에는 예약주문으로됨. 오후 7:30 분부터는 바로 예약 주문이 가능하므로 원화로 주문하여도 환율차이 없이 바로 주문 가능하지만, 그전에 주문 할 경우 환율변동으로 인해 실제 주문가격과 다를 수 있음.</em></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="환전-가능한-시간"><a href="#환전-가능한-시간" class="headerlink" title="환전 가능한 시간"></a>환전 가능한 시간</h3><ul>
+<li>영업일 : 00:10<del>16:50 , 17:00</del>23:50</li>
+<li>토/일/공휴일 : 00:10~23:50 </li>
+</ul>
+<h3 id="개장-폐장-시간"><a href="#개장-폐장-시간" class="headerlink" title="개장 폐장 시간"></a>개장 폐장 시간</h3><ul>
+<li>뉴욕시간으로<ul>
+<li>오전 9 : 30 개장 - 오후 4 : 00 폐장 입니다 (후장 10분간 동시호가)</li>
+</ul>
+</li>
+<li>한국시간으로는<ul>
+<li>4월~10월 : 밤 10 : 30 개장 - 다음날 새벽 5 : 00 폐장 (미국의 써머타임 적용기)</li>
+<li>11월~3월 : 밤 11 : 30 개장 - 다음날 새벽 6 : 00 폐장</li>
+</ul>
+</li>
+</ul>
+<h3 id="용어"><a href="#용어" class="headerlink" title="용어"></a>용어</h3><ul>
+<li>가환율 :  17:00 이후에 환전할 시 적용되는 환율.  영업일인 17:00 직적환율에서 +- 5%정도를 적용한 환율. 추가된 환율의 차액분은 16:35에 일괄 입출금.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>stock</category>
+      </categories>
+  </entry>
+  <entry>
     <title>transaction</title>
     <url>/2020/04/26/transactional/</url>
     <content><![CDATA[<h1 id="Transactional"><a href="#Transactional" class="headerlink" title="Transactional"></a>Transactional</h1><hr>
@@ -1012,6 +1540,62 @@
       <categories>
         <category>database</category>
       </categories>
+  </entry>
+  <entry>
+    <title>ubuntu</title>
+    <url>/2020/04/29/ubuntu/</url>
+    <content><![CDATA[<h1 id="Ubuntu-command-이거저거"><a href="#Ubuntu-command-이거저거" class="headerlink" title="Ubuntu command 이거저거"></a>Ubuntu command 이거저거</h1><h2 id="docker-ubuntu-초기-설치"><a href="#docker-ubuntu-초기-설치" class="headerlink" title="docker ubuntu 초기 설치"></a>docker ubuntu 초기 설치</h2><blockquote>
+<p>apt install -y net-tools vim curl</p>
+</blockquote>
+<h2 id="apt"><a href="#apt" class="headerlink" title="apt"></a>apt</h2><ul>
+<li><p>패키지 설치</p>
+<ul>
+<li>apt install 패키지이름</li>
+</ul>
+</li>
+<li><p>패키지 삭제  </p>
+<ul>
+<li>apt remove 패키지이름</li>
+</ul>
+</li>
+<li><p>패키지와 설정파일 제거</p>
+<ul>
+<li>apt purge 패키지이름</li>
+</ul>
+</li>
+<li><p>사용하지 않는 패키지제거</p>
+<ul>
+<li>apt autoremove</li>
+</ul>
+</li>
+<li><p>패키지 목록 검색</p>
+<ul>
+<li>apt search 키워드</li>
+</ul>
+</li>
+<li><p>패키지 상세정보</p>
+<ul>
+<li>apt show 패키지이름</li>
+</ul>
+</li>
+<li><p>패키지 목록</p>
+<ul>
+<li>apt list 패키지명 [–installed|–-upgradable|–-all-versions]</li>
+</ul>
+</li>
+<li><p>패키지 목록 업데이트</p>
+<ul>
+<li>apt update</li>
+</ul>
+</li>
+<li><p>패키지 업그레이드 (apt list –upgradable 을 업그레이드)</p>
+<ul>
+<li>apt upgrade</li>
+</ul>
+</li>
+</ul>
+<h2 id="service-systemctl-chkconfig"><a href="#service-systemctl-chkconfig" class="headerlink" title="service, systemctl, chkconfig"></a><a href="https://llnote.tistory.com/508">service, systemctl, chkconfig</a></h2><h2 id="ip-확인"><a href="#ip-확인" class="headerlink" title="ip 확인"></a>ip 확인</h2><p>hostname -i<br>ifconfig</p>
+]]></content>
   </entry>
   <entry>
     <title>MarkDown Template</title>
@@ -1098,57 +1682,6 @@
       </categories>
   </entry>
   <entry>
-    <title>미국주식 주문하기(영웅문)</title>
-    <url>/2020/04/26/stock/</url>
-    <content><![CDATA[<h3 id="계좌개설"><a href="#계좌개설" class="headerlink" title="계좌개설"></a>계좌개설</h3><ul>
-<li>키움증권계좌개설 앱에서 계좌신청. 신청후 바로 문자로 계좌번호가 발급되지만 본인확인은 안된상태.</li>
-<li>하루정도에 본인확인후에 매매가능.</li>
-</ul>
-<h3 id="이벤트"><a href="#이벤트" class="headerlink" title="이벤트"></a>이벤트</h3><ul>
-<li>미국주식 40달러 이벤트. 이벤트 신청하면 계정당(계좌당x) 40달러 받을수 있음. 영웅문글로벌에서 메뉴&gt;홈&gt;맨아래 이벤트 배너에서 40달러 이벤트 신청.</li>
-<li>환전 수수료 이벤트. 영웅문글로벌에서 메뉴&gt;홈&gt;맨아래 이벤트 배너에서 해외주식수수료 0.1% + 환율우대 95% 이벤트 신청</li>
-<li><h3 id="입금"><a href="#입금" class="headerlink" title="입금"></a>입금</h3><ul>
-<li>입금시 비대면 계좌의 경우 연계은행 조회가 불가함. 아래 방법으로 입금가능.</li>
-</ul>
-</li>
-<li>기존 키움계좌에서 글로벌 계좌로 입금.</li>
-<li>8 자리 증권계좌로 은행 인터넷 뱅킹으로 바로 송금.</li>
-</ul>
-<h3 id="매매"><a href="#매매" class="headerlink" title="매매"></a>매매</h3><ul>
-<li>입금후 바로 원화로 매매를 하려하면 증거금이 부족하다고 나옴. 아래 방법으로 매매가능.<ul>
-<li>달러로 환전후 매매.</li>
-<li>원화로 매매하려면, 원화주문 서비스 신청필요. 영웅문글로벌에서 메뉴&gt;원화주문&gt;신청/해지 에서 신청</li>
-<li><blockquote>
-<p><em>오후 10:30분에 미국장이 열리므로 그전에는 예약주문으로됨. 오후 7:30 분부터는 바로 예약 주문이 가능하므로 원화로 주문하여도 환율차이 없이 바로 주문 가능하지만, 그전에 주문 할 경우 환율변동으로 인해 실제 주문가격과 다를 수 있음.</em></p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="환전-가능한-시간"><a href="#환전-가능한-시간" class="headerlink" title="환전 가능한 시간"></a>환전 가능한 시간</h3><ul>
-<li>영업일 : 00:10<del>16:50 , 17:00</del>23:50</li>
-<li>토/일/공휴일 : 00:10~23:50 </li>
-</ul>
-<h3 id="개장-폐장-시간"><a href="#개장-폐장-시간" class="headerlink" title="개장 폐장 시간"></a>개장 폐장 시간</h3><ul>
-<li>뉴욕시간으로<ul>
-<li>오전 9 : 30 개장 - 오후 4 : 00 폐장 입니다 (후장 10분간 동시호가)</li>
-</ul>
-</li>
-<li>한국시간으로는<ul>
-<li>4월~10월 : 밤 10 : 30 개장 - 다음날 새벽 5 : 00 폐장 (미국의 써머타임 적용기)</li>
-<li>11월~3월 : 밤 11 : 30 개장 - 다음날 새벽 6 : 00 폐장</li>
-</ul>
-</li>
-</ul>
-<h3 id="용어"><a href="#용어" class="headerlink" title="용어"></a>용어</h3><ul>
-<li>가환율 :  17:00 이후에 환전할 시 적용되는 환율.  영업일인 17:00 직적환율에서 +- 5%정도를 적용한 환율. 추가된 환율의 차액분은 16:35에 일괄 입출금.</li>
-</ul>
-]]></content>
-      <categories>
-        <category>stock</category>
-      </categories>
-  </entry>
-  <entry>
     <title>vs code</title>
     <url>/2020/04/26/vscode/</url>
     <content><![CDATA[<h1 id="Visual-Studio-Cdoe"><a href="#Visual-Studio-Cdoe" class="headerlink" title="Visual Studio Cdoe"></a>Visual Studio Cdoe</h1><p><em><a href="https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf">keyboard-shortcuts-windows</a></em><br><em><img src="https://www.devacron.com/wp-content/uploads/2017/10/Visual_Studio_Code_Keyboard_Shortcuts_Windows.png" alt="keyboard-shortcuts-windows"></em></p>
@@ -1206,6 +1739,12 @@
       </categories>
   </entry>
   <entry>
+    <title>vue</title>
+    <url>/2020/04/26/vue/</url>
+    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><hr>
+]]></content>
+  </entry>
+  <entry>
     <title>window</title>
     <url>/2020/04/26/window/</url>
     <content><![CDATA[<h4 id="lonovo"><a href="#lonovo" class="headerlink" title="lonovo"></a>lonovo</h4><blockquote>
@@ -1254,12 +1793,6 @@
       <categories>
         <category>os</category>
       </categories>
-  </entry>
-  <entry>
-    <title>vue</title>
-    <url>/2020/04/26/vue/</url>
-    <content><![CDATA[<h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><hr>
-]]></content>
   </entry>
   <entry>
     <title>Spring Security Oauth2 </title>

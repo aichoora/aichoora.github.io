@@ -1,311 +1,305 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.0"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>JJ&#039;s blog</title><meta property="og:type" content="blog"><meta property="og:title" content="JJ&#039;s blog"><meta property="og:url" content="https://aichoora.github.io/"><meta property="og:site_name" content="JJ&#039;s blog"><meta property="og:locale" content="ko_KR"><meta property="og:image" content="https://aichoora.github.io/img/og_image.png"><meta property="article:author" content="aichoora"><meta property="article:tag" content="programming"><meta property="article:tag" content=" java"><meta property="article:tag" content=" spring"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://aichoora.github.io"},"headline":"JJ's blog","image":["https://aichoora.github.io/img/og_image.png"],"author":{"@type":"Person","name":"aichoora"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="JJ&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/"><i class="fab fa-github"></i></a><a class="navbar-item search" title="검색" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.881Z" title="2020-04-26T07:57:22.881Z">2020-04-26</time><span class="level-item">2분 읽기 (대략 370 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/spring/">spring</a></h1><div class="content"><h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><hr>
-<h2 id="Spring-MVC-request-life-cycle"><a href="#Spring-MVC-request-life-cycle" class="headerlink" title="Spring MVC request life cycle"></a>Spring MVC request life cycle</h2><p><img src="https://justforchangesake.files.wordpress.com/2014/05/spring-request-lifecycle.jpg" alt=""></p>
-<hr>
-<h2 id="Static-Resources"><a href="#Static-Resources" class="headerlink" title="Static Resources"></a>Static Resources</h2><h3 id="docs-index-html-로-접근하려면"><a href="#docs-index-html-로-접근하려면" class="headerlink" title="/docs/index.html 로 접근하려면.."></a><code>/docs/index.html</code> 로 접근하려면..</h3><ul>
-<li><p>_<a href="https://docs.spring.io/spring/docs/5.2.1.RELEASE/spring-framework-reference/web.html#mvc-config-static-resources">https://docs.spring.io/spring/docs/5.2.1.RELEASE/spring-framework-reference/web.html#mvc-config-static-resources</a>_</p>
-</li>
-<li><p>_<a href="https://www.baeldung.com/spring-mvc-static-resources">https://www.baeldung.com/spring-mvc-static-resources</a>_</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">src&#x2F;main&#x2F;resources</span><br><span class="line">            └─static</span><br><span class="line">               └─docs</span><br><span class="line">                  └─ index.html</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-   <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">  <span class="meta">@Configuration</span></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestDocConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addResourceHandlers</span><span class="params">(ResourceHandlerRegistry registry)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// classpath</span></span><br><span class="line">	registry.addResourceHandler(<span class="string">"/docs/**"</span>).addResourceLocations(<span class="string">"classpath:/static/docs/"</span>).setCachePeriod(<span class="number">3600</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// web root (WEB-INF parent directory) ex) WebContent/public/index.html</span></span><br><span class="line">     <span class="comment">// jar 배포시에는 사용하지말것.</span></span><br><span class="line">	registry.addResourceHandler(<span class="string">"/docs/**"</span>).addResourceLocations(<span class="string">"/public"</span>).setCachePeriod(<span class="number">3600</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// file full path</span></span><br><span class="line">	registry.addResourceHandler(<span class="string">"/docs/**"</span>).addResourceLocations(<span class="string">"file:src/main/resources/static/docs/"</span>).setCachePeriod(<span class="number">3600</span>);</span><br><span class="line">&#125;</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
-<p>   default mapping<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ResourceHttpRequestHandler [&quot;classpath:&#x2F;META-INF&#x2F;resources&#x2F;&quot;, &quot;classpath:&#x2F;resources&#x2F;&quot;, &quot;classpath:&#x2F;static&#x2F;&quot;, &quot;classpath:&#x2F;public&#x2F;&quot;, &quot;&#x2F;&quot;]</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="Error-Handle"><a href="#Error-Handle" class="headerlink" title="Error Handle"></a>Error Handle</h2><p>_<a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-exceptionhandlers">https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-exceptionhandlers</a>_</p>
-<ul>
-<li><p>ResponseEntityExceptionHandler 에서 global exception 처리</p>
-<p> @ControllerAdvice 를 사용하여  ResponseEntityExceptionHandler 상속받아 별도의 exception handling 을 하려는 경우  @ExceptionHandler(Exception.class) 로 global exception 으로 사용하려 해도 ResponseEntityExceptionHandler 내의 @ExceptionHandler 가 정의 되어있으면 그것을 사용하게 되어 global exception 으로 일원화 하여 response 를 관리 할 수 없게 된다. </p>
-<p> 이미 제공된 핸들러는 아래와 같으므로, 제공된 핸들러를 사용하지 않을 경우  ResponseEntityExceptionHandler 를 상속하지 않는다.</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Provides handling for standard Spring MVC exceptions.</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> ex the target exception</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> request the current request</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@ExceptionHandler</span>(&#123;</span><br><span class="line">      HttpRequestMethodNotSupportedException<span class="class">.<span class="keyword">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">HttpMediaTypeNotSupportedException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">HttpMediaTypeNotAcceptableException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">MissingPathVariableException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">MissingServletRequestParameterException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">ServletRequestBindingException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">ConversionNotSupportedException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">TypeMismatchException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">HttpMessageNotReadableException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">HttpMessageNotWritableException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">MethodArgumentNotValidException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">MissingServletRequestPartException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">BindException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">NoHandlerFoundException</span>.<span class="title">class</span>,</span></span><br><span class="line"><span class="class">      <span class="title">AsyncRequestTimeoutException</span>.<span class="title">class</span></span></span><br><span class="line"><span class="class">   &#125;)</span></span><br></pre></td></tr></table></figure>
-<p> ExceptionHandlerExceptionResolver &gt; ResponseStatusExceptionResolver &gt; DefaultHandlerExceptionResolver &gt; SimpleMappingExceptionResolver 순으로 처리한다. SimpleMappingExceptionResolver 은 기본빈으로 등록되어 있지 않음.</p>
-<p> afterCompletion(HttpServletRequest, HttpServletResponse, Object, Exception) 를 사용하여 Exception 을 처리 할 수 있음<br> HandlerExceptionResolver 와 같이 사용 했을 때 유의 할 점은 이미 처리 된 Exception 에 대해서는 Interceptor 하지 않는점이다.</p>
-</li>
-</ul>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.879Z" title="2020-04-26T07:57:22.879Z">2020-04-26</time><span class="level-item"><a class="link-muted" href="/categories/pm/">pm</a></span><span class="level-item">몇 초 읽기 (대략 21 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/project/">project management</a></h1><div class="content"><h1 id="개발-전반"><a href="#개발-전반" class="headerlink" title="개발 전반"></a>개발 전반</h1><hr>
-<h2 id="cloud"><a href="#cloud" class="headerlink" title="cloud"></a>cloud</h2><ul>
-<li><p>Top 5 Alternatives to Heroku</p>
-<p>_<a href="https://blog.back4app.com/2018/03/13/heroku-alternatives/">https://blog.back4app.com/2018/03/13/heroku-alternatives/</a>_<br><img src="https://blog.back4app.com/wp-content/uploads/2018/03/henroku-alternatives.png" alt=""></p>
-</li>
-</ul>
-<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.877Z" title="2020-04-26T07:57:22.877Z">2020-04-26</time><span class="level-item"><a class="link-muted" href="/categories/plant/">plant</a></span><span class="level-item">2분 읽기 (대략 319 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/plant/">식물들</a></h1><div class="content"><h1 id="죽이지말자"><a href="#죽이지말자" class="headerlink" title="죽이지말자"></a>죽이지말자</h1><blockquote>
-<p>😍 : 아주 좋아함, 😄 : 좋아함, 🤨 : 보통, 🥵 : 싫어함 , ☠ : 죽을것 같다<br>내건성 : (토양수분 건조에 견디는 힘) 5단계<br>①매우 약함 ②약함 ③보통 ④강함 ⑤매우 강함</p>
+<html lang="ko"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.0"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>JJ&#039;s blog</title><meta property="og:type" content="blog"><meta property="og:title" content="JJ&#039;s blog"><meta property="og:url" content="https://aichoora.github.io/"><meta property="og:site_name" content="JJ&#039;s blog"><meta property="og:locale" content="ko_KR"><meta property="og:image" content="https://aichoora.github.io/img/og_image.png"><meta property="article:author" content="aichoora"><meta property="article:tag" content="programming"><meta property="article:tag" content=" java"><meta property="article:tag" content=" spring"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://aichoora.github.io"},"headline":"JJ's blog","image":["https://aichoora.github.io/img/og_image.png"],"author":{"@type":"Person","name":"aichoora"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="JJ&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/"><i class="fab fa-github"></i></a><a class="navbar-item search" title="검색" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-28T01:06:40.000Z" title="2020-04-28T01:06:40.000Z">2020-04-28</time><span class="level-item">2분 읽기 (대략 283 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/28/install-apache-centos/">install-apache-centos</a></h1><div class="content"><h1 id="centos-아파치-서버-설치"><a href="#centos-아파치-서버-설치" class="headerlink" title="centos 아파치 서버 설치"></a>centos 아파치 서버 설치</h1><h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><blockquote>
+<p>yum -y install httpd</p>
 </blockquote>
-<table>
+<h2 id="설치확인"><a href="#설치확인" class="headerlink" title="설치확인"></a>설치확인</h2><blockquote>
+<p>yum list installed | grep httpd</p>
+</blockquote>
+<h2 id="버전-확인"><a href="#버전-확인" class="headerlink" title="버전 확인"></a>버전 확인</h2><blockquote>
+<p>httpd -v</p>
+</blockquote>
+<h2 id="데몬시작"><a href="#데몬시작" class="headerlink" title="데몬시작"></a>데몬시작</h2><blockquote>
+<p>systemctl  start httpd.service</p>
+</blockquote>
+<h2 id="부팅시-httpd-등록"><a href="#부팅시-httpd-등록" class="headerlink" title="부팅시 httpd 등록"></a>부팅시 httpd 등록</h2><blockquote>
+<p>systemctl enable httpd.service</p>
+</blockquote>
+<h2 id="방화벽-오픈"><a href="#방화벽-오픈" class="headerlink" title="방화벽 오픈"></a>방화벽 오픈</h2><blockquote>
+<p>firewall-cmd –permanent –zone=public –add-service=http<br>firewall-cmd –reload<br>firewall-cmd –list-port</p>
+</blockquote>
+<h1 id="tomcat-연동"><a href="#tomcat-연동" class="headerlink" title="tomcat 연동"></a>tomcat 연동</h1><h2 id="gcc-gcc-c-httpd-devel-make-설치"><a href="#gcc-gcc-c-httpd-devel-make-설치" class="headerlink" title="gcc gcc-c++ httpd-devel make 설치"></a>gcc gcc-c++ httpd-devel make 설치</h2><p>yum install gcc gcc-c++ httpd-devel make</p>
+<h2 id="mod-jk-다운로드-amp-설치"><a href="#mod-jk-다운로드-amp-설치" class="headerlink" title="mod_jk(다운로드 &amp; 설치)"></a>mod_jk(다운로드 &amp; 설치)</h2><p>wget <a href="http://mirror.navercorp.com/apache/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.48-src.tar.gz">http://mirror.navercorp.com/apache/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.48-src.tar.gz</a><br>tar zxvf tomcat-connector*<br>cd tomcat-connectors-1.2.48-src/native<br>./configure –with-apxs=/usr/bin/apxs<br>make<br>make install</p>
+<h2 id="LoadModule-추가"><a href="#LoadModule-추가" class="headerlink" title="LoadModule 추가"></a>LoadModule 추가</h2><h1 id="vi-etc-httpd-conf-httpd-conf"><a href="#vi-etc-httpd-conf-httpd-conf" class="headerlink" title="vi /etc/httpd/conf/httpd.conf"></a>vi /etc/httpd/conf/httpd.conf</h1><h1 id="LoadModule-jk-module-modules-mod-jk-so"><a href="#LoadModule-jk-module-modules-mod-jk-so" class="headerlink" title="LoadModule jk_module modules/mod_jk.so"></a>LoadModule jk_module modules/mod_jk.so</h1><h2 id="httpd-jk-conf-생성"><a href="#httpd-jk-conf-생성" class="headerlink" title="httpd-jk.conf 생성"></a>httpd-jk.conf 생성</h2><p>vi /etc/httpd/conf.d/httpd-jk.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LoadModule jk_module modules&#x2F;mod_jk.so</span><br><span class="line">&lt;IfModule jk_module&gt;</span><br><span class="line">  JkWorkersFile conf.d&#x2F;workers.properties</span><br><span class="line">  JkLogFile logs&#x2F;mod_jk.log</span><br><span class="line">  JkLogLevel info</span><br><span class="line">  JkShmFile run&#x2F;mod_jk.shm</span><br><span class="line">  JkMountFile conf.d&#x2F;uriworkermap.properties</span><br><span class="line">&lt;&#x2F;IfModule&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="worker-생성"><a href="#worker-생성" class="headerlink" title="worker 생성"></a>worker 생성</h2><p>vi /etc/httpd/conf.d/workers.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">worker.list&#x3D;tomcat1 </span><br><span class="line">worker.tomcat1.port&#x3D;8009 </span><br><span class="line">worker.tomcat1.host&#x3D;localhost </span><br><span class="line">worker.tomcat1.type&#x3D;ajp13 </span><br><span class="line">worker.tomcat1.lbfactor&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<h2 id="uriworkermap-생성"><a href="#uriworkermap-생성" class="headerlink" title="uriworkermap 생성"></a>uriworkermap 생성</h2><p>vi /etc/httpd/conf.d/uriworkermap.properties</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*&#x3D;tomcat1</span><br></pre></td></tr></table></figure>
+
+<h2 id="config-테스트"><a href="#config-테스트" class="headerlink" title="config 테스트"></a>config 테스트</h2><p>apachectl configtest</p>
+<h2 id="tomcat-ajp-port-오픈"><a href="#tomcat-ajp-port-오픈" class="headerlink" title="tomcat ajp port 오픈"></a>tomcat ajp port 오픈</h2><p>vi /opt/tomcat/conf/server.xml<br>ajp 포트설정<br><Connector port="8009" protocol="AJP/1.3" redirectPort="8443" address="0.0.0.0" secretRequired="false"/></p>
+<h2 id="apache2-tomcat-재기동"><a href="#apache2-tomcat-재기동" class="headerlink" title="apache2, tomcat 재기동"></a>apache2, tomcat 재기동</h2><p>systemctl  restart tomcat<br>systemctl  restart httpd</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><a href="https://suwoni-codelab.com/linux/2017/05/29/Linux-CentOS-Apache-Tomcat/">09. 리눅스(CentOS) 개발 놀이터 만들기 - Apache와 Tomcat 연동</a></p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-28T01:06:24.000Z" title="2020-04-28T01:06:24.000Z">2020-04-28</time><span class="level-item">몇 초 읽기 (대략 56 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/28/install-jvm-centos/">install-jvm-centos</a></h1><div class="content"><h1 id="CentOS-java-설치"><a href="#CentOS-java-설치" class="headerlink" title="CentOS java 설치"></a>CentOS java 설치</h1><h2 id="설치-확인"><a href="#설치-확인" class="headerlink" title="설치 확인"></a>설치 확인</h2><blockquote>
+<p>yum list installed | grep java<br>or<br>java -version</p>
+</blockquote>
+<h2 id="설치학-패키지-확인"><a href="#설치학-패키지-확인" class="headerlink" title="설치학 패키지 확인"></a>설치학 패키지 확인</h2><blockquote>
+<p>yum search java  </p>
+</blockquote>
+<p>버전 확인후 패키지명 으로 검색</p>
+<blockquote>
+<p>yum list java-1.8.0-openjdk</p>
+</blockquote>
+<h2 id="설치"><a href="#설치" class="headerlink" title="설치"></a>설치</h2><blockquote>
+<p>yum install java-1.8.0-openjdk</p>
+</blockquote>
+<h2 id="삭제"><a href="#삭제" class="headerlink" title="삭제"></a>삭제</h2><blockquote>
+<p>yum remove java-1.8.0-openjdk</p>
+</blockquote>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-28T00:48:53.000Z" title="2020-04-28T00:48:53.000Z">2020-04-28</time><span class="level-item">1분 읽기 (대략 153 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/28/install-jenkins-centos/">install-jenkins-centos</a></h1><div class="content"><h1 id="CentOS-jenkins-설치"><a href="#CentOS-jenkins-설치" class="headerlink" title="CentOS jenkins 설치"></a>CentOS jenkins 설치</h1><h2 id="LTS-version-다운로드-키-import-설치"><a href="#LTS-version-다운로드-키-import-설치" class="headerlink" title="LTS version 다운로드,키 import,설치"></a>LTS version 다운로드,키 import,설치</h2><blockquote>
+<p>wget -O /etc/yum.repos.d/jenkins.repo <a href="http://pkg.jenkins.io/redhat-stable/jenkins.repo">http://pkg.jenkins.io/redhat-stable/jenkins.repo</a><br>rpm –import <a href="http://pkg.jenkins.io/redhat-stable/jenkins.io.key">http://pkg.jenkins.io/redhat-stable/jenkins.io.key</a><br>rpm -qa gpg-pubkey* # 설치된 키확인 (d50582e6)<br>yum install jenkins</p>
+</blockquote>
+<h2 id="Java-설치"><a href="#Java-설치" class="headerlink" title="Java 설치"></a>Java 설치</h2><blockquote>
+<p>yum install java-1.8.0-openjdk</p>
+</blockquote>
+<h2 id="포트-변경"><a href="#포트-변경" class="headerlink" title="포트 변경"></a>포트 변경</h2><blockquote>
+<p>/etc/sysconfig/jenkins<br>JENKINS_PORT=9080</p>
+</blockquote>
+<h2 id="방화벽-오픈"><a href="#방화벽-오픈" class="headerlink" title="방화벽 오픈"></a>방화벽 오픈</h2><blockquote>
+<p>firewall-cmd –permanent –zone=public –add-port=9080/tcp<br>firewall-cmd –reload<br>firewall-cmd –list-port</p>
+</blockquote>
+<h2 id="기동"><a href="#기동" class="headerlink" title="기동"></a>기동</h2><blockquote>
+<p>systemctl start jenkins</p>
+</blockquote>
+<h2 id="시스템부팅시-기동"><a href="#시스템부팅시-기동" class="headerlink" title="시스템부팅시 기동"></a>시스템부팅시 기동</h2><blockquote>
+<p>systemctl enable jenkins</p>
+</blockquote>
+<h2 id="접근-url"><a href="#접근-url" class="headerlink" title="접근 url"></a>접근 url</h2><p>  domain:9080</p>
+<h2 id="초기-admin-password"><a href="#초기-admin-password" class="headerlink" title="초기 admin password"></a>초기 admin password</h2><p>  /var/lib/jenkins/secrets/initialAdminPassword</p>
+<h2 id="참고"><a href="#참고" class="headerlink" title="참고"></a>참고</h2><p>  <a href="https://pkg.jenkins.io/redhat-stable/">RedHat Linux RPM packages for Jenkins</a><br>  <a href="https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions">Installing Jenkins on Red Hat distributions</a>  </p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-27T08:05:34.000Z" title="2020-04-27T08:05:34.000Z">2020-04-27</time><span class="level-item">몇 초 읽기 (대략 31 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/27/install-svn-centos/">install_svn_centos</a></h1><div class="content"><h1 id="CentOS-SVN-설치"><a href="#CentOS-SVN-설치" class="headerlink" title="CentOS SVN 설치"></a>CentOS SVN 설치</h1><h2 id="SVN-설치"><a href="#SVN-설치" class="headerlink" title="SVN 설치"></a>SVN 설치</h2><ul>
+<li><p>설치여부확인</p>
+<ul>
+<li>svn</li>
+</ul>
+</li>
+<li><p>설치할 패키지확인</p>
+<ul>
+<li>yum list subversion</li>
+</ul>
+</li>
+<li><p>설치</p>
+<ul>
+<li>yum install subversion -y</li>
+</ul>
+</li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.923Z" title="2020-04-26T07:57:22.923Z">2020-04-26</time><span class="level-item"><a class="link-muted" href="/categories/os/">os</a></span><span class="level-item">2분 읽기 (대략 255 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/window/">window</a></h1><div class="content"><h4 id="lonovo"><a href="#lonovo" class="headerlink" title="lonovo"></a>lonovo</h4><blockquote>
+<p><code>fn + shift + esc or ctrl + shift + esc</code> : <em>hotkey lock</em></p>
+</blockquote>
+<h4 id="window-10"><a href="#window-10" class="headerlink" title="window 10"></a>window 10</h4><blockquote>
+<p><code>win + ctrl + D</code> : <em>create virtual desktop</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + ctrl + f4</code> : <em>delete virtual desktop</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + ctrl + arrow</code> : <em>move virtual desktop</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + s</code> : <em>search</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + x</code> : <em>admin menu</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + k</code> : <em>search wireless device</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + i</code> : <em>open control panel</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + Shift + S</code> : <em>선택한 영역만 캡처</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + PrtScn</code> : <em>화면 전체 캡처 + 자동 저장</em></p>
+</blockquote>
+<blockquote>
+<p><code>win + s + snip</code> : <em>캡쳐도구</em></p>
+</blockquote>
+<h4 id="window-10-설치"><a href="#window-10-설치" class="headerlink" title="window 10 설치"></a>window 10 설치</h4><ul>
+<li>rufus-3.9p.exe 로 win 10 remiz 부팅/설치 디스크 생성. MBR 로..<br> <em>(오피스 한글 따로 설치하기 귀찮아서.. 2016 통합버전을 그대로 쓰려한다)</em></li>
+<li>설치시 파티션 GTP 로 안맞을경우 파티션 삭제후 재생성후 설치</li>
+<li>올드 버전이라 기본 드라이버 안잡아주므로 무선드라이버도 설치안됨.. 다행히 이더넷 드라이버는 잡아주네. 랜선으로 연결.</li>
+<li>윈도우 업데이트 실패시, 에러코드로 검색하여 최신 업데이트 installer 를 설치후 업데이트<ul>
+<li>(<a href="https://www.microsoft.com/ko-kr/software-download/windows10">https://www.microsoft.com/ko-kr/software-download/windows10</a> 윈도우업데이트 설치후 다시시도)</li>
+</ul>
+</li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.920Z" title="2020-04-26T07:57:22.920Z">2020-04-26</time><span class="level-item">몇 초 읽기 (대략 3 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/vue/">vue</a></h1><div class="content"><h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><hr>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.917Z" title="2020-04-26T07:57:22.917Z">2020-04-26</time><span class="level-item"><a class="link-muted" href="/categories/ide/">ide</a></span><span class="level-item">2분 읽기 (대략 253 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/vscode/">vs code</a></h1><div class="content"><h1 id="Visual-Studio-Cdoe"><a href="#Visual-Studio-Cdoe" class="headerlink" title="Visual Studio Cdoe"></a>Visual Studio Cdoe</h1><p><em><a href="https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf">keyboard-shortcuts-windows</a></em><br><em><img src="https://www.devacron.com/wp-content/uploads/2017/10/Visual_Studio_Code_Keyboard_Shortcuts_Windows.png" alt="keyboard-shortcuts-windows"></em></p>
+<p><a href="#Shortcut">Shortcut</a><br><a href="#Extension">Extension</a></p>
+<h2 id="Common-Shortcut"><a href="#Common-Shortcut" class="headerlink" title="Common Shortcut"></a>Common Shortcut</h2><ul>
+<li>quick command (@qc) : ctrl + 3 , ctrl + shift + p</li>
+<li>go to symbol : ctrl + o</li>
+<li>open file :ctrl + p</li>
+<li>open shortcut setting : @qc &amp; type “open shortcut”</li>
+<li>open default settings : @qc &amp; type “open default settings”</li>
+<li>open settings ui : @qc &amp; type “open settings ui”</li>
+<li>view : ctrl + shift + E(explore)</li>
+<li>view : ctrl + shift + F(find), ctrl + h</li>
+<li>view : ctrl + shift + g(scm)</li>
+<li>view : ctrl + shift + d(debug)</li>
+<li>view : ctrl + shift + x(extension)</li>
+</ul>
+<h2 id="Common-Extension"><a href="#Common-Extension" class="headerlink" title="Common Extension"></a>Common Extension</h2><ul>
+<li>colonize : auto semicolon</li>
+<li>Comma Enter (alt + enter 로 변경)</li>
+<li>eclipse keymap</li>
+<li>npm intellisense</li>
+<li>vetur</li>
+<li>Vue2 Snippets</li>
+<li>open browser</li>
+</ul>
+<h2 id="vscode-에서-마크다운-작성을-편하게"><a href="#vscode-에서-마크다운-작성을-편하게" class="headerlink" title="vscode 에서 마크다운 작성을 편하게"></a>vscode 에서 마크다운 작성을 편하게</h2><ul>
+<li>extension<ul>
+<li>Markdzhang.markdown-all-in-one<ul>
+<li>ctrl + b : bold</li>
+<li>ctrl + i : italic</li>
+<li>ctrl + ] : add #</li>
+<li>ctrl + [ : remove #</li>
+<li>ctrl + shfit + F : formatter</li>
+<li>(selection) + ctrl + v : make link</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="git-bash-로-터미널-설정"><a href="#git-bash-로-터미널-설정" class="headerlink" title="git bash 로 터미널 설정"></a>git bash 로 터미널 설정</h2><ol>
+<li>git bash 설치</li>
+<li>bash profile 변경 (<a href="https://medium.com/@violetboralee/windows-%EC%82%AC%EC%9A%A9%EC%9E%90%EB%A5%BC-%EC%9C%84%ED%95%9C-git-bash-%EC%84%A4%EC%A0%95-ac50acb34c46">링크</a>)</li>
+<li>open settings : ctrl + , </li>
+<li><code>terminal.integrated.shell.windows</code> search</li>
+<li>Edit in settings.json  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"terminal.integrated.shell.windows"</span>: <span class="string">"C:\\Program Files\\Git\\bin\\bash.exe"</span>,</span><br><span class="line">    <span class="string">"git.autofetch"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"git.enableSmartCommit"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"git.confirmSync"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="string">"window.zoomLevel"</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">"diffEditor.ignoreTrimWhitespace"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">"terminal.integrated.shellArgs.windows"</span>: [</span><br><span class="line">        <span class="string">"--login"</span>,</span><br><span class="line">        <span class="string">"-i"</span></span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.914Z" title="2020-04-26T07:57:22.914Z">2020-04-26</time><span class="level-item"><a class="link-muted" href="/categories/database/">database</a></span><span class="level-item">몇 초 읽기 (대략 2 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/transactional/">transaction</a></h1><div class="content"><h1 id="Transactional"><a href="#Transactional" class="headerlink" title="Transactional"></a>Transactional</h1><hr>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p>   _<a href="https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html">https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/data-access.html</a>_</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.911Z" title="2020-04-26T07:57:22.911Z">2020-04-26</time><span class="level-item"><a class="link-muted" href="/categories/blog/">blog</a></span><span class="level-item">1분 읽기 (대략 169 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/template/">MarkDown Template</a></h1><div class="content"><h2 id="SubTitle"><a href="#SubTitle" class="headerlink" title="SubTitle"></a>SubTitle</h2><ul>
+<li><a href="#subtitle">SubTitle</a></li>
+<li><a href="#List">List</a></li>
+<li><a href="#Paragraph">Paragraph</a></li>
+<li><a href="#Table">Table</a></li>
+<li><a href="#Links">Links</a></li>
+<li><a href="#Code">Code</a></li>
+<li><a href="#Image">Image</a></li>
+<li><a href="#emphasys">emphasys</a></li>
+<li><a href="#Blockquotes">Blockquotes</a></li>
+<li><a href="#Inline_code">Inline code</a></li>
+<li><a href="#Task_lists">Task lists</a></li>
+</ul>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><ul>
+<li>unordered list<ul>
+<li>unordered list</li>
+<li>unordered list</li>
+</ul>
+</li>
+<li>unordered list</li>
+<li>unordered list</li>
+</ul>
+<ol>
+<li>ordered list<ol>
+<li>ordered list</li>
+<li>ordered list</li>
+</ol>
+</li>
+<li>ordered list</li>
+<li>ordered list</li>
+</ol>
+<h2 id="Paragraph"><a href="#Paragraph" class="headerlink" title="Paragraph"></a>Paragraph</h2><ul>
+<li><p>title1</p>
+<p> ⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we’ll use three here to also align the raw Markdown).</p>
+</li>
+</ul>
+<h2 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h2><table>
 <thead>
 <tr>
-<th align="center">식물</th>
-<th align="center">빛</th>
-<th align="center">바람</th>
-<th align="center">물</th>
-<th align="center">흙</th>
-<th align="center">온도</th>
-<th align="center">월동</th>
-<th align="left">번식</th>
-<th align="center">과</th>
-<th align="left">주의</th>
-<th align="center">내건성</th>
+<th>table</th>
+<th align="center">center align</th>
+<th align="right">description</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><em><a href="https://terms.naver.com/entry.nhn?docId=769587&cid=46694&categoryId=46694">로즈마리</a></em></td>
-<td align="center">😍</td>
-<td align="center">😍</td>
-<td align="center">🥵</td>
-<td align="center">사양토</td>
-<td align="center">20~25℃</td>
-<td align="center">10℃</td>
-<td align="left">5~7cm삽목. 늦봄 or 초여름. 차광</td>
-<td align="center">꿀풀과</td>
-<td align="left">과습</td>
-<td align="center"></td>
+<td>name1</td>
+<td align="center">center</td>
+<td align="right">right</td>
 </tr>
 <tr>
-<td align="center"><em><a href="https://terms.naver.com/entry.nhn?docId=4351297&cid=46685&categoryId=46685">율마</a></em></td>
-<td align="center">😍</td>
-<td align="center">😍</td>
-<td align="center">😍</td>
-<td align="center">사양토</td>
-<td align="center">16~20℃</td>
-<td align="center">10℃</td>
-<td align="left">5~7cm삽목. 늦봄 or 초여름. 차광</td>
-<td align="center">측백나무과</td>
-<td align="left">물부족</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><em><a href="https://terms.naver.com/entry.nhn?docId=4351217&cid=46694&categoryId=46694">뱅갈고무나무</a></em></td>
-<td align="center">😍</td>
-<td align="center">😍</td>
-<td align="center">😍</td>
-<td align="center">사양토</td>
-<td align="center">21~25℃</td>
-<td align="center">13℃</td>
-<td align="left">5~7cm삽목. 늦봄 or 초여름. 차광</td>
-<td align="center">뽕나무과</td>
-<td align="left">저온, 햇빛(강하면 타고 부족하면 잎이 떨어짐)</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><em><a href="https://terms.naver.com/entry.nhn?docId=4351088&cid=46695&categoryId=46695">황금죽</a></em></td>
-<td align="center">😍</td>
-<td align="center">😍</td>
-<td align="center">😍</td>
-<td align="center">사양토</td>
-<td align="center">16~20℃</td>
-<td align="center">13℃</td>
-<td align="left">5~7cm삽목. 늦봄 or 초여름. 차광</td>
-<td align="center">백합과</td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center"><em><a href="https://terms.naver.com/entry.nhn?docId=4351127&cid=46695&categoryId=46695">테이블야자</a></em></td>
-<td align="center">😍</td>
-<td align="center">😍</td>
-<td align="center">🤨</td>
-<td align="center">사양토</td>
-<td align="center">21~25℃</td>
-<td align="center">13℃</td>
-<td align="left">5~7cm삽목. 늦봄 or 초여름. 차광</td>
-<td align="center">야자과</td>
-<td align="left"></td>
-<td align="center">4</td>
+<td>name2</td>
+<td align="center">center</td>
+<td align="right">right</td>
 </tr>
 </tbody></table>
-<ul>
-<li><a href="http://www.rda.go.kr/download_file/act/bookcafe014.PDF">실내정원물관리</a></li>
-</ul>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.875Z" title="2020-04-26T07:57:22.875Z">2020-04-26</time><span class="level-item">몇 초 읽기 (대략 17 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/openssh/">openssh</a></h1><div class="content"><p>==== openssh</p>
-<hr>
-<p><a href="https://hahaite.tistory.com/307">https://hahaite.tistory.com/307</a></p>
-<p><a href="https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_keymanagement">https://docs.microsoft.com/ko-kr/windows-server/administration/openssh/openssh_keymanagement</a></p>
-<hr>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.872Z" title="2020-04-26T07:57:22.872Z">2020-04-26</time><span class="level-item">몇 초 읽기 (대략 11 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/node/">node</a></h1><div class="content"><h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h1><ol>
-<li><h4 id="전역변수"><a href="#전역변수" class="headerlink" title="전역변수"></a>전역변수</h4><ul>
-<li>global</li>
-<li>console</li>
-<li>export</li>
-<li>process<br>…</li>
-</ul>
-</li>
-</ol>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.869Z" title="2020-04-26T07:57:22.869Z">2020-04-26</time><span class="level-item">1분 읽기 (대략 185 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/maven/">maven</a></h1><div class="content"><h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h1><hr>
-<h3 id="AsciiDoc-Install"><a href="#AsciiDoc-Install" class="headerlink" title="AsciiDoc Install"></a>AsciiDoc Install</h3><p>&nbsp;&nbsp;&nbsp;gem package manager, asciidoctor 설치.</p>
-<ul>
-<li><p>ruby install</p>
-<p><em><a href="https://stackoverflow.com/questions/18908708/installing-ruby-gem-in-windows">stackoverflow</a></em></p>
-<p><em><a href="https://rubyinstaller.org/downloads/">rubyinstaller downloads</a></em></p>
-</li>
-</ul>
-<ul>
-<li><p>asciidoctor install</p>
-<p><em><a href="https://asciidoctor.org/">asciidoctor</a></em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install asciidoctor</span><br></pre></td></tr></table></figure>
+<h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><p><em><a href="https://docs.wildfly.org/12/Admin_Guide.html#Logging">Admin_Guide logging</a></em></p>
+<p>_<a href="https://docs.wildfly.org/12/Admin_Guide.html#Logging">https://docs.wildfly.org/12/Admin_Guide.html#Logging</a>_</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2>  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install asciidoctor</span><br></pre></td></tr></table></figure>
 
-</li>
-</ul>
-<hr>
-<h3 id="AsciiDoc-Convert"><a href="#AsciiDoc-Convert" class="headerlink" title="AsciiDoc Convert"></a>AsciiDoc Convert</h3><p>&nbsp;&nbsp;&nbsp;기본 html5 로 변환됨</p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://asciidoctor.org/docs/convert-documents/">convert-documents</a></em></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">asciidoctor aaa.adoc</span><br></pre></td></tr></table></figure>
 
-<hr>
-<h3 id="Spring-Restdocs"><a href="#Spring-Restdocs" class="headerlink" title="Spring-Restdocs"></a>Spring-Restdocs</h3><p>&nbsp;&nbsp;&nbsp; maven test 시에 target 하위에 adoc 파일 생성되고 package 수행시에 미리 만들어둔 main 하위 adoc 파일로 html doc 파일이 생성된다. main 하위의 adoc 파일에 unit test 에 생성된 adoc 파일이 include 된다.</p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://spring.io/projects/spring-restdocs">spring-restdocs-reference</a></em></p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="https://github.com/spring-projects/spring-restdocs/tree/master/samples/rest-notes-spring-data-rest/src/main/asciidoc">restdoc sample git</a></em></p>
-<p>   &nbsp;&nbsp;&nbsp;<em><a href="restdoc">restdoc sample</a></em>   </p>
-<hr>
-<h3 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h3><p>   &nbsp;&nbsp;&nbsp;<em><a href="https://maven.apache.org/">https://maven.apache.org/</a></em></p>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.867Z" title="2020-04-26T07:57:22.867Z">2020-04-26</time><span class="level-item"><a class="link-muted" href="/categories/documentation/">documentation</a></span><span class="level-item">몇 초 읽기 (대략 58 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/markdown/">MarkDown</a></h1><div class="content"><h1 id="MarkDown"><a href="#MarkDown" class="headerlink" title="MarkDown"></a>MarkDown</h1><ol>
-<li><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a></li>
-<li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown Cheatsheet</a></li>
-<li><a href="https://help.github.com/en/articles/basic-writing-and-formatting-syntax#styling-text">Basic writing and formatting syntax</a></li>
-<li><a href="https://asciidoctor.org/docs/asciidoc-vs-markdown/">asciidoc-vs-markdown</a></li>
-<li><a href="https://www.markdownguide.org/extended-syntax/">extended-syntax</a></li>
-</ol>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.864Z" title="2020-04-26T07:57:22.864Z">2020-04-26</time><span class="level-item"><a class="link-muted" href="/categories/logging/">logging</a></span><span class="level-item">3분 읽기 (대략 394 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/logging/">Logging</a></h1><div class="content"><h2 id="Logger"><a href="#Logger" class="headerlink" title="Logger"></a>Logger</h2><table>
-<thead>
-<tr>
-<th>logger</th>
-<th>config file</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>jul(java utility logging) logging</td>
-<td>logging.properties</td>
-</tr>
-<tr>
-<td>jcl(apache common logging)</td>
-<td>commong-logging.properties</td>
-</tr>
-<tr>
-<td><a href="https://logging.apache.org/log4j/2.x/manual/migration.html">log4j</a></td>
-<td>log4j.{xml,properties}</td>
-</tr>
-<tr>
-<td><a href="https://logging.apache.org/log4j/2.x/manual/layouts.html">log4j2</a></td>
-<td>log4j2.{xml,properties}</td>
-</tr>
-<tr>
-<td><a href="http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout">logback</a></td>
-<td>logback.{xml,properties}</td>
-</tr>
-<tr>
-<td>jboss-logging</td>
-<td>jboss-logging.{xml,properties}</td>
-</tr>
-</tbody></table>
-<h2 id="slf4j"><a href="#slf4j" class="headerlink" title="slf4j"></a><a href="http://www.slf4j.org/manual.html">slf4j</a></h2><ul>
-<li>api</li>
-<li>bridge</li>
-<li>binding</li>
-</ul>
-<p><img src="http://www.slf4j.org/images/concrete-bindings.png" alt=""></p>
-<h2 id="spring-boot-logging"><a href="#spring-boot-logging" class="headerlink" title="spring boot logging"></a>spring boot logging</h2><ul>
-<li><p>기본 config 위치</p>
-<p> <em><a href="https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml">org/springframework/boot/logging/logback/defaults.xml</a></em></p>
-</li>
-</ul>
-<h2 id="wildfly-logging"><a href="#wildfly-logging" class="headerlink" title="wildfly logging"></a>wildfly logging</h2><ul>
-<li><p><em><a href="https://docs.wildfly.org/12/Admin_Guide.html#Logging">Admin_Guide logging</a></em></p>
-<blockquote>
-<p>The following configuration files are allowed:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">   System.out.println(<span class="string">"test!!!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h2><blockquote>
+<p><img src="https://aichoora.github.io/images/aws/cloud9.png" alt="cloud9">    </p>
 </blockquote>
-<ul>
-<li>logging.properties</li>
-<li>jboss-logging.properties</li>
-<li>log4j.properties</li>
-<li>log4j.xml</li>
-<li>jboss-log4j.xml</li>
-</ul>
-<p>log4j2 나 logback 은 없다.  쓰려면 module 을 추가하거나, logging subsystem 을 jboss-deployment-structure 에서 exclude 하거나 jboss configuration  file (standalone.xml  이나 domain.xml) 에 logging subsystem 에서 dependency 제거 하는 설정( <em><a href="https://docs.wildfly.org/12/Admin_Guide.html#add-logging-api-dependencies">add-logging-api-dependencies</a></em> )을 해야한다. </p>
-<p>반대로 application 에서 지정된 logging config 파일을 무시 하려면 (per-deployment logging 스캔을 skip) <code>use-deployment-logging-config</code> 를 <code>false</code> 지정한다.</p>
-<p>wildfly 는 기본 설치되어 있는 <em><a href="https://docs.wildfly.org/12/Admin_Guide.html#why-is-there-a-logging.properties-file">logging.properties</a></em> 를 서버 기동(boot) 시에 사용한다.<br> boot 이후 deployment 로드 이후에는 사용가능한 logging config 를 찿으면 대체 한다. 하지만 wildfly module 에는 기본 log4j2 나 logback 에 설치되어있지 않고, 이를 사용하기 위해 단순히 jboss logging subsystem 만 exclude 하면 server.log 에는 기본 logging.properties 패턴 + [stdout] + log4j2|logback 의 console output 이 출력된다.</p>
-</li>
-</ul>
-<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><p>   _<a href="https://logging.apache.org/log4j/2.x/manual/migration.html">https://logging.apache.org/log4j/2.x/manual/migration.html</a>_<br>   _<a href="https://logging.apache.org/log4j/2.x/manual/layouts.html">https://logging.apache.org/log4j/2.x/manual/layouts.html</a>_<br>   _<a href="http://logback.qos.ch/manual/architecture.html">http://logback.qos.ch/manual/architecture.html</a>_<br>   _<a href="http://www.slf4j.org/manual.html">http://www.slf4j.org/manual.html</a>_<br>   _<a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-logging">https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-logging</a>_<br>   _<a href="https://docs.wildfly.org/12/Admin_Guide.html#Logging">https://docs.wildfly.org/12/Admin_Guide.html#Logging</a>_</p>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.861Z" title="2020-04-26T07:57:22.861Z">2020-04-26</time><span class="level-item">몇 초 읽기 (대략 40 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/java_security/">java_security</a></h1><div class="content"><h4 id="index"><a href="#index" class="headerlink" title="index"></a><a href="index">index</a></h4><h1 id="java-security-overview"><a href="#java-security-overview" class="headerlink" title="java-security-overview"></a>java-security-overview</h1><ul>
-<li>_<a href="https://www.baeldung.com/java-security-overview#public_key_infrastructure">https://www.baeldung.com/java-security-overview#public_key_infrastructure</a>_</li>
-</ul>
-<ol>
-<li><p>HSM</p>
-<p> 설명1<br> 설명2</p>
- <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>코드<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
- <br/>
-</li>
-<li><p>인증서</p>
-</li>
-<li><p>키생성</p>
-</li>
-<li><p>키스토어</p>
-</li>
-<li><p>CA</p>
-</li>
-<li><p>서명</p>
-</li>
-<li><p>서명확인</p>
-</li>
-<li><p>메세지다이제스트</p>
-</li>
-<li><p>JCA/JCE</p>
-</li>
-</ol>
-</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.859Z" title="2020-04-26T07:57:22.859Z">2020-04-26</time><span class="level-item"><a class="link-muted" href="/categories/security/">security</a></span><span class="level-item">6분 읽기 (대략 841 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/java_addprovider/">bouncycastle 추가</a></h1><div class="content"><h1 id="Jdk-8-bouncycastle-provider-추가하기"><a href="#Jdk-8-bouncycastle-provider-추가하기" class="headerlink" title="Jdk 8 bouncycastle provider 추가하기"></a>Jdk 8 bouncycastle provider 추가하기</h1><p>jre 에 추가 하거나 소스에 추가한다.</p>
-<h2 id="JRE-에-추가-하기"><a href="#JRE-에-추가-하기" class="headerlink" title="JRE 에 추가 하기"></a>JRE 에 추가 하기</h2><ol>
-<li><h4 id="jar-설치"><a href="#jar-설치" class="headerlink" title="jar 설치"></a>jar 설치</h4><p> <a href="https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on/1.64">https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on/1.64</a><br> jar 다운로드후 <code>jre_home/lib/ext</code> 에 복사  </p>
- <br/>
-</li>
-<li><h4 id="java-security-파일에-프로바이더-추가"><a href="#java-security-파일에-프로바이더-추가" class="headerlink" title="java.security 파일에 프로바이더 추가."></a>java.security 파일에 프로바이더 추가.</h4><p> <code>jre_home/lib/security/java.security</code> 파일에 BC 프로바이더 추가</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">security.provider.1=sun.security.provider.Sun</span><br><span class="line">security.provider.2=sun.security.rsa.SunRsaSign</span><br><span class="line">security.provider.3=sun.security.ec.SunEC</span><br><span class="line">security.provider.4=com.sun.net.ssl.internal.ssl.Provider</span><br><span class="line">security.provider.5=com.sun.crypto.provider.SunJCE</span><br><span class="line">security.provider.6=sun.security.jgss.SunProvider</span><br><span class="line">security.provider.7=com.sun.security.sasl.Provider</span><br><span class="line">security.provider.8=org.jcp.xml.dsig.internal.dom.XMLDSigRI</span><br><span class="line">security.provider.9=sun.security.smartcardio.SunPCSC</span><br><span class="line">security.provider.10=sun.security.mscapi.SunMSCAPI</span><br><span class="line"><span class="meta">#</span><span class="bash"> 추가</span></span><br><span class="line">security.provider.11=org.bouncycastle.jce.provider.BouncyCastleProvider</span><br></pre></td></tr></table></figure>
- <br/>
-</li>
-<li><h4 id="테스트"><a href="#테스트" class="headerlink" title="테스트"></a>테스트</h4> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> security;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.security.Security;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddBCProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Arrays.asList(Security.getProviders()).stream().forEach(pv -&gt; System.out.println(pv.getInfo()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SUN (DSA key&#x2F;parameter generation; DSA signing; SHA-1, MD5 digests; SecureRandom; X.509 certificates; JKS &amp; DKS keystores; PKIX CertPathValidator; PKIX CertPathBuilder;</span><br><span class="line">...</span><br><span class="line">BouncyCastle Security Provider v1.64</span><br></pre></td></tr></table></figure>
-<p> <br/><br/></p>
-</li>
-</ol>
-<h2 id="프로그램에서-추가하기"><a href="#프로그램에서-추가하기" class="headerlink" title="프로그램에서 추가하기"></a>프로그램에서 추가하기</h2><ol>
-<li><h4 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h4> <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.bouncycastle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>bcprov-jdk15on<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.64<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
- <br/>
-</li>
-<li><h4 id="코드에-프로바이더-추가-및-테스트"><a href="#코드에-프로바이더-추가-및-테스트" class="headerlink" title="코드에 프로바이더 추가 및 테스트"></a>코드에 프로바이더 추가 및 테스트</h4> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.bouncycastle.jce.provider.BouncyCastleProvider;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddBCProvider</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 프로바이더 추가</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        Security.addProvider(<span class="keyword">new</span> BouncyCastleProvider());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Arrays.asList(Security.getProviders()).stream().forEach(pv -&gt; System.out.println(pv.getInfo()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SUN (DSA key&#x2F;parameter generation; DSA signing; SHA-1, MD5 digests; SecureRandom; X.509 certificates; JKS &amp; DKS keystores; PKIX CertPathValidator; PKIX CertPathBuilder;</span><br><span class="line">...</span><br><span class="line">BouncyCastle Security Provider v1.64</span><br></pre></td></tr></table></figure>
-<p> <br/><br/></p>
-</li>
-</ol>
-<h2 id="프로바이더-선택"><a href="#프로바이더-선택" class="headerlink" title="프로바이더 선택"></a>프로바이더 선택</h2><p><code>%JRE_HOME%/lib/security/java.security</code> 번호순 우선순위.</p>
-<ol>
-<li><h4 id="Figure-2-1-Request-SHA-256-Message-Digest-Implementation-Without-Specifying-Provider"><a href="#Figure-2-1-Request-SHA-256-Message-Digest-Implementation-Without-Specifying-Provider" class="headerlink" title="Figure 2-1 Request SHA-256 Message Digest Implementation Without Specifying Provider"></a>Figure 2-1 Request SHA-256 Message Digest Implementation Without Specifying Provider</h4> <img src="https://docs.oracle.com/javase/9/security/img/security-overview-message-digest-wo-provider.png" alt="">   <br/>    </li>
-<li><h4 id="Figure-2-2-Request-SHA-256-Message-Digest-with-ProviderC"><a href="#Figure-2-2-Request-SHA-256-Message-Digest-with-ProviderC" class="headerlink" title="Figure 2-2 Request SHA-256 Message Digest with ProviderC"></a>Figure 2-2 Request SHA-256 Message Digest with ProviderC</h4> <img src="https://docs.oracle.com/javase/9/security/img/security-overview-message-digest-providerc.png" alt=""><br> <br/><br/></li>
-</ol>
-<h2 id="디버깅"><a href="#디버깅" class="headerlink" title="디버깅"></a>디버깅</h2><p>_<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/security/troubleshooting-security.html">https://docs.oracle.com/javase/8/docs/technotes/guides/security/troubleshooting-security.html</a>_<br>-D 옵션추가  </p>
-<pre><code>예) 프로바이더 로깅 : -Djava.security.debug=provider</code></pre><p><br/><br/></p>
-<h2 id="wildfly-에-bouncy-castle-추가하기"><a href="#wildfly-에-bouncy-castle-추가하기" class="headerlink" title="wildfly 에 bouncy castle 추가하기"></a>wildfly 에 bouncy castle 추가하기</h2><p>war 로 디플로이 할경우 bouncy castle class path 는 </p>
-<ol>
-<li>WEB-INF/lib</li>
-<li>wildfly module</li>
-<li>jre extension lib  </li>
-</ol>
-<p>세곳에 들어 갈수 있으나, 1&amp;2, 1&amp;3 에 bc jar 가 함께 포함 될경우 런타임에 참조되는 class 가 다를수 있다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ECNamedCurveParameterSpec namedCurve = ECNamedCurveTable.getParameterSpec(<span class="string">"P-256"</span>);</span><br><span class="line">org.bouncycastle.jce.spec.ECPublicKeySpec pubSpec = <span class="keyword">new</span> org.bouncycastle.jce.spec.ECPublicKeySpec(namedCurve.getCurve().createPoint(PubX, PubY), namedCurve);</span><br><span class="line">KeyFactory kFact = KeyFactory.getInstance(<span class="string">"EC"</span>, <span class="string">"BC"</span>);</span><br><span class="line">PublicKey pubKey = kFact.generatePublic(pubSpec);</span><br></pre></td></tr></table></figure>
-<p>위 <code>kFact.generatePublic(pubSpec)</code> 코드의 샐행시<br><code>KeyFactory</code> 의 BC 구현체(<em>org.bouncycastle.jcajce.provider.asymmetric.ec.KeyFactory<code>Spi</code></em>)에서<br><code>if (keySpec instanceof ECPublicKeySpec)</code> 를 검증하지만<br>이 <code>ECPublicKeySpec</code> 는 jre 의 참조 인스턴스이고,<br>넘겨받은 <code>keySpec</code> 은 war 또는 wildfly 의 jar 를 참조하므로 검증에 실패하게 된다.<br>_<a href="https://stackoverflow.com/questions/29700288/bouncycastle-1-51-loading-in-war-on-wildfly-8-0">https://stackoverflow.com/questions/29700288/bouncycastle-1-51-loading-in-war-on-wildfly-8-0</a>_</p>
-<p>jre 에만 provider 설정을 남겨놓거나, 이게 어려울경우 (wildfly 에 jre/ext jar 추가하는 방법을 찿지 못함;;)<br>소스상에서 jre 프로바이더를 제거하고 war 에서 참조하고 있는 bc lib 로 다시 프로바이더를 생성 추가한다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);</span><br><span class="line">Security.addProvider(<span class="keyword">new</span> BouncyCastleProvider());</span><br></pre></td></tr></table></figure>
-<p>_<a href="https://liferay.dev/forums/-/message_boards/message/111998866">https://liferay.dev/forums/-/message_boards/message/111998866</a>_</p>
-<h4 id="wildfly-module-dependency-추가"><a href="#wildfly-module-dependency-추가" class="headerlink" title="wildfly module dependency 추가"></a>wildfly module dependency 추가</h4><p>bouncycastle 모듈은 wildfly 9 이상? 포함되어 있다.<br>때문에 어플리케이션의 jboss 배포 디스크립터에 의존성만 추가하면 된다.<br>_<a href="https://developer.jboss.org/thread/175395">https://developer.jboss.org/thread/175395</a>_<br>jboss-deployment-structure.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version='1.0' encoding='UTF-8'?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">jboss-deployment-structure</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns</span>=<span class="string">"urn:jboss:deployment-structure:1.1"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">deployment</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">module</span> <span class="attr">name</span>=<span class="string">"org.bouncycastle"</span> <span class="attr">slot</span>=<span class="string">"main"</span> <span class="attr">export</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">deployment</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jboss-deployment-structure</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="wildfly-class-loading"><a href="#wildfly-class-loading" class="headerlink" title="wildfly class loading"></a>wildfly class loading</h4><p>_<a href="https://docs.jboss.org/author/display/WFLY/Class+Loading+in+WildFly">https://docs.jboss.org/author/display/WFLY/Class+Loading+in+WildFly</a>_<br>In order of highest priority to lowest priority  </p>
-<blockquote>
-<p>System Dependencies - These are dependencies that are added to the module automatically by the container, including the Java EE api’s.<br>User Dependencies - These are dependencies that are added through jboss-deployment-structure.xml or through the Dependencies: manifest entry.<br>Local Resource - Class files packaged up inside the deployment itself, e.g. class files from WEB-INF/classes or WEB-INF/lib of a war.<br>Inter deployment dependencies - These are dependencies on other deployments in an ear deployment. This can include classes in an ear’s lib directory, or classes defined in other ejb jars. </p>
+<h2 id="emphasys"><a href="#emphasys" class="headerlink" title="emphasys"></a>emphasys</h2><p><em>You <strong>can</strong> <del>combine</del> them</em></p>
+<h2 id="Blockquotes"><a href="#Blockquotes" class="headerlink" title="Blockquotes"></a>Blockquotes</h2><blockquote>
+<p><code>win + ctrl + D</code> : <em>create virtual desktop</em></p>
 </blockquote>
-<p><br/><br/></p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><p><em><a href="https://docs.oracle.com/javase/9/security/java-cryptography-architecture-jca-reference-guide.htm#JSSEC-GUID-71693272-7F57-4155-99F9-A2139271FD6D">Java Cryptography Architecture (JCA) Reference Guide</a></em></p>
-</div></article></div><nav class="pagination is-centered mt-4" role="navigation" aria-label="pagination"><div class="pagination-previous"><a href="/">이전</a></div><div class="pagination-next"><a href="/page/3/">다음</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link" href="/">1</a></li><li><a class="pagination-link is-current" href="/page/2/">2</a></li><li><a class="pagination-link" href="/page/3/">3</a></li><li><a class="pagination-link" href="/page/4/">4</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="" src="/img/avatar.png" alt="JJ"></figure><p class="title is-size-4 is-block line-height-inherit">JJ</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">포스트</p><a href="/archives"><p class="title">35</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">카테고리</p><a href="/categories"><p class="title">15</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">태그</p><a href="/tags"><p class="title">3</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/" target="_blank" rel="noopener">팔로우</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">카테고리</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/categories/blog/"><span class="level-start"><span class="level-item">blog</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/cli/"><span class="level-start"><span class="level-item">cli</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/database/"><span class="level-start"><span class="level-item">database</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/deploy/"><span class="level-start"><span class="level-item">deploy</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/documentation/"><span class="level-start"><span class="level-item">documentation</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/ide/"><span class="level-start"><span class="level-item">ide</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/logging/"><span class="level-start"><span class="level-item">logging</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/os/"><span class="level-start"><span class="level-item">os</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/plant/"><span class="level-start"><span class="level-item">plant</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/pm/"><span class="level-start"><span class="level-item">pm</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/security/"><span class="level-start"><span class="level-item">security</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/stock/"><span class="level-start"><span class="level-item">stock</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/team/"><span class="level-start"><span class="level-item">team</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/troubleshooting/"><span class="level-start"><span class="level-item">troubleshooting</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/webdev/"><span class="level-start"><span class="level-item">webdev</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">최근 글</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-04-26T07:57:22.923Z">2020-04-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/04/26/window/">window</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/os/">os</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-04-26T07:57:22.920Z">2020-04-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/04/26/vue/">vue</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-04-26T07:57:22.917Z">2020-04-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/04/26/vscode/">vs code</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/ide/">ide</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-04-26T07:57:22.914Z">2020-04-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/04/26/transactional/">transaction</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/database/">database</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-04-26T07:57:22.911Z">2020-04-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/04/26/template/">MarkDown Template</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/blog/">blog</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">아카이브</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2020/04/"><span class="level-start"><span class="level-item">4월 2020</span></span><span class="level-end"><span class="level-item tag">35</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">태그</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/blog/"><span class="tag">blog</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/documentation/"><span class="tag">documentation</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/plant/"><span class="tag">plant</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="JJ&#039;s blog" height="28"></a><p class="size-small"><span>&copy; 2020 aichoora</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("ko");</script><script>var IcarusThemeSettings = {
+<h2 id="Inline-code"><a href="#Inline-code" class="headerlink" title="Inline code"></a>Inline code</h2><p><code>&lt;addr&gt;</code> element here instead.</p>
+<h2 id="Horizontal-Rule"><a href="#Horizontal-Rule" class="headerlink" title="Horizontal Rule"></a>Horizontal Rule</h2><hr>
+<h2 id="Task-lists"><a href="#Task-lists" class="headerlink" title="Task lists"></a>Task lists</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> Finish my changes</li>
+<li><input disabled="" type="checkbox"> Push my commits to GitHub</li>
+<li><input disabled="" type="checkbox"> Open a pull request</li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-26T07:57:22.905Z" title="2020-04-26T07:57:22.905Z">2020-04-26</time><span class="level-item"><a class="link-muted" href="/categories/stock/">stock</a></span><span class="level-item">4분 읽기 (대략 554 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/04/26/stock/">미국주식 주문하기(영웅문)</a></h1><div class="content"><h3 id="계좌개설"><a href="#계좌개설" class="headerlink" title="계좌개설"></a>계좌개설</h3><ul>
+<li>키움증권계좌개설 앱에서 계좌신청. 신청후 바로 문자로 계좌번호가 발급되지만 본인확인은 안된상태.</li>
+<li>하루정도에 본인확인후에 매매가능.</li>
+</ul>
+<h3 id="이벤트"><a href="#이벤트" class="headerlink" title="이벤트"></a>이벤트</h3><ul>
+<li>미국주식 40달러 이벤트. 이벤트 신청하면 계정당(계좌당x) 40달러 받을수 있음. 영웅문글로벌에서 메뉴&gt;홈&gt;맨아래 이벤트 배너에서 40달러 이벤트 신청.</li>
+<li>환전 수수료 이벤트. 영웅문글로벌에서 메뉴&gt;홈&gt;맨아래 이벤트 배너에서 해외주식수수료 0.1% + 환율우대 95% 이벤트 신청</li>
+<li><h3 id="입금"><a href="#입금" class="headerlink" title="입금"></a>입금</h3><ul>
+<li>입금시 비대면 계좌의 경우 연계은행 조회가 불가함. 아래 방법으로 입금가능.</li>
+</ul>
+</li>
+<li>기존 키움계좌에서 글로벌 계좌로 입금.</li>
+<li>8 자리 증권계좌로 은행 인터넷 뱅킹으로 바로 송금.</li>
+</ul>
+<h3 id="매매"><a href="#매매" class="headerlink" title="매매"></a>매매</h3><ul>
+<li>입금후 바로 원화로 매매를 하려하면 증거금이 부족하다고 나옴. 아래 방법으로 매매가능.<ul>
+<li>달러로 환전후 매매.</li>
+<li>원화로 매매하려면, 원화주문 서비스 신청필요. 영웅문글로벌에서 메뉴&gt;원화주문&gt;신청/해지 에서 신청</li>
+<li><blockquote>
+<p><em>오후 10:30분에 미국장이 열리므로 그전에는 예약주문으로됨. 오후 7:30 분부터는 바로 예약 주문이 가능하므로 원화로 주문하여도 환율차이 없이 바로 주문 가능하지만, 그전에 주문 할 경우 환율변동으로 인해 실제 주문가격과 다를 수 있음.</em></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="환전-가능한-시간"><a href="#환전-가능한-시간" class="headerlink" title="환전 가능한 시간"></a>환전 가능한 시간</h3><ul>
+<li>영업일 : 00:10<del>16:50 , 17:00</del>23:50</li>
+<li>토/일/공휴일 : 00:10~23:50 </li>
+</ul>
+<h3 id="개장-폐장-시간"><a href="#개장-폐장-시간" class="headerlink" title="개장 폐장 시간"></a>개장 폐장 시간</h3><ul>
+<li>뉴욕시간으로<ul>
+<li>오전 9 : 30 개장 - 오후 4 : 00 폐장 입니다 (후장 10분간 동시호가)</li>
+</ul>
+</li>
+<li>한국시간으로는<ul>
+<li>4월~10월 : 밤 10 : 30 개장 - 다음날 새벽 5 : 00 폐장 (미국의 써머타임 적용기)</li>
+<li>11월~3월 : 밤 11 : 30 개장 - 다음날 새벽 6 : 00 폐장</li>
+</ul>
+</li>
+</ul>
+<h3 id="용어"><a href="#용어" class="headerlink" title="용어"></a>용어</h3><ul>
+<li>가환율 :  17:00 이후에 환전할 시 적용되는 환율.  영업일인 17:00 직적환율에서 +- 5%정도를 적용한 환율. 추가된 환율의 차액분은 16:35에 일괄 입출금.</li>
+</ul>
+</div></article></div><nav class="pagination is-centered mt-4" role="navigation" aria-label="pagination"><div class="pagination-previous"><a href="/">이전</a></div><div class="pagination-next"><a href="/page/3/">다음</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link" href="/">1</a></li><li><a class="pagination-link is-current" href="/page/2/">2</a></li><li><a class="pagination-link" href="/page/3/">3</a></li><li><a class="pagination-link" href="/page/4/">4</a></li><li><a class="pagination-link" href="/page/5/">5</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="" src="/img/avatar.png" alt="JJ"></figure><p class="title is-size-4 is-block line-height-inherit">JJ</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">포스트</p><a href="/archives"><p class="title">49</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">카테고리</p><a href="/categories"><p class="title">15</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">태그</p><a href="/tags"><p class="title">4</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/" target="_blank" rel="noopener">팔로우</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">카테고리</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/categories/blog/"><span class="level-start"><span class="level-item">blog</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/cli/"><span class="level-start"><span class="level-item">cli</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/database/"><span class="level-start"><span class="level-item">database</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/deploy/"><span class="level-start"><span class="level-item">deploy</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/documentation/"><span class="level-start"><span class="level-item">documentation</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/ide/"><span class="level-start"><span class="level-item">ide</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/logging/"><span class="level-start"><span class="level-item">logging</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/os/"><span class="level-start"><span class="level-item">os</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/plant/"><span class="level-start"><span class="level-item">plant</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/pm/"><span class="level-start"><span class="level-item">pm</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/security/"><span class="level-start"><span class="level-item">security</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/stock/"><span class="level-start"><span class="level-item">stock</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/team/"><span class="level-start"><span class="level-item">team</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/troubleshooting/"><span class="level-start"><span class="level-item">troubleshooting</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/webdev/"><span class="level-start"><span class="level-item">webdev</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">최근 글</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-04-29T07:29:22.000Z">2020-04-29</time></p><p class="title is-6"><a class="link-muted" href="/2020/04/29/install-tomcat-ubuntu/">install-tomcat-ubuntu</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-04-29T07:29:22.000Z">2020-04-29</time></p><p class="title is-6"><a class="link-muted" href="/2020/04/29/install-java-ubuntu/">install-tomcat-ubuntu</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-04-29T03:02:25.000Z">2020-04-29</time></p><p class="title is-6"><a class="link-muted" href="/2020/04/29/dev/">dev</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-04-29T02:55:40.000Z">2020-04-29</time></p><p class="title is-6"><a class="link-muted" href="/2020/04/29/install-apache-ubuntu/">install-apache-ubuntu</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-04-29T01:52:16.000Z">2020-04-29</time></p><p class="title is-6"><a class="link-muted" href="/2020/04/29/centos/">centos</a></p><p class="is-uppercase"></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">아카이브</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2020/04/"><span class="level-start"><span class="level-item">4월 2020</span></span><span class="level-end"><span class="level-item tag">49</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">태그</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/blog/"><span class="tag">blog</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/documentation/"><span class="tag">documentation</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/infra/"><span class="tag">infra</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/plant/"><span class="tag">plant</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="JJ&#039;s blog" height="28"></a><p class="size-small"><span>&copy; 2020 aichoora</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("ko");</script><script>var IcarusThemeSettings = {
             site: {
                 url: 'https://aichoora.github.io',
                 external_link: {"enable":true,"exclude":[]}
